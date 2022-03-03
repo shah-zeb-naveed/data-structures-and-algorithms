@@ -7,7 +7,7 @@ o	Linked Lists
 o	Stacks
 o	Queues
 o	Trees
-	Binary Tree
+  - Binary Tree
 o	Tries
 o	Graphs
 o	Vectors
