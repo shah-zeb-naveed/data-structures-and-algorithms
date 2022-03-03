@@ -228,7 +228,7 @@ o	Paths are a bit lenient:
 o	Must go through every vertex once
 o	Cycle:
 	Start and end at the same vertex
-•	If you're storing a disconnected graph, not every node will be tied to an edge, so you should store a list of nodes.
+•	If you're storing a disconnected graph, not every node will be tied to an edge, so you should store a list of nodes
 •	We could probably leave it there, but storing an edge list will make our lives much easier when we're trying to print out different types of graph representations.
 •	Unfortunately, having both makes insertion a bit complicated
 •	Shortest Path:
