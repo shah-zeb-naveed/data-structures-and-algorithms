@@ -1,80 +1,108 @@
+# djiktra's shortest path (can work on both directed and undirected graphs)
+
 from queue import PriorityQueue
-from heapq import heapify, heappush, heappop
+import heapq as hq
+from heapq import heappush, heappop
+from collections import defaultdict
 
-class Solution:
+class Graph:
 
-    def get_dist_sq(self, point):
-        return pow(point[0], 2) + pow(point[1], 2)
+    def __init__(self, v):
+        self.v = v
+        self.graph = defaultdict(list)
 
-    def partition_by_middle_2(self, points, left, right):
-        piv_idx = (left + right) // 2
-        pivot = self.get_dist_sq(arr[piv_idx])
+    def addEdge(self, u, v, w):
+        self.graph[u].append((v, w))
+        self.graph[v].append((u, w))
 
-        arr[piv_idx], arr[right] = arr[right], arr[piv_idx]
+    def dijkstra_adj_mat(self, source):
+        visited = set()
+        unvisited = set(range(self.v))
 
-        print('Pivot: ', pivot, ', right: ', right)
-
-        for j in range(left, right):
-            print(list(map(self.get_dist_sq, points)), 'left, j', left, j)
-
-            # all the elements smaller or equal to pivot will be to the left
-            if self.get_dist_sq(points[j]) <= pivot: 
-                arr[left], arr[j] = arr[j], arr[left]
-                left += 1
-
-        arr[left], arr[right] = arr[right], arr[left]
-        print(list(map(self.get_dist_sq, points)))
-        return left
-
-    def partition(self, points, left, right):
+        distances = [float('inf')] * self.v
+        distances[source] = 0
+        prev = [-1] * self.v
         
-        pivot = self.choose_pivot(points, left, right)
-        print('Pivot: ', pivot)
-        
-        while left < right:
-            print(points, list(map(self.get_dist_sq, points)))
-            if self.get_dist_sq(points[left]) >= pivot:
-                print('Swapping')
-                points[left], points[right] = points[right], points[left]
-                right -= 1
+        q = PriorityQueue()
+        q.put((0, source))
+
+        while unvisited: # O(V)
+            # print("Visited: ", visited)
+            # print("Unvisited: ", unvisited)
+            # print("q: ", q.queue)
+
+            _, node = q.get() # O(log(heap size))
+
+            if node in visited:
+                continue
+
+            #print('Node: ', node)
+            unvisited.remove(node)
+            visited.add(node)
+ 
+            # benefit of 2d adj mat was that we could enumerate easily
+            for i, neib_dist in enumerate(self.graph[node]):
+                #print("Neighbour: ", i, neib_dist)
+
+                # == 0 condition coz of adj. matrxi structure
+                if neib_dist == 0 or i in visited:
+                    #print('Continue...')
+                    continue
+
+                if neib_dist + distances[node] < distances[i]:
+                    distances[i] = neib_dist + distances[node]
+                    prev[i] = node
+
+                    # add "potential" candidate in the queue
+                    # print("Candidate found: ", (distances[i], i))
+                    q.put((distances[i], i)) # O(log(heap size))
             
-            else:
-                left += 1
+            # O((E+1) log(heap size))
+            # Heap size -> VE -> V^2
+            # O(Elog(V))
 
-        # Once the two pointers meet, we'll need to make sure the left pointer has completely moved past the end of the left side partition, then we can return it back to the QuickSelect function as the pivotIndex representing the left-most edge of the right partition.
-    
-        if self.get_dist_sq(points[left]) < pivot:
-            left += 1
+        return list(zip(distances, prev))
 
-        print(points, list(map(self.get_dist_sq, points)))
-        print('------------------------------------------')   
-        return left        
+    def djikstras(self, source):
 
-    def quick_select(self, points, k):
-        
-        left, right = 0, len(points) - 1
-        pivot = len(points) # just a placeholder
-        
-        while pivot != k:
-            pivot = self.partition_by_middle_2(points, left, right)
-            print('Pivot: ', pivot)
+        q = [(0, source)]   # Unexplored nodes
+        visited = set()
+        distances = {i : float('inf') for i in range(self.v)}
+        parents = {}
+
+        while len(visited) != self.v:
+            print(q)
+            _, node = heappop(q)
+            print(node)
+
+            if node in visited:
+                continue
             
-            if pivot < k:
-                left = pivot # short of elements. need to include this for sure.
-            
-            else:
-                right = pivot - 1 # can safely exclude this one
-        
-        return points[:k]
-    
-    def choose_pivot(self, points, left: int, right: int):
-        return self.get_dist_sq(points[(right + left) // 2])
-        
-    def kClosest(self, points, k: int):
-        return self.quick_select(points, k)
+            visited.add(node)
 
-arr = [[3,3],[5,-1],[-2,4],[-2,5]]
-sol = Solution()
-rest = sol.kClosest(arr, 3)
-        
-print(list(map(sol.get_dist_sq, rest)))
+            for neib, cost in self.graph[node]:
+                if neib not in visited:
+                    if distances[neib] > cost + distances[node]:
+                        distances[neib] = cost + distances[node]
+                        parents[neib] = node
+                        heappush(q, (distances[neib], neib)) #
+
+        return list(zip(distances, parents))
+
+graph = Graph(9)
+graph.addEdge(0, 1, 4)
+graph.addEdge(0, 7, 8)
+graph.addEdge(1, 2, 8)
+graph.addEdge(1, 7, 11)
+graph.addEdge(2, 3, 7)
+graph.addEdge(2, 8, 2)
+graph.addEdge(2, 5, 4)
+graph.addEdge(3, 4, 9)
+graph.addEdge(3, 5, 14)
+graph.addEdge(4, 5, 10)
+graph.addEdge(5, 6, 2)
+graph.addEdge(6, 7, 1)
+graph.addEdge(6, 8, 6)
+graph.addEdge(7, 8, 7)
+#print(graph.graph)
+print(graph.djikstras(0))
