@@ -1,108 +1,45 @@
-# djiktra's shortest path (can work on both directed and undirected graphs)
+a = [3, 4, 2]
 
-from queue import PriorityQueue
-import heapq as hq
-from heapq import heappush, heappop
-from collections import defaultdict
+prefix_sums = [a[0]]
 
-class Graph:
+for i in range(1, len(a)):
+    prefix_sums.append(prefix_sums[i - 1] + a[i])
 
-    def __init__(self, v):
-        self.v = v
-        self.graph = defaultdict(list)
+suffix_sums = [0] * len(a)
+suffix_sums[-1] = a[-1]
 
-    def addEdge(self, u, v, w):
-        self.graph[u].append((v, w))
-        self.graph[v].append((u, w))
+i = len(a) - 2
 
-    def dijkstra_adj_mat(self, source):
-        visited = set()
-        unvisited = set(range(self.v))
+while i >= 0:
+    suffix_sums[i] = suffix_sums[i + 1] + a[i]
+    i -= 1
 
-        distances = [float('inf')] * self.v
-        distances[source] = 0
-        prev = [-1] * self.v
-        
-        q = PriorityQueue()
-        q.put((0, source))
+res = []
 
-        while unvisited: # O(V)
-            # print("Visited: ", visited)
-            # print("Unvisited: ", unvisited)
-            # print("q: ", q.queue)
+for i in range(len(a)):
+    for j in range(i, len(a)):
+        print(a[i:j+1])
+        if j - 1 < 0:
+            sub = 0
+        else:
+            sub = prefix_sums[i-1]
 
-            _, node = q.get() # O(log(heap size))
+        cur_avg = (prefix_sums[j] - sub) / (j - i + 1)
+        left_sum = prefix_sums[i - 1] if i - 1 >= 0 else 0
+        right_sum = suffix_sums[j + 1] if j + 1 < len(a) else 0
 
-            if node in visited:
-                continue
+        if (i + (len(a) - j - 1)) > 0:
+            other_avg = (left_sum + right_sum) / (i + (len(a) - j - 1))
+            if cur_avg > other_avg:
+                res.append((i, j, cur_avg))
 
-            #print('Node: ', node)
-            unvisited.remove(node)
-            visited.add(node)
- 
-            # benefit of 2d adj mat was that we could enumerate easily
-            for i, neib_dist in enumerate(self.graph[node]):
-                #print("Neighbour: ", i, neib_dist)
+        else:
+            res.append((i, j, cur_avg))
 
-                # == 0 condition coz of adj. matrxi structure
-                if neib_dist == 0 or i in visited:
-                    #print('Continue...')
-                    continue
 
-                if neib_dist + distances[node] < distances[i]:
-                    distances[i] = neib_dist + distances[node]
-                    prev[i] = node
+print('---------')
+print(prefix_sums)
+print(suffix_sums)
+print('---------')
 
-                    # add "potential" candidate in the queue
-                    # print("Candidate found: ", (distances[i], i))
-                    q.put((distances[i], i)) # O(log(heap size))
-            
-            # O((E+1) log(heap size))
-            # Heap size -> VE -> V^2
-            # O(Elog(V))
-
-        return list(zip(distances, prev))
-
-    def djikstras(self, source):
-
-        q = [(0, source)]   # Unexplored nodes
-        visited = set()
-        distances = {i : float('inf') for i in range(self.v)}
-        parents = {}
-
-        while len(visited) != self.v:
-            print(q)
-            _, node = heappop(q)
-            print(node)
-
-            if node in visited:
-                continue
-            
-            visited.add(node)
-
-            for neib, cost in self.graph[node]:
-                if neib not in visited:
-                    if distances[neib] > cost + distances[node]:
-                        distances[neib] = cost + distances[node]
-                        parents[neib] = node
-                        heappush(q, (distances[neib], neib)) #
-
-        return list(zip(distances, parents))
-
-graph = Graph(9)
-graph.addEdge(0, 1, 4)
-graph.addEdge(0, 7, 8)
-graph.addEdge(1, 2, 8)
-graph.addEdge(1, 7, 11)
-graph.addEdge(2, 3, 7)
-graph.addEdge(2, 8, 2)
-graph.addEdge(2, 5, 4)
-graph.addEdge(3, 4, 9)
-graph.addEdge(3, 5, 14)
-graph.addEdge(4, 5, 10)
-graph.addEdge(5, 6, 2)
-graph.addEdge(6, 7, 1)
-graph.addEdge(6, 8, 6)
-graph.addEdge(7, 8, 7)
-#print(graph.graph)
-print(graph.djikstras(0))
+res      
