@@ -8,6 +8,7 @@ Programming
 - Practice more problem types than a lot of one type
 - 15 minutes, medium and hard leetcode
 - Technical Tips
+- probolems where we have to process a user input with multiple conditions to account for, especially string processing, -> DFA/state machine solution using if/else or dict
 - -ive numbers with positive modulo gives weird results. if needed, do module with negative divisor. 
 - Every character is a palindrome
 - inf and -inf can be appended to lists before and after to simplify edge cases
