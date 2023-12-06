@@ -8,6 +8,7 @@ Programming
 - Practice more problem types than a lot of one type
 - 15 minutes, medium and hard leetcode
 - Technical Tips
+- -ive numbers with positive modulo gives weird results. if needed, do module with negative divisor. 
 - Every character is a palindrome
 - inf and -inf can be appended to lists before and after to simplify edge cases
 - dummy nodes are your best friends when dealing with linked lists
