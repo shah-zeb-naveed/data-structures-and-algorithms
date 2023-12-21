@@ -422,9 +422,9 @@ That comes out to 2N \* O(1) over N calls to next(), making it O(1) on average, 
   - In dfs based structures, think about what makes more sense. Calling dfs iteratively from the main function or within the recursive function
     - 1st option: normayll when we have different starting points such as in labelling connected components
     - 2nd option: when we have multiple &quot;decisions&quot; to make within a single call
-  - Bit Manipulation:
+  - Bit Manipulation: 
     - Observe patterns. Start with XOR, AND, NOT, Extracting last bits, shifting bits, settings bits
-    - Adding two nums:
+    - Adding two nums: (either do masking instead of this or do leetcode premium to find its answer)
       - Convert 8 usecases to two
       - Simplify problem down to two cases: sum or subtraction of two positive integers: **x + y , and x-y where x \&gt; y.** Save down the sign of the result.
       - If one has to compute the sum:
