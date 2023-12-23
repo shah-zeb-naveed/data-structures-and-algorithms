@@ -150,6 +150,7 @@ Programming
       - **2\*5 already crossed 10 so 5\*2 not needed. 3\*5 already crossed 15 so 5\*3 not needed...**
   - Don&#39;t ever assume without asking in a real interview that the input has to be valid.
   - Odd-one out, unique, missing -\&gt; XOR
+  -   xor of number with 0 is itself. xor of number with itself is 0/
     - &amp;-ing with 1 or 0 might help
     - &quot;to retrieve the right-most bit in an integer n, one could either apply the modulo operation (i.e. n % 2) or the bit AND operation (i.e. n &amp; 1)&quot;
   - Tuples are great for keep track of some information while new information keeps coming in.
