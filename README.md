@@ -16,6 +16,7 @@ Programming
 - inf and -inf can be appended to lists before and after to simplify edge cases
 - dummy nodes are your best friends when dealing with linked lists
 - dynamic programming -> observe if any redundant operations are being peformed.
+- think brute force, visualize tree or graph (decision tree can be visualized as options or a binary tree), understand subproblems, think saving results in an array in bottom up approach (memoization is top-down approach but less efficient and easier to come up with). Also, trees or graphs may be difficult so can also think of two parallel timelines (using a max operation). think whether to start from end or start of array. there's one problem for which dp was not done so implemented dfs backtracking coz had to maintain all the combinations.
   - Revise highlights of the Cracking the coding Interview book
   - Can use depth-first or breadth first to traverse a tree
   - Depth first is recursive to write a function that takes depth itself as input
