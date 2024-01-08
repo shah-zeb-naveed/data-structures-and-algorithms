@@ -18,6 +18,7 @@ Programming
 - dynamic programming -> observe if any redundant operations are being peformed.
 - think brute force, visualize tree or graph (decision tree can be visualized as options or a binary tree), understand subproblems, think saving results in an array in bottom up approach (memoization is top-down approach but less efficient and easier to come up with). Also, trees or graphs may be difficult so can also think of two parallel timelines (using a max operation). think whether to start from end or start of array. there's one problem for which dp was not done so implemented dfs backtracking coz had to maintain all the combinations.
 - think logically. try to fill in a dp matrix or dp array manually, from left to right or right to left. In many cases, it's bottom up.
+- Some dp solutions of bottom up approach might be O(n^2) instead of O(n) for example when at every position, we depend on every following position possibly. Think if there's a greedy solution.
   - Revise highlights of the Cracking the coding Interview book
   - Can use depth-first or breadth first to traverse a tree
   - Depth first is recursive to write a function that takes depth itself as input
