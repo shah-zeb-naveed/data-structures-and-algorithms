@@ -9,7 +9,7 @@ Programming
 - 15 minutes, medium and hard leetcode
 - Technical Tips
 - What if the base case is not O(1) in recursion? Do we multiply by number of rescursive calls?
-- Linked Lists would need a dummy node or two pointer approach in many case. Two pointer could be a fast and slow. Or it could be in same direction and speed but with a gap. 
+- Linked Lists would need a dummy node (or None) or two pointer approach in many case. Two pointer could be a fast and slow (to detect cycle or middle). Or it could be in same direction and speed but with a gap to find from last nth node. Reverse can be iterative or recursive (like stack). 
 - probolems where we have to process a user input with multiple conditions to account for, especially string processing, -> DFA/state machine solution using if/else or dict
 - -ive numbers with positive modulo gives weird results. if needed, do module with negative divisor. 
 - Every character is a palindrome
