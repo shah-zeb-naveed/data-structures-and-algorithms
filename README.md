@@ -205,7 +205,9 @@ That comes out to 2N \* O(1) over N calls to next(), making it O(1) on average, 
       - **A simple solution is to store both Inorder and Preorder traversals**
       - **OR Have nulls indicated by None for every non-NULL node&#39;s children and do pre-order traversal with None as a base case**
       - Preorder's first element is root. It's index in Inorder would give a midpoint. Elements to left belong to left subtree in inorder and SAME NUMBER of eleements in preorder.
+      - In-order of BST is a sorted array.
   - Math:
+  - 
     - Unique/Prime Factorization Theorem:
       - every integer greater than 1 can be represented uniquely as a product of prime numbers, up to the order of the factors
       - ![](RackMultipart20220405-4-se8081_html_75f7df9fc7a80328.png)
