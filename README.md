@@ -27,6 +27,14 @@ Programming
 - Some "DP" problems require keeping track of max and min over time.
 - DP bruteforce tree may possibly be visualzied in more than one way. For example, instead of "do or not do" branches, can visualize by "which index to start". May be beneficial to directly visualize in array as well.
 -  subsequences can be modelled as "starting at index" or "ending at index".
+-  Stair base case 1 why? 
+-  Dynamic 2D:
+-  Try bottom-up (from end) and define base case. in 2d, can go left to right and bottom to top.
+-  Define appropriate value for out of bound (like 0 of inf)
+-  May not need to store entire 2D array. Maybe just selected rows.
+-  Default values can be set for entire row or column, etc.
+-  Decision Tree with Memoization will mostly be possible. Memoization requires thinking what the function call input (also, the cache key/s) will be. In 2D, there might be two keys.
+-  
   - Revise highlights of the Cracking the coding Interview book
   - Can use depth-first or breadth first to traverse a tree
   - Depth first is recursive to write a function that takes depth itself as input
