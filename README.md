@@ -19,6 +19,14 @@ Programming
 - think brute force, visualize tree or graph (decision tree can be visualized as options or a binary tree), understand subproblems, think saving results in an array in bottom up approach (memoization is top-down approach but less efficient and easier to come up with). Also, trees or graphs may be difficult so can also think of two parallel timelines (using a max operation). think whether to start from end or start of array. there's one problem for which dp was not done so implemented dfs backtracking coz had to maintain all the combinations.
 - think logically. try to fill in a dp matrix or dp array manually, from left to right or right to left. In many cases, it's bottom up.
 - Some dp solutions of bottom up approach might be O(n^2) instead of O(n) for example when at every position, we depend on every following position possibly. Think if there's a greedy solution.
+- Write a base equation to understand dependency. That helps decide if we wanna go reverse or forward. Usually we define default values of the right-most or left-most. Many times, an additional index is required to hold the base case.
+- Depending on equation, it may be possible to store a few variables instead of entire array.
+- think dynamically while coming up with logic before coming up with equation
+- equtaions are normally adding something or taking max/min of sth.
+- Some "DP" problems are actually just window expansion problem that avoid repetitive work
+- Some "DP" problems require keeping track of max and min over time.
+- DP bruteforce tree may possibly be visualzied in more than one way. For example, instead of "do or not do" branches, can visualize by "which index to start". May be beneficial to directly visualize in array as well.
+-  subsequences can be modelled as "starting at index" or "ending at index".
   - Revise highlights of the Cracking the coding Interview book
   - Can use depth-first or breadth first to traverse a tree
   - Depth first is recursive to write a function that takes depth itself as input
