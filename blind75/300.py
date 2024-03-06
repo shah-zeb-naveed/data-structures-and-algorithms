@@ -1,6 +1,6 @@
 class Solution:
     def lengthOfLIS(self, nums: List[int]) -> int:
-
+        # implemented as sequence ending at index i
         dp = [1] * len(nums)
         max_len = 1
 
@@ -12,4 +12,4 @@ class Solution:
                 max_len = max(max_len, dp[i])
 
         return max_len
-        
+          
