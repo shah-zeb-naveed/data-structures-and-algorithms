@@ -34,7 +34,10 @@ Programming
 -  May not need to store entire 2D array. Maybe just selected rows.
 -  Default values can be set for entire row or column, etc.
 -  Decision Tree with Memoization will mostly be possible. Memoization requires thinking what the function call input (also, the cache key/s) will be. In 2D, there might be two keys.
--  
+-  Sometimes I try to visualize by resulting array which is okay for all the possible combinations but for dynamic programming, try to think in terms of iindex i or in 2D, i + j.
+-   Most 2D can be done with a table approach. Sometimes visualizing arrays is good enough instead of a tree.
+-   Remember to cache the results. Memoization can easily be converted to Bottom-up DP. Core conditions mostly remain the same.
+-   Even when defining the DFS conditions and recursive calls, do think about simple equations that would be easily possible in 2D array (like looking at i + 1, j + 2, max/sum, etc) 
   - Revise highlights of the Cracking the coding Interview book
   - Can use depth-first or breadth first to traverse a tree
   - Depth first is recursive to write a function that takes depth itself as input
