@@ -715,120 +715,120 @@ Facebook said no need for ML :D
 
 
 **Data Structures Udacity Course:**
-    - Linked Lists make inserting and deleting so easy but Arrays are good in terms of having indices.
-      - Index vs Reference to the next element
-      - In particular, arrays are contiguous memory blocks, so large chunks of them will be loaded into the cache upon first access. This makes it comparatively quick to access future elements of the array. Linked lists on the other hand aren't necessarily in contiguous blocks of memory, and could lead to more cache misses, which increases the time it takes to access them.
-      - Typically, when using an array you access items near each other. This is especially true when accessing an array sequentially.
-        - When you access memory, chunks of it are cached at various levels. Cache locality refers to the likelihood of successive operations being in the cache and thus being faster. In an array, you maximize the chances of sequential element access being in the cache.
-        - With linked lists, by counter-example, there's no guarantee that items that appear sequentially in the list are arranged near eachother in memory. This means fewer cache hits, and degraded performance.
-    - Doubly Linked List: reference to previous as well
-    - While inserting in linked list, first set the next of the new element. This will reduce 1 additional line of code instead of saving tmp pointer.
-    - Recent most important but still wanna keep the rest? Use stacks e.g. News Feed
-      - Stack can be implemented with linked lists
-      - LIFO
-    - Queue: can implement using LL
-      - Keep a ref to head and tail so constant time access
-      - Deques have dequeuer and enqueuer at both ends
-    - Priority Queue: if same priority, oldest removed
-    - **BS: for worst case, assume test element to be largest and always favor lower when middle is a tie in case of even numbers
-      - Not really significant.**
-    - If don't know big 0, create n vs n_iterations table and notice patterns
-    - Remember there might be a space vs time trade-off
-    - Talk about all possible options in an interview
-    - Improved version of bubble sort could stop doing comparisons for the very last elements
-    - Average Case:
-      - All possible case time (sum) / no. of cases on average
-    - Space Complexity: If no extra i.e. in place, O(1) Auxillary
-      - Assumes space released after every step so just look at single step
-      - In recursion, you'll always be in a single branch of the call tree so calculate space complexity accordingly.
-    - Merge sort, the recursive approach is called top-down.
-      - Bottom up is iterative and starts from bottom
-    - Please no quick sort on nearly sorted arrays if using standard Lomuto parittion scheme
-    - Improve quick sort by median
-    - Space complexity of Quick Sort can be O(1) if in-place using swaps
-      - But the recursion stack will be used still
-    - Hash functions might be used for optimizing a solution
-      - Commonly divide numbers by a number let's say 10
-        - mod and use the remainder as the index in an array
-      - Why use the last digits? Because they are more random than the significant digits
-      - Buckets to resolve collision
-        - Still need to iterate through the collection O(n)
-      - No perfect way to define a hash function
-      - Compromise between hash function size: that spreads out values but doesn't use a lot of space vs one that uses less buckets but might have to do some searching within each bucket
-      - Can use another hash function (double hashing)
-      - Load Factor = Number of Entries / Number of Buckets
-      - We can use our load factor as an indicator for when to rehash—as the load factor approaches 0, the more empty, or sparse, our hash table is.
-      - On the flip side, the closer our load factor is to 1 (meaning the number of values equals the number of buckets), the better it would be for us to rehash and add more buckets. Any table with a load value greater than 1 is guaranteed to have collisions.
-      - If hash function is simply mod than the divisor is simply the number of buckets
-      - Dividing a bunch of multiples of 5 by another multiple of 5 will cause a lot of collisions
-      - HashMaps:
-        - You can store <k, v> in the bucket determined by hash(k)
-        - For string keys, ASCII values to get integer value
-        - Just a convention, s[0]31^(n-1) + s[1]31^(n-2) + ….
-        - As long as you space, a unique hash key can be very useful for constant lookups
-      - Tree is an extension of a linked list essentially (having several next elements)
-        - A tree must be completely connected ALWAYS and no cycles
-        - Height of leaf is 0 but depth is X (opposite relation)
-      - BFS: Can do level Order traversal
-      - DFS: Preorder, inorder, post-order
-      - Perfect binary trees (all non-leaves have two children)
-      - BST: Unbalanced is a problem (the worst case)
-      - Heaps don't have to be binary
-      - A binary heap must be a complete tree:
-        - All levels except the last level must be full
-      - Binary Tree: log(n) > Height of the tree
-      - If heap implemented through Tree like structure, it will require saving more stuff (left, right, bla bla bla)
-        - Commonly implemented with an array
-      - The most unbalanced tree is kinda like a linked list
-      - Red Back Tree Rules:
+- Linked Lists make inserting and deleting so easy but Arrays are good in terms of having indices.
+  - Index vs Reference to the next element
+  - In particular, arrays are contiguous memory blocks, so large chunks of them will be loaded into the cache upon first access. This makes it comparatively quick to access future elements of the array. Linked lists on the other hand aren't necessarily in contiguous blocks of memory, and could lead to more cache misses, which increases the time it takes to access them.
+  - Typically, when using an array you access items near each other. This is especially true when accessing an array sequentially.
+    - When you access memory, chunks of it are cached at various levels. Cache locality refers to the likelihood of successive operations being in the cache and thus being faster. In an array, you maximize the chances of sequential element access being in the cache.
+    - With linked lists, by counter-example, there's no guarantee that items that appear sequentially in the list are arranged near eachother in memory. This means fewer cache hits, and degraded performance.
+- Doubly Linked List: reference to previous as well
+- While inserting in linked list, first set the next of the new element. This will reduce 1 additional line of code instead of saving tmp pointer.
+- Recent most important but still wanna keep the rest? Use stacks e.g. News Feed
+  - Stack can be implemented with linked lists
+  - LIFO
+- Queue: can implement using LL
+  - Keep a ref to head and tail so constant time access
+  - Deques have dequeuer and enqueuer at both ends
+- Priority Queue: if same priority, oldest removed
+- **BS: for worst case, assume test element to be largest and always favor lower when middle is a tie in case of even numbers
+  - Not really significant.**
+- If don't know big 0, create n vs n_iterations table and notice patterns
+- Remember there might be a space vs time trade-off
+- Talk about all possible options in an interview
+- Improved version of bubble sort could stop doing comparisons for the very last elements
+- Average Case:
+  - All possible case time (sum) / no. of cases on average
+- Space Complexity: If no extra i.e. in place, O(1) Auxillary
+  - Assumes space released after every step so just look at single step
+  - In recursion, you'll always be in a single branch of the call tree so calculate space complexity accordingly.
+- Merge sort, the recursive approach is called top-down.
+  - Bottom up is iterative and starts from bottom
+- Please no quick sort on nearly sorted arrays if using standard Lomuto parittion scheme
+- Improve quick sort by median
+- Space complexity of Quick Sort can be O(1) if in-place using swaps
+  - But the recursion stack will be used still
+- Hash functions might be used for optimizing a solution
+  - Commonly divide numbers by a number let's say 10
+    - mod and use the remainder as the index in an array
+  - Why use the last digits? Because they are more random than the significant digits
+  - Buckets to resolve collision
+    - Still need to iterate through the collection O(n)
+  - No perfect way to define a hash function
+  - Compromise between hash function size: that spreads out values but doesn't use a lot of space vs one that uses less buckets but might have to do some searching within each bucket
+  - Can use another hash function (double hashing)
+  - Load Factor = Number of Entries / Number of Buckets
+  - We can use our load factor as an indicator for when to rehash—as the load factor approaches 0, the more empty, or sparse, our hash table is.
+  - On the flip side, the closer our load factor is to 1 (meaning the number of values equals the number of buckets), the better it would be for us to rehash and add more buckets. Any table with a load value greater than 1 is guaranteed to have collisions.
+  - If hash function is simply mod than the divisor is simply the number of buckets
+  - Dividing a bunch of multiples of 5 by another multiple of 5 will cause a lot of collisions
+  - HashMaps:
+    - You can store <k, v> in the bucket determined by hash(k)
+    - For string keys, ASCII values to get integer value
+    - Just a convention, s[0]31^(n-1) + s[1]31^(n-2) + ….
+    - As long as you space, a unique hash key can be very useful for constant lookups
+  - Tree is an extension of a linked list essentially (having several next elements)
+    - A tree must be completely connected ALWAYS and no cycles
+    - Height of leaf is 0 but depth is X (opposite relation)
+  - BFS: Can do level Order traversal
+  - DFS: Preorder, inorder, post-order
+  - Perfect binary trees (all non-leaves have two children)
+  - BST: Unbalanced is a problem (the worst case)
+  - Heaps don't have to be binary
+  - A binary heap must be a complete tree:
+    - All levels except the last level must be full
+  - Binary Tree: log(n) > Height of the tree
+  - If heap implemented through Tree like structure, it will require saving more stuff (left, right, bla bla bla)
+    - Commonly implemented with an array
+  - The most unbalanced tree is kinda like a linked list
+  - Red Back Tree Rules:
 
 1. Each node can be either red or black
 2. Each node has null black nodes (if it doesn't have 2 children)
 3. If parent is red, both children are black
 4. Root is black
 5. All paths from root to null nodes have the same number of black nodes
-      - Graphs (Networks) to be used for showing connections
-        - Trees are actually types of graphs
-      - Cycles allowed
-      - No roots but we can have a starting point based on the problem
-      - DAG: Directed, Acyclic, Graph
-      - Connectivity:
-        - Disconnected: if we can't reach a vertex or a group of vertices from another
-        - Min number of elements to be removed for a graph to become disconnected > shows how strong connection is
-        - A weakly connected component is a maximal group of nodes that are mutually reachable by violating the edge directions.
-      - Implementation:
-        - OOP (Edge, Vertex objects)
-        - List of edges
-        - Adjacency List
-        - Adjacency Matrix
-        - If you're looking for node degree or no. of edges for a vertex > Adjacency list
-      - DFS: Can be implemented with stack:
-        - If not seen, put in stack
-        - If hit a seen vertex, go back and try another one
-        - Recursion is technically a stack as well
-      - BFS: Queue
-      - **Eulerian Path:**
-        - Passes through every edge at least once( I think its exactly once)
-        - Eulerian Cycle:
-          - Each edge only once
-          - End up at the same node
-          - Possible only if all nodes have even degree or even number of edges connected to them.
-        - Paths are a bit lenient:
-          - Start and end nodes can have odd degree
-      - **Hamiltonian Path**
-        - Must go through every vertex once
-        - Cycle:
-          - Start and end at the same vertex
-      - If you're storing a disconnected graph, not every node will be tied to an edge, so you should store a list of nodes.
-      - We could probably leave it there, but storing an edge list will make our lives much easier when we're trying to print out different types of graph representations.
-      - Unfortunately, having both makes insertion a bit complicated
-      - Shortest Path:
-        - **Unweighted: BFS**
-        - **Weighted, Undirected: Dijiktra's (Min Heap Implementation)**
-          - **Djiktra's should work for directed as well**
-      - Knapsnack: Brute Force is O(2^n)
-      - A problem may have both DFS and BFS solution like the count_islands problem
-  
+  - Graphs (Networks) to be used for showing connections
+    - Trees are actually types of graphs
+  - Cycles allowed
+  - No roots but we can have a starting point based on the problem
+  - DAG: Directed, Acyclic, Graph
+  - Connectivity:
+    - Disconnected: if we can't reach a vertex or a group of vertices from another
+    - Min number of elements to be removed for a graph to become disconnected > shows how strong connection is
+    - A weakly connected component is a maximal group of nodes that are mutually reachable by violating the edge directions.
+  - Implementation:
+    - OOP (Edge, Vertex objects)
+    - List of edges
+    - Adjacency List
+    - Adjacency Matrix
+    - If you're looking for node degree or no. of edges for a vertex > Adjacency list
+  - DFS: Can be implemented with stack:
+    - If not seen, put in stack
+    - If hit a seen vertex, go back and try another one
+    - Recursion is technically a stack as well
+  - BFS: Queue
+  - **Eulerian Path:**
+    - Passes through every edge at least once( I think its exactly once)
+    - Eulerian Cycle:
+      - Each edge only once
+      - End up at the same node
+      - Possible only if all nodes have even degree or even number of edges connected to them.
+    - Paths are a bit lenient:
+      - Start and end nodes can have odd degree
+  - **Hamiltonian Path**
+    - Must go through every vertex once
+    - Cycle:
+      - Start and end at the same vertex
+  - If you're storing a disconnected graph, not every node will be tied to an edge, so you should store a list of nodes.
+  - We could probably leave it there, but storing an edge list will make our lives much easier when we're trying to print out different types of graph representations.
+  - Unfortunately, having both makes insertion a bit complicated
+  - Shortest Path:
+    - **Unweighted: BFS**
+    - **Weighted, Undirected: Dijiktra's (Min Heap Implementation)**
+      - **Djiktra's should work for directed as well**
+  - Knapsnack: Brute Force is O(2^n)
+  - A problem may have both DFS and BFS solution like the count_islands problem
+
 
 **Final Interview Tips**:
   - In my current job, I've successfully done this and that.
