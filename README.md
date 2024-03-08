@@ -303,17 +303,7 @@ Permutations: n! If r = n
   - For a binary tree, the maximum number of nodes at a level would be N+1 / 2​ which is also the number of leafs in a full binary tree.
 
   - At any given moment, the queue contains no more than  **two levels**  of nodes in the tree. The maximal number of nodes at one level is n/2​, which is the number of the leaf nodes in a balanced binary tree. As a result, the space needed for the queue would be O(_N_)
-  - it would be _ **faster** _ to sort a series of subgroups than sorting them all together in a single group. Here is a not-so-rigid proof. Suppose that we have a list of _N_ elements, it would then take O(_N_log_N_) time to sort this list. Next, we divide the list into _k_ sublists equally. Each list would contain  _k/N_​ elements. Similarly, it would take O(_N/k_​log_N/k_​) time to sort each sublist. In total, to sort all the _k_ sublists, it would take O(_N_log_N/k_​), which is  **less than**  the time complexity of sorting the original list O(_N_log_N_)).
-  - **DFS and BFS time complexity: O(n)**
-    - Because this is tree traversal, we must touch every node, making this O(n) where n is the number of nodes in the tree.
-  - **BFS space complexity: O(n)**
-    - BFS will have to store at least an entire level of the tree in the queue (sample queue implementation). With a perfect fully balanced binary tree, this would be (n/2 + 1) nodes (the very last level). Best Case (in this context), the tree is severely unbalanced and contains only 1 element at each level and the space complexity is O(1). Worst Case would be storing (n - 1) nodes with a fairly useless N-ary tree where all but the root node are located at the second level.
-  - **DFS space complexity: O(d)**
-    - Regardless of the implementation (recursive or iterative), the stack (implicit or explicit) will contain d nodes, where d is the maximum depth of the tree. With a balanced tree, this would be (log n) nodes. Worst Case for DFS will be the best case for BFS, and the Best Case for DFS will be the worst case for BFS.
-  - In backtracking (which is kind of a bruteforce) we have to undo changes for the next iteration
-  - In dfs based structures, think about what makes more sense. Calling dfs iteratively from the main function or within the recursive function
-    - 1st option: normayll when we have different starting points such as in labelling connected components
-    - 2nd option: when we have multiple decisions to make within a single call
+
 
 # DFS vs BFS
   - If it is known that answer lies nearby the source node in graph, or to get optimal answer, BFS should be used.
@@ -325,7 +315,16 @@ Permutations: n! If r = n
   - Finding out strongly connected components of a graph.
   - Longest path between two nodes in a graph etc.
 
-
+- **DFS and BFS time complexity: O(n)**
+    - Because this is tree traversal, we must touch every node, making this O(n) where n is the number of nodes in the tree.
+- **BFS space complexity: O(n)**
+    - BFS will have to store at least an entire level of the tree in the queue (sample queue implementation). With a perfect fully balanced binary tree, this would be (n/2 + 1) nodes (the very last level). Best Case (in this context), the tree is severely unbalanced and contains only 1 element at each level and the space complexity is O(1). Worst Case would be storing (n - 1) nodes with a fairly useless N-ary tree where all but the root node are located at the second level.
+- **DFS space complexity: O(d)**
+    - Regardless of the implementation (recursive or iterative), the stack (implicit or explicit) will contain d nodes, where d is the maximum depth of the tree. With a balanced tree, this would be (log n) nodes. Worst Case for DFS will be the best case for BFS, and the Best Case for DFS will be the worst case for BFS.
+  - In backtracking (which is kind of a bruteforce) we have to undo changes for the next iteration
+  - In dfs based structures, think about what makes more sense. Calling dfs iteratively from the main function or within the recursive function
+    - 1st option: normayll when we have different starting points such as in labelling connected components
+    - 2nd option: when we have multiple decisions to make within a single call
 
 # Binary Trees:
     - The key observation to make is: the longest path has to be between two leaf nodes.
@@ -353,15 +352,9 @@ Permutations: n! If r = n
       - In-order of BST is a sorted array.
 
 # Binary Search:
+
   - I think once trick to binary search is that when I know I can find something in mid, maybe I check for when low == high, otherwise, low/high is the answer, no need to check for mid in the while loop.
-  - Quick Sort:
-    - Just use the method for last element as pivot. If required another method, just select it e.g. the middle index, swap it with last and continue with the same logic as the last one.
-    - Follow the logic in the notebook.
-    - Same code can be adapted to return kth largest/smallest or k largest/smallest.
-    - Can guess loose boundaries for initial search space and iterate
-     - Binary search remains tricky to implement. Is it mid or mid + 1? Do we return left or right and until when does the loop run.
-    - Do test infinite loop
-    - I think the safest thing to do is to test last two remaining separately.
+
       
   - In subarray sum etc problems, just start with creating a cum sum and if question talks about mod, just develop a mod table.
     - Remember that if you have a mod X, adding the divisor to numerator will result in the same mod again. This way you can detect sums.
@@ -374,17 +367,17 @@ Permutations: n! If r = n
 
 
 # Graph Algorithms
-  - **Spanning Tree:**
-      - **Wighted, undirected, connected graph**
-    - **Kruskal:**
-      - **Uses DSU**
-      - **E Log E for sorting and since we are taking union of nodes E times, that is E log V. E in worst case is V^2 so it's gonna be E log V**
-        - **Actually not log N. Remember with both path compression and union by rank, it actually becomes O(alpha N) where log is actually an upper bound and alpha refers to co-efficient of inverse Ackermann function**
-    - **Primms:**
-      - **Uses heap for optimal implementation**
-      - **O(V log E + E log E) time and O(E + V) space**
-        - **If edges in heap and V Log V + E Log V if nodes in heap by using min-heap operation**
-        - **Note that V might just be bounded by number of edges so expression might be further simplified**
+  - *Spanning Tree:*
+      - *Wighted, undirected, connected graph*
+    - *Kruskal:*
+      - *Uses DSU*
+      - *E Log E for sorting and since we are taking union of nodes E times, that is E log V. E in worst case is V^2 so it's gonna be E log V*
+        - *Actually not log N. Remember with both path compression and union by rank, it actually becomes O(alpha N) where log is actually an upper bound and alpha refers to co-efficient of inverse Ackermann function*
+    - *Primms:*
+      - *Uses heap for optimal implementation*
+      - *O(V log E + E log E) time and O(E + V) space*
+        - *If edges in heap and V Log V + E Log V if nodes in heap by using min-heap operation*
+        - *Note that V might just be bounded by number of edges so expression might be further simplified**
   - Shortest path from source to all nodes: djikstra's
     - Dijkstra's algorithm doesn't work for graphs with negative weight cycles. It may give correct results for a graph with negative edges but you must allow a vertex can be visited multiple times and that version will lose its fast time complexity.
       - For graphs with negative weight edges and cycles, Bellman–Ford algorithm can be used
@@ -403,7 +396,7 @@ Permutations: n! If r = n
 
 
 
-**Math:**
+# Math:
   - Equation involved? HAVE to do some manipulation like log/anti-log and stuff. (NOT SURE WHAT WAS THIS)
     - Unique/Prime Factorization Theorem:
       - every integer greater than 1 can be represented uniquely as a product of prime numbers, up to the order of the factors
@@ -413,9 +406,12 @@ Permutations: n! If r = n
   - If n is negative, substitute x with 1/x to make n non-negative.
 
 
-**Sorting:**
+# Sorting
 
-**Quick Select:**
+- it would be _ **faster** _ to sort a series of subgroups than sorting them all together in a single group. Here is a not-so-rigid proof. Suppose that we have a list of _N_ elements, it would then take O(_N_log_N_) time to sort this list. Next, we divide the list into _k_ sublists equally. Each list would contain  _k/N_​ elements. Similarly, it would take O(_N/k_​log_N/k_​) time to sort each sublist. In total, to sort all the _k_ sublists, it would take O(_N_log_N/k_​), which is  **less than**  the time complexity of sorting the original list O(_N_log_N_)).
+
+ 
+## Quick Select:
     - The one I like is Lomuto btw
       - Easier to implemen
     - When already sorted, the middle index pivot in Lomuto results in base case N Log N
@@ -429,9 +425,16 @@ Permutations: n! If r = n
       - Time complexity: \mathcal{O}(N)O(N) in the average case, \mathcal{O}(N^2)O(N2) in the worst case. Please refer to this card for the good detailed explanation of Master Theorem. Master Theorem helps to get an average complexity by writing the algorithm cost as T(N) = a T(N / b) + f(N)T(N)=aT(N/b)+f(N). Here we have an example of Master Theorem case III: T(N) = T \left(\frac{N}{2}\right) + NT(N)=T(2N)+N, that results in \mathcal{O}(N)O(N) time complexity. That's the case of random pivots.
       - In the worst-case of constantly bad chosen pivots, the problem is not divided by half at each step, it becomes just one element less, that leads to \mathcal{O}(N^2)O(N2) time complexity. It happens, for example, if at each step you choose the pivot not randomly, but take the rightmost element. For the random pivot choice the probability of having such a worst-case is negligibly small.
       
-- **QuickSort and QuickSelect:**
+## QuickSort and QuickSelect
+ - Just use the method for last element as pivot. If required another method, just select it e.g. the middle index, swap it with last and continue with the same logic as the last one.
+    - Follow the logic in the notebook.
+    - Same code can be adapted to return kth largest/smallest or k largest/smallest.
+    - Can guess loose boundaries for initial search space and iterate
+     - Binary search remains tricky to implement. Is it mid or mid + 1? Do we return left or right and until when does the loop run.
+    - Do test infinite loop
+    - I think the safest thing to do is to test last two remaining separately.
+
   - In QuickSort's recursive branching, you can ignore the partition that doesn't contain the kth element. This is the foundation of QuickSelect, which leverages this to create a more space-efficient iterative solution.
-  - 
   - Space depends on the sorting implementation which, usually, costs O(1)O(1) auxiliary space if heapsort is used.
     - Insertion would work best if an array is already sorted / small array
       - because it will quickly break the for loops because of its simplicity and no overhead of space allocation/recursion
@@ -446,7 +449,8 @@ Permutations: n! If r = n
     - Concept: Divide and Conquer:
       - A group of students ask students to arrange themselves one by one.
     - The key process in quickSort is partition(). Target of partitions is, given an array and an element x of array as pivot, put x at its correct position in sorted array and put all smaller elements (smaller than x) before x, and put all greater elements (greater than x) after x. All this should be done in linear time.
-  - QuickSelect:
+
+## QuickSelect:
     - It is not recursive.
     - First iteration: check all points and subsequently keep (almost, hopefully) halving:
       - _N_+N/2 + n/4 … = N
@@ -474,6 +478,7 @@ Permutations: n! If r = n
     - Remember to test for last element (max). Might just be easy to dump into the last bucket.
 - When/if array is sorted, leverage binary search
 - When guess work to optimize something and converge to a solution -- binary search
+  
 ## Counting sort
 - can not be applied to floating as we use keys as index in counting sort. if keys are floating point numbers so use bucket
 
