@@ -1,16 +1,3 @@
-Tips, tricks and concepts for coding interviews:
-
-
-### Need Clarification:  
-- What if the base case is not O(1) in recursion? Do we multiply by number of rescursive calls?
-- Do we explicity delete pointers in Python by setting to None or garbage collector takes care of it? For example:
-
-```
-delete = prev.next # useless step?
-prev.next = prev.next.next
-delete = None # useless step?
-```
-
 # Line of Attack
 - Start:
   - Asking clarifying questions
@@ -37,11 +24,13 @@ delete = None # useless step?
 - Examples/Corner Cases: negative, null, repeated/duplicates, non-continuous, too big, too homogeneous
 - Modularize your code first. Especially functions that might be uninteresting. When you have the skeleton of the code, start filling in the details
 
+
 # Preparation Guide:
 - Practice more problem types than a lot of one type
 - Target 15 minutes for medium and hard leetcode
 - Revise highlights of the Cracking the Coding Interview book
 - Revise https://www.bigocheatsheet.com/ 
+
 
 # Recursion:
 - Prune the recursion whenever possible
@@ -58,6 +47,7 @@ delete = None # useless step?
   - And since Python 3.7, official documentation states: Dictionaries preserve insertion order.
   - Use dict.values() instead of creating sublists manually
 
+
 # Definitions:
 - Every character is a palindrome
 - Graphs can have loops unlike trees.
@@ -70,7 +60,8 @@ delete = None # useless step?
     - Remember that a subset is not contiguous.
     - Subsets are not combinations.
 
-**General Tips and Techniques:**:
+
+# General Tips and Techniques
 - Too many if conditions is a strong indicator that a simpler solution exists
 - There can be ways that you first apply the general algorithm and then do some corrections to match the problem statement
 - See whether starting index from beginning of the array has more chances to detect something or if you start from the last in reverse.
@@ -99,6 +90,7 @@ Look for the twist. A detail. A detail that might look useless but it's there fo
   - Make sure to make most out of running sums/running mins/running maxes instead of creating another pass.
   - Whenever you use cumulative sums, try to minimize them to a single variable.
   - Consider combining two-pass solutions into a single pass for efficiency.
+
     
 # Tuples:
   - Tuples are great for keep track of some information while new information keeps coming in.
@@ -110,9 +102,11 @@ Look for the twist. A detail. A detail that might look useless but it's there fo
   - If possible, delete useless stuff and keep the useful information in a tuple to reduce the number of iterations resulting in a single pass.
   - Use tuple instead of ''.join while hashing
   - Sorted(tuple()) might be a good idea to track results
+
   
 # Sets:
 - Use sets to avoid duplicates and when O(1)/hashing required
+
   
 # Strings:
   - While working with characters, ASCII value of a character may help like ord(c) - ord('a')
@@ -135,18 +129,21 @@ Look for the twist. A detail. A detail that might look useless but it's there fo
   - See if using list of hashmaps can simplify the code:
     - Index corresponds to state number
     - Hashmap at the index tells which keys are allowed and the key to state mapping
-    - 
+  
+    
 # Linked-lists
 - Linked Lists would need a dummy node (or None) or two pointer approach in many case. Two pointer could be a fast and slow (to detect cycle or middle). Or it could be in same direction and speed but with a gap to find from last nth node. Reverse can be iterative or recursive (like stack).
 - dummy nodes are your best friends when dealing with linked lists
 - Pointers suck. Might just use stack for reversing linked lists and ideally, modify linked lists via in-place
 
+  
 # Stack:
 - When encounter a situation where you have to traverse something till end before processing current element, use stack
 - *In the previous approach we rely on the system stack for our recursion's space requirements. However, as we all know, that stack is limited and for extremely long trees, it might not be feasible to use the system stack. So, we need to use our own stack that will be allocated memory on the heap and will be able to handle much larger sized trees easily.*
 - Monotonic stack (a stack with a certain order)
   - **Next Less Element and Previous Less Element problems can be solved efficiently**
 - Need to process something after? >>>>>>> Stack
+
 
 # Arrays
   - Often O(n^2) array based solutions have some duplicated work being done.
@@ -184,29 +181,29 @@ Look for the twist. A detail. A detail that might look useless but it's there fo
 - queue: queue.get(), .put(), .empty()
 - collections.deque: deque.popLeft()/pop(), append()/extendLeft
 - Deque is better than queue
+
   
 # Hashing:
   - Hashing: h(large_value) = large_value % size_of_hash
     - If I'm not wrong, for intergers hash = f(x) = x
-  - **For very large numbers:**
-    - **Hashing may result in collisions**
-    - **I think this refers to constantly hashing a stream of numbers**
-  - **If multiple queries, hashing overhead is amortized**
-  - **Some comments from LeetCode on why we might be better off using arrays instead of hashmaps in case of very large numbers:**
-    - **Your hash map will resize when it gets to 75% (by default) capacity, but then it will rehash everything. And this is likely to happen a lot. So between the resizing and the collisions, the hash map approach isn't going to scale well to a very large vector.**
-    - **By using the array list you get around this. You don't have to worry about collisions and resizing is a bit cheaper because theres no rehashing when you resize an array list.**
-      - **So I think if the size of array is such that it can be allocated in contiguous memory, array is better**
-    - **Smaller or larger does not make them less or more sparse. For example, a vector could have 1 billion numbers, out of which only 10 million are non zeroes. This would be a very large list and still sparse vector. In a hash table, a common issue is hash collision. Typically we reduce collision by over allocating. For example, for a 10 million entry hash table, we might allocate memory for say 13 million entries based on 0.75% load factor. When we hash such large lists (I know 10 million ints is not really that large, but there are other items in memory and imagine many such parallel calculations being done) , we may start hitting memory limits so over allocating gets difficult, and we get too many hash collisions. Smaller in the context meant (and the interviewer gave me some similar numbers), 1 vector was 1 billion numbers and the other vector had only 1 million or less entries**
-    - **I got this question today on my FB interview. I proposed the Hash solution, and he asked the downside to it. I responded with large size of sparse vectors, hash collisions will occur when we hit memory allocation limits, etc. He asked alternative solutions and I proposed array of (index, value) pair. He asked me to code that. Then he added a constraint where one vector is considerably smaller than the other, and asked if we can improve the time complexity from O(m+n). After some scratching around, I told them that we can by doing binary-search of small vector's index over the larger one. This should improve the time-complexity. Was not sure of the exact Big Oh, but it should be better than m  log(n), since the search space should keep reducing from n. Fingers crossed for the results**
+  - For very large numbers:
+    - Hashing may result in collisions
+    - I think this refers to constantly hashing a stream of numbers
+  - If multiple queries, hashing overhead is amortized
+  - Some comments from LeetCode on why we might be better off using arrays instead of hashmaps in case of very large numbers:
+    - Your hash map will resize when it gets to 75% (by default) capacity, but then it will rehash everything. And this is likely to happen a lot. So between the resizing and the collisions, the hash map approach isn't going to scale well to a very large vector.
+    - By using the array list you get around this. You don't have to worry about collisions and resizing is a bit cheaper because theres no rehashing when you resize an array list.
+      - So I think if the size of array is such that it can be allocated in contiguous memory, array is better
+    - Smaller or larger does not make them less or more sparse. For example, a vector could have 1 billion numbers, out of which only 10 million are non zeroes. This would be a very large list and still sparse vector. In a hash table, a common issue is hash collision. Typically we reduce collision by over allocating. For example, for a 10 million entry hash table, we might allocate memory for say 13 million entries based on 0.75% load factor. When we hash such large lists (I know 10 million ints is not really that large, but there are other items in memory and imagine many such parallel calculations being done) , we may start hitting memory limits so over allocating gets difficult, and we get too many hash collisions. Smaller in the context meant (and the interviewer gave me some similar numbers), 1 vector was 1 billion numbers and the other vector had only 1 million or less entries
+    - I got this question today on my FB interview. I proposed the Hash solution, and he asked the downside to it. I responded with large size of sparse vectors, hash collisions will occur when we hit memory allocation limits, etc. He asked alternative solutions and I proposed array of (index, value) pair. He asked me to code that. Then he added a constraint where one vector is considerably smaller than the other, and asked if we can improve the time complexity from O(m+n). After some scratching around, I told them that we can by doing binary-search of small vector's index over the larger one. This should improve the time-complexity. Was not sure of the exact Big Oh, but it should be better than m  log(n), since the search space should keep reducing from n. Fingers crossed for the results
 
-  - **Use a hash table instead of a fixed size counter. Imagine allocating a large size array to fit the entire range of unicode characters, which could go up to more than 1 million. A hash table is a more generic solution and could adapt to any range of characters.**
-    - **This is contradicting to my understanding above.**
-      - **Actually not. I think the main point here. In this question Valid Anagram, we preallocate memory for storing freqenices of ASCIIs which aer only 26. So hashing them is useless and slow.**
-      - **If it were all the Unicode characters (1million), it will result to a useless sparse vector and we may start hitting memory limits.**
-    - **In this issue for SparseVector question, we keep increasing the size of either hashmap or list. For very large, collisions may start occurring in hashmap thus reducing performance and, although both hashmap and list will need to resize (hashmap resizes at 0.75 load factor by default),**  **the resizing is cheaper in case of arrays.**
-      - **The performance of dot product is still far more efficient so might depend whether insertions are more frequent or dot-products.**
-        - **If we go with the array of tuples route AND one of the vectors is not sparse enough, do binary search instead of linear scan**
-
+  - Use a hash table instead of a fixed size counter. Imagine allocating a large size array to fit the entire range of unicode characters, which could go up to more than 1 million. A hash table is a more generic solution and could adapt to any range of characters.
+    - This is contradicting to my understanding above.
+      - Actually not. I think the main point here. In this question Valid Anagram, we preallocate memory for storing freqenices of ASCIIs which aer only 26. So hashing them is useless and slow.
+      - If it were all the Unicode characters (1million), it will result to a useless sparse vector and we may start hitting memory limits.
+    - In this issue for SparseVector question, we keep increasing the size of either hashmap or list. For very large, collisions may start occurring in hashmap thus reducing performance and, although both hashmap and list will need to resize (hashmap resizes at 0.75 load factor by default),  the resizing is cheaper in case of arrays.
+      - The performance of dot product is still far more efficient so might depend whether insertions are more frequent or dot-products.
+        - If we go with the array of tuples route AND one of the vectors is not sparse enough, do binary search instead of linear scan
 
 
 # Combinations and Permutations:
@@ -214,6 +211,7 @@ Permutations: n! If r = n
     - Subsets = 2^n (since each element can be absent or present. I believe this equals subsequences)
   - Permutations are expensive. Avoid them at any cost through sorting, windowing, hashing
           - Permutations or combinations or subsets -> backtracking
+
 
 # Bit Manipulation:
 - XOR is commutative
@@ -251,6 +249,7 @@ Permutations: n! If r = n
     - Take XOR of x and y to get sum without carry
     - Get carry as AND and shifted one bit to the left
     - Make carry your new Y and continue until carry dies down
+
 
 # Graph:
   - **If graph is not weighted. We can consider each edge to have the same weight of 1. Since the graph is unweighted, BFS can be used to find the shortest path between a starting cell and any other reachable cell.**
@@ -362,11 +361,8 @@ Permutations: n! If r = n
     - Can use collisions to our advantage.
     - See if processing char by char makes more logical sense or splitting by a delimiter.
   - Visualize things in a practical manner as well in addition to in a data structure-oriented manner. E.g. if visualizing a unix file path, it makes sense to first visualize the problem by creating a tree similar to what we see in Windows file explorer.
-  - 
 
-
-
-# Graph Algorithms
+# Graph and Tree Algorithms
   - *Spanning Tree:*
       - *Wighted, undirected, connected graph*
     - *Kruskal:*
@@ -392,8 +388,6 @@ Permutations: n! If r = n
   - Don't jump into using a trie if you see prefix. That depends if the query will be repeated or not. If yes, trie will be more efficient as it compresses the information.
     - For complete English dict, 70% compression
   - If messing up with input such as linked list or matrix, see if you can restore it
-
-
 
 
 # Math:
@@ -776,3 +770,13 @@ Facebook said no need for ML :D
         - Challenges (Missing data, limited compute, ambiguity, etc.)
         - Successes
     - Relevant Hobbies
+   
+# Need Clarification:  
+- What if the base case is not O(1) in recursion? Do we multiply by number of rescursive calls?
+- Do we explicity delete pointers in Python by setting to None or garbage collector takes care of it? For example:
+
+```
+delete = prev.next # useless step?
+prev.next = prev.next.next
+delete = None # useless step?
+```
