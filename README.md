@@ -351,10 +351,7 @@ Permutations: n! If r = n
       - In-order of BST is a sorted array.
 
 # Binary Search:
-
-  - I think once trick to binary search is that when I know I can find something in mid, maybe I check for when low == high, otherwise, low/high is the answer, no need to check for mid in the while loop.
-
-      
+  - I think once trick to binary search is that when I know I can find something in mid, maybe I check for when low == high, otherwise, low/high is the answer, no need to check for mid in the while loop.      
   - In subarray sum etc problems, just start with creating a cum sum and if question talks about mod, just develop a mod table.
     - Remember that if you have a mod X, adding the divisor to numerator will result in the same mod again. This way you can detect sums.
   - When wanna group stuff, connected components is one way but if working with strings, and trying to group different sequences of strings together, designing a hash key to use might be the only way to go about it.
@@ -404,7 +401,6 @@ Permutations: n! If r = n
 
 - it would be _ **faster** _ to sort a series of subgroups than sorting them all together in a single group. Here is a not-so-rigid proof. Suppose that we have a list of _N_ elements, it would then take O(_N_log_N_) time to sort this list. Next, we divide the list into _k_ sublists equally. Each list would contain  _k/N_​ elements. Similarly, it would take O(_N/k_​log_N/k_​) time to sort each sublist. In total, to sort all the _k_ sublists, it would take O(_N_log_N/k_​), which is  **less than**  the time complexity of sorting the original list O(_N_log_N_)).
 
- 
 ## Quick Select:
     - The one I like is Lomuto btw
       - Easier to implemen
