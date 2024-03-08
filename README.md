@@ -276,32 +276,32 @@ Permutations: n! If r = n
 
 
 # Trees
-  - Can use depth-first or breadth-first to traverse a tree.
-  - If a binary tree is balanced, depth first search traversal might only be log(n) space complexity
-  - Level order BFS traversal can be done using:
-    - Just use a single queue if no need to process nodes at a single level
-    - Curr_level and next_level quques OR
-    - Curr_level and n_current_level iterations
+- Can use depth-first or breadth-first to traverse a tree.
+- If a binary tree is balanced, depth first search traversal might only be log(n) space complexity
+- Level order BFS traversal can be done using:
+  - Just use a single queue if no need to process nodes at a single level
+  - Curr_level and next_level quques OR
+  - Curr_level and n_current_level iterations
+
 
 # DFS
-    - If it's a graph instead of tree, we mark visited. We don't have to in a tree DFS.
-    - Avoid creating additional visited set if modifying input is allowed
-    - All Possibilies > DFS
-      - Optimize along the way to minimize recursion by adding contraints and early stopping
-      
--   - To track depth during BFS, you can use techniques like cur_level/next_level or loop through the original queue size within an outer loop.
-  - Avoid jumping straight to DFS backtracking for finding solutions. Explore simpler approaches first. Remember, DFS backtracking is essentially an easy brute-force method to explore all options.
+- If it's a graph instead of tree, we mark visited. We don't have to in a tree DFS.
+- Avoid creating additional visited set if modifying input is allowed
+- All Possibilies > DFS
+  - Optimize along the way to minimize recursion by adding contraints and early stopping
+- To track depth during BFS, you can use techniques like cur_level/next_level or loop through the original queue size within an outer loop.
+- Avoid jumping straight to DFS backtracking for finding solutions. Explore simpler approaches first. Remember, DFS backtracking is essentially an easy brute-force method to explore all options.
 
-    - There are cases where we are trying to backtrack essentially from the last failure with the help of a for loop to explore other solutions (similar to a graph structure / DFS for example). To catch a failed attempt and to continue exploring other options, catch the return False using an if condition and return True inside the if condition.
+- There are cases where we are trying to backtrack essentially from the last failure with the help of a for loop to explore other solutions (similar to a graph structure / DFS for example). To catch a failed attempt and to continue exploring other options, catch the return False using an if condition and return True inside the if condition.
 
-# BFS:
-    - In a graph, keep marking as visited before enqueing so we don't end up having duplicates in the queue
-    - Think of BFS as a general framework. The exact implementation will be different based on the application.
-      - Having same nodes with different costs in the queue (for example, in the form of priority queue) – Djikstra's/Prim's
-  -  At any given moment, a queue in BFS level order traversal would hold no more two levels of nodes.
-  - For a binary tree, the maximum number of nodes at a level would be N+1 / 2​ which is also the number of leafs in a full binary tree.
 
-  - At any given moment, the queue contains no more than  **two levels**  of nodes in the tree. The maximal number of nodes at one level is n/2​, which is the number of the leaf nodes in a balanced binary tree. As a result, the space needed for the queue would be O(_N_)
+# BFS
+- In a graph, keep marking as visited before enqueing so we don't end up having duplicates in the queue
+- Think of BFS as a general framework. The exact implementation will be different based on the application.
+  - Having same nodes with different costs in the queue (for example, in the form of priority queue) – Djikstra's/Prim's
+-  At any given moment, a queue in BFS level order traversal would hold no more two levels of nodes.
+- For a binary tree, the maximum number of nodes at a level would be N+1 / 2​ which is also the number of leafs in a full binary tree.
+- At any given moment, the queue contains no more than  **two levels**  of nodes in the tree. The maximal number of nodes at one level is n/2​, which is the number of the leaf nodes in a balanced binary tree. As a result, the space needed for the queue would be O(_N_)
 
 
 # DFS vs BFS
@@ -325,39 +325,41 @@ Permutations: n! If r = n
     - 1st option: normayll when we have different starting points such as in labelling connected components
     - 2nd option: when we have multiple decisions to make within a single call
 
+
 # Binary Trees:
-    - The key observation to make is: the longest path has to be between two leaf nodes.
-    - Here is the funny thing about BST. Inorder traversal is not a unique identifier of BST. At the same time both preorder and postorder traversals are unique identifiers of BST. From these traversals one could restore the inorder one: inorder = sorted(postorder) = sorted(preorder)
-      - Inorder + postorder or inorder + preorder are both unique identifiers of whatever binary tree
-    - In case of Binary Search Trees, only preorder or postorder traversal is sufficient to store structure information.
-      - **Method 1:**
-        - Need to extract in-order by sorting as well
-        - Select node from pre
-        - Find index using hashset from inorder
-        - Use index to partition left and right subtrees
-        - Increment pre_index counter
-        - Left and right pointers used only in base case as a stopping condition to indicate subtree has ended
-      - **Method 2:**
-        - Just use value ranges as a base case
-    - For a complete Binary Tree, level order traversal is sufficient to store the tree.
-      - Like heap is a complete binary tree. It uses can array and children can be accessed at particular indices. Do simple recursion that creates a node with arr[i] value and recurses while setting right and left children.
-    - A full Binary is a Binary Tree where every node has either 0 or 2 children. It is easy to serialize such trees as every internal node has 2 children.
-      - We can simply store preorder traversal and store a bit with every node to indicate whether the node is an internal node or a leaf node.
-      - Or use preorder and postorder. Preorder tells what is the root and postorder tells elements that are children/grand-children of the root. Do this recursively.
-    - How to store a general Binary Tree?
-      - A simple solution is to store both Inorder and Preorder traversals
-      - OR Have nulls indicated by None for every non-NULL node's children and do pre-order traversal with None as a base case**
-      - Preorder's first element is root. It's index in Inorder would give a midpoint. Elements to left belong to left subtree in inorder and SAME NUMBER of eleements in preorder.
-      - In-order of BST is a sorted array.
+- The key observation to make is: the longest path has to be between two leaf nodes.
+- Here is the funny thing about BST. Inorder traversal is not a unique identifier of BST. At the same time both preorder and postorder traversals are unique identifiers of BST. From these traversals one could restore the inorder one: inorder = sorted(postorder) = sorted(preorder)
+  - Inorder + postorder or inorder + preorder are both unique identifiers of whatever binary tree
+- In case of Binary Search Trees, only preorder or postorder traversal is sufficient to store structure information.
+  - **Method 1:**
+    - Need to extract in-order by sorting as well
+    - Select node from pre
+    - Find index using hashset from inorder
+    - Use index to partition left and right subtrees
+    - Increment pre_index counter
+    - Left and right pointers used only in base case as a stopping condition to indicate subtree has ended
+  - **Method 2:**
+    - Just use value ranges as a base case
+- For a complete Binary Tree, level order traversal is sufficient to store the tree.
+  - Like heap is a complete binary tree. It uses can array and children can be accessed at particular indices. Do simple recursion that creates a node with arr[i] value and recurses while setting right and left children.
+- A full Binary is a Binary Tree where every node has either 0 or 2 children. It is easy to serialize such trees as every internal node has 2 children.
+  - We can simply store preorder traversal and store a bit with every node to indicate whether the node is an internal node or a leaf node.
+  - Or use preorder and postorder. Preorder tells what is the root and postorder tells elements that are children/grand-children of the root. Do this recursively.
+- How to store a general Binary Tree?
+  - A simple solution is to store both Inorder and Preorder traversals
+  - OR Have nulls indicated by None for every non-NULL node's children and do pre-order traversal with None as a base case**
+  - Preorder's first element is root. It's index in Inorder would give a midpoint. Elements to left belong to left subtree in inorder and SAME NUMBER of eleements in preorder.
+  - In-order of BST is a sorted array.
+
 
 # Binary Search:
-  - I think once trick to binary search is that when I know I can find something in mid, maybe I check for when low == high, otherwise, low/high is the answer, no need to check for mid in the while loop.      
-  - In subarray sum etc problems, just start with creating a cum sum and if question talks about mod, just develop a mod table.
-    - Remember that if you have a mod X, adding the divisor to numerator will result in the same mod again. This way you can detect sums.
-  - When wanna group stuff, connected components is one way but if working with strings, and trying to group different sequences of strings together, designing a hash key to use might be the only way to go about it.
-    - Can use collisions to our advantage.
-    - See if processing char by char makes more logical sense or splitting by a delimiter.
-  - Visualize things in a practical manner as well in addition to in a data structure-oriented manner. E.g. if visualizing a unix file path, it makes sense to first visualize the problem by creating a tree similar to what we see in Windows file explorer.
+- I think once trick to binary search is that when I know I can find something in mid, maybe I check for when low == high, otherwise, low/high is the answer, no need to check for mid in the while loop.  
+- In subarray sum etc problems, just start with creating a cum sum and if question talks about mod, just develop a mod table.
+  - Remember that if you have a mod X, adding the divisor to numerator will result in the same mod again. This way you can detect sums.
+- When wanna group stuff, connected components is one way but if working with strings, and trying to group different sequences of strings together, designing a hash key to use might be the only way to go about it.
+  - Can use collisions to our advantage.
+  - See if processing char by char makes more logical sense or splitting by a delimiter.
+- Visualize things in a practical manner as well in addition to in a data structure-oriented manner. E.g. if visualizing a unix file path, it makes sense to first visualize the problem by creating a tree similar to what we see in Windows file explorer.
 
 # Graph and Tree Algorithms
   - *Spanning Tree:*
