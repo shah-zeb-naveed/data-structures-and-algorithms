@@ -155,7 +155,7 @@ Look for the twist. A detail. A detail that might look useless but it's there fo
    - Whenever we must work with a set of elements (emails) that are connected (belong to the same user), we should always consider visualizing our input as a graph. In this problem, converting the input into a graph will facilitate the process of merging two accounts.
     - Any problem that involves merging connected components (accounts) is a natural fit for DFS or the Disjoint Set Union (DSU) data structure.
   - **Instead of jumping straight into DSU for connected components type of questions, check if labelling can be given using hashmaps.**
-
+  - If you're aiming to merge or combine elements, consider using connected components algorithms.
  
  
     
@@ -426,7 +426,149 @@ Intervals:
   - Need to process something after? >>>>>>> Stack
 
 
+ - Binary Search:
+    - Can guess loose boundaries for initial search space and iterate
+     - Binary search remains tricky to implement. Is it mid or mid + 1? Do we return left or right and until when does the loop run.
+    - Do test infinite loop
+    - I think the safest thing to do is to test last two remaining separately.
+      
+  - In subarray sum etc problems, just start with creating a cum sum and if question talks about mod, just develop a mod table.
+    - Remember that if you have a mod X, adding the divisor to numerator will result in the same mod again. This way you can detect sums.
+  - When wanna group stuff, connected components is one way but if working with strings, and trying to group different sequences of strings together, designing a hash key to use might be the only way to go about it.
+    - Can use collisions to our advantage.
+    - See if processing char by char makes more logical sense or splitting by a delimiter.
+  - Visualize things in a practical manner as well in addition to in a data structure-oriented manner. E.g. if visualizing a unix file path, it makes sense to first visualize the problem by creating a tree similar to what we see in Windows file explorer.
+  - 
 
+      
+  - Do check if any sort of computations can be performed along the way. (Deduplication)
+    - Remember the operator precendence. If  or / are included:
+      - Have cur_operand, prev_operand and value to take care of precendence
+
+# Graph Algorithms
+  - **Spanning Tree:**
+      - **Wighted, undirected, connected graph**
+    - **Kruskal:**
+      - **Uses DSU**
+      - **E Log E for sorting and since we are taking union of nodes E times, that is E log V. E in worst case is V^2 so it's gonna be E log V**
+        - **Actually not log N. Remember with both path compression and union by rank, it actually becomes O(alpha N) where log is actually an upper bound and alpha refers to co-efficient of inverse Ackermann function**
+    - **Primms:**
+      - **Uses heap for optimal implementation**
+      - **O(V log E + E log E) time and O(E + V) space**
+        - **If edges in heap and V Log V + E Log V if nodes in heap by using min-heap operation**
+        - **Note that V might just be bounded by number of edges so expression might be further simplified**
+  - Shortest path from source to all nodes: djikstra's
+    - Dijkstra's algorithm doesn't work for graphs with negative weight cycles. It may give correct results for a graph with negative edges but you must allow a vertex can be visited multiple times and that version will lose its fast time complexity.
+      - For graphs with negative weight edges and cycles, Bellman–Ford algorithm can be used
+    - Similar to Prim's, uses heap
+    - O(V log E + E log E) time and O(E + V) space
+    - The process that underlies Dijkstra's algorithm is similar to the greedy process used in Prim's algorithm. Prim's purpose is to find a minimum spanning tree that connects all nodes in the graph Dijkstra is concerned with only two nodes. Prim's does not evaluate the total weight of the path from the starting node, only the individual path.
+      - Wanna connect all cities with railyway tracks > Prim's
+      - Wanna plan travel route starting from home > Djikstra's
+     
+Sorting:
+  - Space depends on the sorting implementation which, usually, costs O(1)O(1) auxiliary space if heapsort is used.
+
+Python:
+  - Feel free to use python tricks like len(set()) etc.
+
+  - Arrays:
+    - # speed up the rotation
+    - k %= len(nums)
+  - Two Pointer:
+  -   Be smart when you have two arrays to process. Might be more efficient to process smaller array first.
+  -   While doing two-pointers, try to control the loop with the fast-moving or the more progressive pointer and try to restrict with a single outer while loop instead of having an internal loop as well. This will result in a simpler implementation. Opposite can be true sometimes as well.
+
+
+  Bits:
+  - To optimize space, using bits might be more efficient
+
+  Hashing:
+  - **Use a hash table instead of a fixed size counter. Imagine allocating a large size array to fit the entire range of unicode characters, which could go up to more than 1 million. A hash table is a more generic solution and could adapt to any range of characters.**
+    - **This is contradicting to my understanding above.**
+      - **Actually not. I think the main point here. In this question Valid Anagram, we preallocate memory for storing freqenices of ASCIIs which aer only 26. So hashing them is useless and slow.**
+      - **If it were all the Unicode characters (1million), it will result to a useless sparse vector and we may start hitting memory limits.**
+    - **In this issue for SparseVector question, we keep increasing the size of either hashmap or list. For very large, collisions may start occurring in hashmap thus reducing performance and, although both hashmap and list will need to resize (hashmap resizes at 0.75 load factor by default),**  **the resizing is cheaper in case of arrays.**
+      - **The performance of dot product is still far more efficient so might depend whether insertions are more frequent or dot-products.**
+        - **If we go with the array of tuples route AND one of the vectors is not sparse enough, do binary search instead of linear scan**
+
+Trie:
+  - Don't jump into using a trie if you see prefix. That depends if the query will be repeated or not. If yes, trie will be more efficient as it compresses the information.
+    - For complete English dict, 70% compression
+  - If messing up with input such as linked list or matrix, see if you can restore it
+
+Bits:
+  - **to retrieve the ** _ **right-most** _** bit in an integer n, one could either apply the modulo operation (**_ **i.e.** _** n % 2) or the bit AND operation (**_ **i.e.** _** n &amp 1). Add binary numbers using &amp or OR.**
+  - but there is popular Facebook variation of this problem when interviewer provides you two numbers and asks to sum them up without using addition operation. No addition? OK, bit manipulation then. How to start? There is an interview tip for bit manipulation problems: if you don't know how to start, start from computing XOR for your input data. Strangely, that helps to go out for quite a lot of problems, Single Number II, Single Number III, Maximum XOR of Two Numbers in an Array, Repeated DNA Sequences, Maximum Product of Word Lengths, etc.
+  - Inverse Ackermann Function:
+    - I couldn't comprehend what Ackerman function really is but looks something that is even worse than exponential
+    - It's inverse is really slow with an upper bound of O(logN)
+      -  that it doesn't exceed 4 for all reasonable N_N_ (approximately N < 10^{600}_N_<10600).
+  - XOR is addition without taking into account carry
+    - Take XOR of x and y to get sum without carry
+    - Get carry as AND and shifted one bit to the left
+    - Make carry your new Y and continue until carry dies down
+      
+Arrays:    
+  - Trying to do 2 Pass over a single array?
+    - Either you are doing duplicating work
+    - Or if not, see if you can reduce the space required.
+   
+Strings:
+  - While processing string, check if dropping irrelevant characters reduces runtime
+  - Instead of comparing dictionaries of counters, can we just keep a count of how many characters have been found?
+    - formed_count
+    - instead of comparing dicitonaries, compare arrays
+
+
+# Complexity Analysis
+
+## When analyzing complexity, consider factors like:
+- Maximum input lengths (for worst-case scenarios)
+- String lengths when dealing with strings
+
+## General Problem-Solving Techniques
+- **Optimize Standard Algorithms:** Explore ways to improve standard algorithms like BFS and Dijkstra's using heuristics.
+- **Reduce Redundancy:**
+  - Whenever you use cumulative sums, try to minimize them to a single variable.
+  - Consider combining two-pass solutions into a single pass for efficiency.
+- **Data Structures:**
+  - For integer keys, prioritize arrays over hash maps for efficiency.
+  - Utilize arrays for precomputation techniques like prefix/suffix sums, min/max values.
+  - Decide whether to start calculations from the beginning or the end based on the problem (e.g., prefix sums start from the beginning, finding max to the right benefits from starting at the end).
+- **Two-Dimensional Matrices:**
+  - In some cases, you might need an additional matrix with similar dimensions to store intermediate results for 2D matrix problems.
+  - Evaluate if using the input matrix directly is feasible and allowed.
+- **Bipartite Graphs:**
+  - A bipartite graph is an undirected graph where vertices connected by edges belong to different sets.
+  - It can be disconnected.
+  - Formally, a bipartite graph is a set of vertices divided into two disjoint sets such that no two vertices within the same set are connected by an edge.
+- **Summation Series:**
+  - The series N + N/2 + N/4 + … 1 = 2N is a geometric series and should not be confused with traditional binary search, which halves the search space at each iteration (O(log N) time complexity).
+- **QuickSort and QuickSelect:**
+  - In QuickSort's recursive branching, you can ignore the partition that doesn't contain the kth element. This is the foundation of QuickSelect, which leverages this to create a more space-efficient iterative solution.
+- **Connected Components:**
+
+- **Interval Overlap:**
+  - Two intervals overlap if a[0] <= b[1] and b[0] <= a[1].
+- **Prefix Sums:**
+  - Always consider using prefix sums to optimize calculations.
+- **Brute Force vs. DFS Backtracking:**
+  - Avoid jumping straight to DFS backtracking for finding solutions. Explore simpler approaches first. Remember, DFS backtracking is essentially an easy brute-force method to explore all options.
+- **Case Handling:**
+  - If n is negative, substitute x with 1/x to make n non-negative.
+- **Tracking Depth in BFS:**
+  - To track depth during BFS, you can use techniques like cur_level/next_level or loop through the original queue size within an outer loop.
+- **String Manipulation:**
+  - Inside loops, avoid creating new strings every time. Use lists instead to prevent O(n^2) complexity.
+- **Problem-Solving Approach:**
+  - When stuck optimizing a solution, try these steps:
+    - Take a step back and re-evaluate the problem from a different perspective.
+    - Consider reframing the problem.
+    - Explore if reversing the approach might be helpful.
+
+   
+      
 
 **Math:**
   - Equation involved? HAVE to do some manipulation like log/anti-log and stuff. (NOT SURE WHAT WAS THIS)
@@ -505,125 +647,14 @@ Intervals:
   - Is the tree balanced? Complete? Binary?
 
 
-  - Binary Search:
-    - Can guess loose boundaries for initial search space and iterate
-     - Binary search remains tricky to implement. Is it mid or mid + 1? Do we return left or right and until when does the loop run.
-    - Do test infinite loop
-    - I think the safest thing to do is to test last two remaining separately.
-      
-  - In subarray sum etc problems, just start with creating a cum sum and if question talks about mod, just develop a mod table.
-    - Remember that if you have a mod X, adding the divisor to numerator will result in the same mod again. This way you can detect sums.
-  - When wanna group stuff, connected components is one way but if working with strings, and trying to group different sequences of strings together, designing a hash key to use might be the only way to go about it.
-    - Can use collisions to our advantage.
-    - See if processing char by char makes more logical sense or splitting by a delimiter.
-  - Visualize things in a practical manner as well in addition to in a data structure-oriented manner. E.g. if visualizing a unix file path, it makes sense to first visualize the problem by creating a tree similar to what we see in Windows file explorer.
-  - 
-
-      
-  - Do check if any sort of computations can be performed along the way. (Deduplication)
-    - Remember the operator precendence. If  or / are included:
-      - Have cur_operand, prev_operand and value to take care of precendence
-        
-  - **Spanning Tree:**
-      - **Wighted, undirected, connected graph**
-    - **Kruskal:**
-      - **Uses DSU**
-      - **E Log E for sorting and since we are taking union of nodes E times, that is E log V. E in worst case is V^2 so it's gonna be E log V**
-        - **Actually not log N. Remember with both path compression and union by rank, it actually becomes O(alpha N) where log is actually an upper bound and alpha refers to co-efficient of inverse Ackermann function**
-    - **Primms:**
-      - **Uses heap for optimal implementation**
-      - **O(V log E + E log E) time and O(E + V) space**
-        - **If edges in heap and V Log V + E Log V if nodes in heap by using min-heap operation**
-        - **Note that V might just be bounded by number of edges so expression might be further simplified**
-  - Shortest path from source to all nodes: djikstra's
-    - Dijkstra's algorithm doesn't work for graphs with negative weight cycles. It may give correct results for a graph with negative edges but you must allow a vertex can be visited multiple times and that version will lose its fast time complexity.
-      - For graphs with negative weight edges and cycles, Bellman–Ford algorithm can be used
-    - Similar to Prim's, uses heap
-    - O(V log E + E log E) time and O(E + V) space
-    - The process that underlies Dijkstra's algorithm is similar to the greedy process used in Prim's algorithm. Prim's purpose is to find a minimum spanning tree that connects all nodes in the graph Dijkstra is concerned with only two nodes. Prim's does not evaluate the total weight of the path from the starting node, only the individual path.
-      - Wanna connect all cities with railyway tracks > Prim's
-      - Wanna plan travel route starting from home > Djikstra's
-  - Space depends on the sorting implementation which, usually, costs O(1)O(1) auxiliary space if heapsort is used.
-  - Feel free to use python tricks like len(set()) etc.
-  - Be smart when you have two arrays to process. Might be more efficient to process smaller array first.
-  - While doing two-pointers, try to control the loop with the fast-moving or the more progressive pointer and try to restrict with a single outer while loop instead of having an internal loop as well. This will result in a simpler implementation. Opposite can be true sometimes as well.
-  - Grouping cells in a 2D Matrix:
-    - Left-to-right diagonal: r + c
-    - Right-to-left diagonal: c - r
-    - Boxes of size k: (r // k, c // k)
-  - Arrays:
-    - # speed up the rotation
-    - k %= len(nums)
-  - To optimize space, using bits might be more efficient
-  - Beware: even if using an array or hashmap or set, if the size is gonna remain constant with respect to input size than we don't count it in space complexity.
-  - **Use a hash table instead of a fixed size counter. Imagine allocating a large size array to fit the entire range of unicode characters, which could go up to more than 1 million. A hash table is a more generic solution and could adapt to any range of characters.**
-    - **This is contradicting to my understanding above.**
-      - **Actually not. I think the main point here. In this question Valid Anagram, we preallocate memory for storing freqenices of ASCIIs which aer only 26. So hashing them is useless and slow.**
-      - **If it were all the Unicode characters (1million), it will result to a useless sparse vector and we may start hitting memory limits.**
-    - **In this issue for SparseVector question, we keep increasing the size of either hashmap or list. For very large, collisions may start occurring in hashmap thus reducing performance and, although both hashmap and list will need to resize (hashmap resizes at 0.75 load factor by default),**  **the resizing is cheaper in case of arrays.**
-      - **The performance of dot product is still far more efficient so might depend whether insertions are more frequent or dot-products.**
-        - **If we go with the array of tuples route AND one of the vectors is not sparse enough, do binary search instead of linear scan**
-  - Don't jump into using a trie if you see prefix. That depends if the query will be repeated or not. If yes, trie will be more efficient as it compresses the information.
-    - For complete English dict, 70% compression
-  - If messing up with input such as linked list or matrix, see if you can restore it
-  - **to retrieve the ** _ **right-most** _** bit in an integer n, one could either apply the modulo operation (**_ **i.e.** _** n % 2) or the bit AND operation (**_ **i.e.** _** n &amp 1). Add binary numbers using &amp or OR.**
-  - Trying to do 2 Pass over a single array?
-    - Either you are doing duplicating work
-    - Or if not, see if you can reduce the space required.
-  - While processing string, check if dropping irrelevant characters reduces runtime
-  - Instead of comparing dictionaries of counters, can we just keep a count of how many characters have been found?
-    - formed_count
-    - instead of comparing dicitonaries, compare arrays
-  - but there is popular Facebook variation of this problem when interviewer provides you two numbers and asks to sum them up without using addition operation. No addition? OK, bit manipulation then. How to start? There is an interview tip for bit manipulation problems: if you don't know how to start, start from computing XOR for your input data. Strangely, that helps to go out for quite a lot of problems, Single Number II, Single Number III, Maximum XOR of Two Numbers in an Array, Repeated DNA Sequences, Maximum Product of Word Lengths, etc.
-  - Inverse Ackermann Function:
-    - I couldn't comprehend what Ackerman function really is but looks something that is even worse than exponential
-    - It's inverse is really slow with an upper bound of O(logN)
-      -  that it doesn't exceed 4 for all reasonable N_N_ (approximately N < 10^{600}_N_<10600).
-  - XOR is addition without taking into account carry
-    - Take XOR of x and y to get sum without carry
-    - Get carry as AND and shifted one bit to the left
-    - Make carry your new Y and continue until carry dies down
-  - BFS will have nodes of at most two unique distances on the queue at any one time
-  - Different anagrams are same in sorted order but an even better way to show similarity is to create a 26 letter array and store counts and hash the tuple.
-  - While consiiderig complexity of strings, also take into account their length
-  - In complexity, talk about maximum lengths etc for worst case
-  - A approach adds heuristics to the standard BFS/Djikstra's to optimize
-  - Whenever you do cum_sum, almost always reduce it to a single variable.
-  - 2-passes are often manageable in a single pass.
-  - When dealing with integer keys, think Arrays first instead of hashmaps
-  - With arrays, think about precomputation:
-    - Prefix/suffix sum/max/min
-    - See if starting from start makes sense or from the end e.g.
-      - For cum sum, start
-      - If wanna see max to the right >, starting from the end makes more sense
-  - For 2D matrix based questions:
-    - Sometimes we may need to have a matrix of similar dimensions to store intermediate results
-    - See if using input matrix is feasible and allowed
-  - **A bipartite graph is an undirected graph whose both vertices of all edges belong to different sets. Or a graph which we can color alternatively with 2 colors.**
-    - **Doesn't have to be connected**
-    - **Formal definition:**
-      - **A bipartite graph, also called a bi-graph, is a set of graph vertices decomposed into two disjoint sets such that no two graph vertices within the same set are adjacent.**
-  -  N + N/2 + N/4 + … 1 = 2N
-    - Do not confuse this with traditional Binary Search where we do halve the space at every iteration but at every iteration we do O(1) time
-  - At each recursive branching of the QuickSort function, we can ignore the partition which does not include the k^{th}k value. This is the basis for the QuickSelect algorithm. An immediate benefit of being able to ignore one of the two resulting partitions at each step is that we no longer need to use recursion to branch the process. We can instead convert the function to a more space-friendly iterative solution that uses only a constant amount of space.
-  - Wanna merge something or combine something > Connected Components
-  - **Intervals Overlap if: a[0] <= b[1] and b[0] <= a[1]**
-  - Whenever calculation required, think about running calculation to optimize
-  - ALWAYS think about prefix sums. ALWAYS.
-  - Do not jump into dfs backtracking to find something. Think about simpler solutions first.
-    - Remember dfs backtracking is just an easy bruteforce method to explore all options that are difficult to find other than dfs backtracking.
-  - If n < 0, we can substitute x with 1/x and keep n >= 0
-  - If need to track depth, the cur_level/next_level or looping through original size of queueu inside outer loop might be appropriate
-  - Insidea loop, should not re-make string every time. use list instead to avoid making it O(n^2)
-  - When you think that there is no other freaking way to optimize the solution and you've exhausted throwing all data structures and algorithms:
-    - Take a step back and try to take a different perspective to the problem
-      - Look at it differently
-      - Try to frame it differently
-    - Does reversing help?
+ 
 
 
 
 # Time and Space Complexity Analysis
+
+  - Beware: even if using an array or hashmap or set, if the size is gonna remain constant with respect to input size than we don't count it in space complexity.
+
 
 ## Average Case vs. Amortized Analysis
 - Average case analysis makes assumptions about the input that may not be met in certain cases. Therefore, if your input is not random, in the worst case the actual performance of an algorithm may be much slower than the average case.
@@ -634,7 +665,7 @@ Intervals:
 
 ## Constant Time Complexity
 - When things are constant, the big O is constant e.g. if we know properties of an object are 4, then looping over its properties will not be O(p) but O(1).
-- Always drop constants O(n).
+- Always drop constants O(4n) -> O(n).
 
 ## Impact of Different List Sizes
 - With two lists, with binary search, the time complexity becomes L1log(L2) instead of L1 + L2. Let's say, L2 is few orders of magnitude bigger than L1, like L1=5 and L2 = 1024. L1log(L2) = 5log(1024) = 50, whereas L1 + L2 = 5 + 1024 = 1029, so it does make a difference.
@@ -662,11 +693,11 @@ Intervals:
 | --- | --- |
 | DFS | O(V + E) explore all vertices and edges – O(V) Need to maintain visited set |
 | BFS | O(V + E) explore all vertices and edges – O(V) hold all vertices in the queue |
-| Both time and space become O(V^2) if adjacency matrix is used instead of adj. list. |
-| **To summarize for trees where height is less than max width, DFS uses less space asymptotically. For trees where max width is less than height BFS uses less space asymptotically.** |
+| Both time and space become O(V^2) if an adjacency matrix is used instead of adj. list. |
+| For trees where height is less than max-width, DFS uses less space asymptotically. | For trees where max width is less than height BFS uses less space asymptotically. |
 
 
-**Matrix:**
+#**Matrix:**
   - **Number of diagonals in a matrix are (ROWS + COLS - 1)**
   - In matrices, for time complexity, we may not be allowed to go back to the parent cell so branches might actually be branches minus 1.
 - For intermediate calculations, create a temporary matrix but it will take more space
@@ -674,21 +705,23 @@ Intervals:
   - To assign IDs of components
   - Indicators etc.
     - In matrice traversals, if wanna go to point B from A. It is the same as going to A from B.
-
-
+  - Grouping cells in a 2D Matrix:
+    - Left-to-right diagonal: r + c
+    - Right-to-left diagonal: c - r
+    - Boxes of size k: (r // k, c // k)
 
     
-**Greedy Algorithms:**:
+#**Greedy Algorithms:**:
 - Greedy problems usually look like Find minimum number of something to do something or Find maximum number of something to fit in some conditions, and typically propose an unsorted input.
 - The idea of greedy algorithm is to pick the locally optimal move at each step, that will lead to the globally optimal solution.
 - How to prove that your greedy algorithm provides globally optimal solution? Usually you could use the proof by contradiction.
     
 
-**Dynamic Programming**:
+#**Dynamic Programming**:
 
 Facebook said no need for ML :D
 
-**1D:**
+##**1D:**
 - dynamic programming -> observe if any redundant operations are being peformed.
 - think brute force, visualize tree or graph (decision tree can be visualized as options or a binary tree), understand subproblems, think saving results in an array in bottom up approach (memoization is top-down approach but less efficient and easier to come up with). Also, trees or graphs may be difficult so can also think of two parallel timelines (using a max operation). think whether to start from end or start of array. there's one problem for which dp was not done so implemented dfs backtracking coz had to maintain all the combinations.
 - think logically. try to fill in a dp matrix or dp array manually, from left to right or right to left. In many cases, it's bottom up.
@@ -703,7 +736,7 @@ Facebook said no need for ML :D
 -  subsequences can be modelled as "starting at index" or "ending at index".
 -  Stair base case 1 why?
 
-**2D:**
+##**2D:**
 -  Try bottom-up (from end) and define base case. in 2d, can go left to right and bottom to top.
 -  Define appropriate value for out of bound (like 0 of inf)
 -  May not need to store entire 2D array. Maybe just selected rows.
@@ -716,7 +749,7 @@ Facebook said no need for ML :D
 
 
 
-**Data Structures Udacity Course:**
+#**Data Structures Udacity Course:**
 - Linked Lists make inserting and deleting so easy but Arrays are good in terms of having indices.
   - Index vs Reference to the next element
   - In particular, arrays are contiguous memory blocks, so large chunks of them will be loaded into the cache upon first access. This makes it comparatively quick to access future elements of the array. Linked lists on the other hand aren't necessarily in contiguous blocks of memory, and could lead to more cache misses, which increases the time it takes to access them.
@@ -832,7 +865,7 @@ Facebook said no need for ML :D
   - A problem may have both DFS and BFS solution like the count_islands problem
 
 
-**Final Interview Tips**:
+#**Final Interview Tips**:
   - In my current job, I've successfully done this and that.
     - Guide your interviewer, take the steering wheel
       - Project:
