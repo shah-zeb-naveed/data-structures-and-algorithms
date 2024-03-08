@@ -623,47 +623,49 @@ Intervals:
 
 
 
-**Time and Space Complexity Analysis:**
-  - Average case analysis makes assumptions about the input that may not be met in certain cases. Therefore, if your input is not random, in the worst case the actual performace of an algorithm may be much slower than the average case.
-    - Amortized analysis makes no such assumptions, but it considers the total performance of a sequence of operations instead of just one operation.
-    - Dynamic array insertion provides a simple example of amortized analysis. One algorithm is to allocate a fixed size array, and as new elements are inserted, allocate a fixed size array of double the old length when necessary. In the worst case a insertion can require time proportional to the length of the entire list, so in the worst case insertion is an O(n) operation. However, you can guarantee that such a worst case is infrequent, so insertion is an O(1) operation using amortized analysis. Amortized analysis holds no matter what the input is.
+# Time and Space Complexity Analysis
+
+## Average Case vs. Amortized Analysis
+- Average case analysis makes assumptions about the input that may not be met in certain cases. Therefore, if your input is not random, in the worst case the actual performance of an algorithm may be much slower than the average case.
+  - Amortized analysis makes no such assumptions, but it considers the total performance of a sequence of operations instead of just one operation.
+  - Dynamic array insertion provides a simple example of amortized analysis. One algorithm is to allocate a fixed size array, and as new elements are inserted, allocate a fixed size array of double the old length when necessary. In the worst case, an insertion can require time proportional to the length of the entire list, so in the worst case insertion is an O(n) operation. However, you can guarantee that such a worst case is infrequent, so insertion is an O(1) operation using amortized analysis. Amortized analysis holds no matter what the input is.
     - Example:
-      - When analyzing amortized time complexities, I find it easiest to reason that each node gets pushed and popped exactly once in next() when iterating over all N nodes.
-That comes out to 2N * O(1) over N calls to next(), making it O(1) on average, or O(1) amortized.
+      - When analyzing amortized time complexities, I find it easiest to reason that each node gets pushed and popped exactly once in next() when iterating over all N nodes. That comes out to 2N * O(1) over N calls to next(), making it O(1) on average, or O(1) amortized.
+
+## Constant Time Complexity
+- When things are constant, the big O is constant e.g. if we know properties of an object are 4, then looping over its properties will not be O(p) but O(1).
+- Always drop constants O(n).
+
+## Impact of Different List Sizes
+- With two lists, with binary search, the time complexity becomes L1log(L2) instead of L1 + L2. Let's say, L2 is few orders of magnitude bigger than L1, like L1=5 and L2 = 1024. L1log(L2) = 5log(1024) = 50, whereas L1 + L2 = 5 + 1024 = 1029, so it does make a difference.
+  - If L1 and L2 sizes are different, then L1logL2 is less than L1 + L2.
+    - If A = B = 6:
+      - A + B = 12
+      - In base 2, 6 log 6 = 6 * 2.58 > 12
+    - If A = B = 1024:
+      - A + B = 2048
+      - A log B = 1024 * 10 = 10,024
+    - If A = 5, B = 1024:
+      - A + B = 1029
+      - A log B = 5 * 10 = 5.
+
+## General Tips
+- Keep it simple.
+- Quote the space complexity as well. Remember recursive calls means more space.
+- If a problem involves multiple queries, just quote for a single query/iteration.
+- Keep variables as separate as possible.
+  - At the end, may simplify by combining them (approximating them for worst case).
+  - For example, keep edges E and vertices V separate.
+
+## Graph and Tree Time and Space Complexity
+| Graph (Time – Space) | Tree (Time – Space) |
+| --- | --- |
+| DFS | O(V + E) explore all vertices and edges – O(V) Need to maintain visited set |
+| BFS | O(V + E) explore all vertices and edges – O(V) hold all vertices in the queue |
+| Both time and space become O(V^2) if adjacency matrix is used instead of adj. list. |
+| **To summarize for trees where height is less than max width, DFS uses less space asymptotically. For trees where max width is less than height BFS uses less space asymptotically.** |
 
 
-  - When things are constant, the big O is constant e.g. if we know properties of an object are 4, then looping over its properties will not be O(p) but O(1)
-  - Always drop constants O(n)
-  - With two lists, with binary search, the time complexity becomes L1log(L2) instead of L1 + L2. Let's say, L2 is few orders of magnitude bigger than L1, like L1=5 and L2 = 1024. L1log(L2) = 5log(1024) = 50, whereas L1 + L2 = 5 + 1024 = 1029, so it does make a difference.
-    - If L1 and L2 sizes are different, then L1logL2 is less than L1 + L2
-      - If A = B = 6:
-        - A + B = 12
-        - In base 2, 6 log 6 = 6  2.58 > 12
-      - If A = B = 1024:
-        - A + B = 2048
-        - A log B = 1024  10 = 10,024
-      - If A = 5, B = 1024:
-        - A + B = 1029
-        - A log B = 5 10 = 5
-  - Keep it simple.
-  - Quote the space complexity as well. Remember recursive calls means more space
-  - If a problem involves multiple queries, just quote for a single query/iteration
-  - Keep variables as separate as possible
-    - At the end, may simplify by combining them (approximating them for worst case)
-    - For example, keep edges E and vertices V separate
-
-|
- | Graph (Time – Space) | Tree (Time – Space) |
- |
-| --- | --- | --- | --- |
-| DFS | O(V + E) explore all vertices and edges – O(V) Need to maintain visited set | O(V) Edges become redundant in a tree – O(V) O(h) but for a skewed tree, will end up holding all the nodes on stack. **O(branching^m) where m is max depth is another notation for time - O(bm) since gotta store all siblings along the max path**. |
- |
-| BFS | O(V + E) explore all vertices and edges – O(V) hold all vertices in the queue | O(V) Edges become redundant in a tree – O(V) skewed is best case as only one node per level but for a balanced, last level will result in n / 2 nodes |
- |
-|
- | Both time and space become O(v^2) if adjacency matrix is used instead of adj. list. |
- | **To summarize for trees where height is less than max width, DFS uses less space asymptotically. For trees where max width is less than height BFS uses less space asymptotically.** |
- 
 **Matrix:**
   - **Number of diagonals in a matrix are (ROWS + COLS - 1)**
   - In matrices, for time complexity, we may not be allowed to go back to the parent cell so branches might actually be branches minus 1.
