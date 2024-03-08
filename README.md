@@ -1,5 +1,5 @@
 **Data Structures:**
-  - Hash Tables
+  - Hash
   - Linked Lists
   - Stacks
   - Queues
@@ -40,9 +40,11 @@
 - What if the base case is not O(1) in recursion? Do we multiply by number of rescursive calls?
 - Do we explicity delete pointers in Python by setting to None or garbage collector takes care of it? For example:
 
-#         delete = prev.next # useless step?
-#         prev.next = prev.next.next
-#         delete = None # useless step?
+```
+delete = prev.next # useless step?
+prev.next = prev.next.next
+delete = None # useless step?
+```
 
 
 **General Python:**
@@ -66,14 +68,7 @@
     - Remember subset is not contiguous
     - Subsets are not combinations
 
-
-**Other**:
-- Maximize use of hash
-- Think about running sums
- - Minor: use _ for variables that are not required, such as loop iterator to pretend you're a pro-grammer.
-- If you have an order or if you have a range, just use it to iterate in a sorted order. No need to .sort.
-
-    
+ 
 **Linked-lists**:
 - Linked Lists would need a dummy node (or None) or two pointer approach in many case. Two pointer could be a fast and slow (to detect cycle or middle). Or it could be in same direction and speed but with a gap to find from last nth node. Reverse can be iterative or recursive (like stack).
 - dummy nodes are your best friends when dealing with linked lists
@@ -103,8 +98,16 @@
   - *In the previous approach we rely on the system stack for our recursion's space requirements. However, as we all know, that stack is limited and for extremely long trees, it might not be feasible to use the system stack. So, we need to use our own stack that will be allocated memory on the heap and will be able to handle much larger sized trees easily.*
 Monotonic stack (a stack with a certain order)
       - **Next Less Element and Previous Less Element problems can be solved efficiently**
+    
+  - Make sure to make most out of running sums/running mins/running maxes instead of creating another pass.
+  - For parenthesis related questions > stack / calculate balance (1 for closing/-1 for opening / max size of stack
+    - If balance can solve the problem, no need to create additional stack
+  - Need to process something after? >>>>>>> Stack
 
 
+  - Feel free to use python tricks like len(set()) etc.
+
+    - 
 **Arrays**:
   - Often O(n^2) array based solutions have some duplicated work being done.
     - Try caching
@@ -126,9 +129,17 @@ Monotonic stack (a stack with a certain order)
 - Instead of handling corner cases when subtracting in a cyclic manner, handle it with mod e.g. clock.
 - Two-pointers
 - Don't try to apply algos right away. There could be simple array swapping/other operations that can be used for a simpler solution.
- 
+   - Trying to do 2 Pass over a single array?
+    - Either you are doing duplicating work
+    - Or if not, see if you can reduce the space required.
+    - # speed up the rotation
+    - k %= len(nums)
+  - Two Pointer:
+  -   Be smart when you have two arrays to process. Might be more efficient to process smaller array first.
+  -   While doing two-pointers, try to control the loop with the fast-moving or the more progressive pointer and try to restrict with a single outer while loop instead of having an internal loop as well. This will result in a simpler implementation. Opposite can be true sometimes as well.
+          - For integer keys, prioritize arrays over hash maps for efficiency.
+  - Utilize arrays for precomputation techniques like prefix/suffix sums, min/max values.
 
-        
 **General Tips and Techniques:**:
   - Too many if conditions is a strong indicator that a simpler solution exists
   - There can be ways that you first apply the general algorithm and then do some corrections to match the problem statement
@@ -148,7 +159,19 @@ Look for the twist. A detail. A detail that might look useless but it's there fo
     - If input has useless elements
   - Sometimes reframing the problem simplifies or provides an opportunity for optimization
   - Whenever have to do a single O(N) pass, just make sure if the same can be achieved in previous iterations by maintaining a running sum/min/max etc.
+- Maximize use of hash
+- Think about running sums
+- If you have an order or if you have a range, just use it to iterate in a sorted order. No need to .sort.
+      
+  - Do check if any sort of computations can be performed along the way. (Deduplication)
+    - Remember the operator precendence. If  or / are included:
+      - Have cur_operand, prev_operand and value to take care of precedence
 
+- **Reduce Redundancy:**
+  - Whenever you use cumulative sums, try to minimize them to a single variable.
+  - Consider combining two-pass solutions into a single pass for efficiency.
+- **Data Structures:**
+  - Decide whether to start calculations from the beginning or the end based on the problem (e.g., prefix sums start from the beginning, finding max to the right benefits from starting at the end).
 
 
 **Connected Components:**
@@ -167,43 +190,11 @@ Look for the twist. A detail. A detail that might look useless but it's there fo
       - deque.popLeft()/pop(), append()/extendLeft, q
 - Deque is better than queue
     
-**Defining Graphs:**
-- Adjacency matrix MAY sometimes be helpful than adjacency list (0 indicates self or disconnected).
-    - tuple of edge as a key
-  - Instead of deleting from heap, might just be better off not considering it when its time comes during popping. Lazy delete.
-  - Defining graph:
-    - - Choose format according to the problem. Do you even need a dictionary mapping or just a list of edges will work? If you need unique edges, defining a graph using a dict (adjacency list) will cause additional overhead.
-    - Better to create a class with add_edge() method.
-
-
-**Trees/Graphs:**
-  - Can use depth-first or breadth-first to traverse a tree.
-  - Design a basic class for example, a Node Class with value, right child and left child in a binary tree
-  - Safe to assume that a binary search tree is balanaced or not? Is it a binary search tree or just a binary tree?
-  - Topological Sort might be needed if we wanna extract the order but if we already have the order, just use hashmap and iterate over it.
-**Eulerian Path is a path in graph that visits every edge exactly once. Eulerian Cycle is an Eulerian Path which starts and ends on the same vertex.**
-    - Cycle if all degrees are even
-      - Forget about 0 degree vertices
-    - **In graph theory, an Eulerian trail (or Eulerian path) is a trail in a finite graph that visits every edge exactly once (allowing for revisiting vertices).**
-
-**DFS vs BFS**:
-  - If it is known that answer lies nearby the source node in graph, or to get optimal answer, BFS should be used.
-  - BFS is ideal when we wanna find optimal path to take. We can make branches that can represent next potential steps and all of them would have the same cost as they all are siblings. In other words, we can label each solution and keep the label in the BFS queue.
-  - DFS if answer lies quite far away or if backtracking is needed or if entire graph has to be traversed.
-  - Cycle detection in a graph
-  - Solving a maze because in DFS you explore every possible path before backtracking.
-  - Checking if a graph is bipartite or not
-  - Finding out strongly connected components of a graph.
-  - Longest path between two nodes in a graph etc.
-
-
-**DFS:**
-    - There are cases where we are trying to backtrack essentially from the last failure with the help of a for loop to explore other solutions (similar to a graph structure / DFS for example). To catch a failed attempt and to continue exploring other options, catch the return False using an if condition and return True inside the if condition.
 
 
 
 
-**Hashing:**:
+# **Hashing:**:
   - Hashing: h(large_value) = large_value % size_of_hash
     - If I'm not wrong, for intergers hash = f(x) = x
 
@@ -218,17 +209,24 @@ Look for the twist. A detail. A detail that might look useless but it's there fo
     - **Smaller or larger does not make them less or more sparse. For example, a vector could have 1 billion numbers, out of which only 10 million are non zeroes. This would be a very large list and still sparse vector. In a hash table, a common issue is hash collision. Typically we reduce collision by over allocating. For example, for a 10 million entry hash table, we might allocate memory for say 13 million entries based on 0.75% load factor. When we hash such large lists (I know 10 million ints is not really that large, but there are other items in memory and imagine many such parallel calculations being done) , we may start hitting memory limits so over allocating gets difficult, and we get too many hash collisions. Smaller in the context meant (and the interviewer gave me some similar numbers), 1 vector was 1 billion numbers and the other vector had only 1 million or less entries**
     - **I got this question today on my FB interview. I proposed the Hash solution, and he asked the downside to it. I responded with large size of sparse vectors, hash collisions will occur when we hit memory allocation limits, etc. He asked alternative solutions and I proposed array of (index, value) pair. He asked me to code that. Then he added a constraint where one vector is considerably smaller than the other, and asked if we can improve the time complexity from O(m+n). After some scratching around, I told them that we can by doing binary-search of small vector's index over the larger one. This should improve the time-complexity. Was not sure of the exact Big Oh, but it should be better than m  log(n), since the search space should keep reducing from n. Fingers crossed for the results**
 
+  - **Use a hash table instead of a fixed size counter. Imagine allocating a large size array to fit the entire range of unicode characters, which could go up to more than 1 million. A hash table is a more generic solution and could adapt to any range of characters.**
+    - **This is contradicting to my understanding above.**
+      - **Actually not. I think the main point here. In this question Valid Anagram, we preallocate memory for storing freqenices of ASCIIs which aer only 26. So hashing them is useless and slow.**
+      - **If it were all the Unicode characters (1million), it will result to a useless sparse vector and we may start hitting memory limits.**
+    - **In this issue for SparseVector question, we keep increasing the size of either hashmap or list. For very large, collisions may start occurring in hashmap thus reducing performance and, although both hashmap and list will need to resize (hashmap resizes at 0.75 load factor by default),**  **the resizing is cheaper in case of arrays.**
+      - **The performance of dot product is still far more efficient so might depend whether insertions are more frequent or dot-products.**
+        - **If we go with the array of tuples route AND one of the vectors is not sparse enough, do binary search instead of linear scan**
 
 
 
-**Combinations and Permutations:**:
+# **Combinations and Permutations:**:
 Permutations: n! If r = n
     - Subsets = 2^n (since each element can be absent or present. I believe this equals subsequences)
   - Permutations are expensive. Avoid them at any cost through sorting, windowing, hashing
           - Permutations or combinations or subsets -> backtracking
 
 
-**Bit Manipulation:**:
+# **Bit Manipulation:**:
 - XOR is commutative
     - can be used to extract unique number from list
 - Odd-one out, unique, missing > XOR
@@ -253,31 +251,72 @@ Permutations: n! If r = n
       - Job is done, prepare the next loop: x = answer, y = borrow.
       - Return x  sign.
 - **c = a + (~b) Difference of two integers using two's complement**
+  - To optimize space, using bits might be more efficient
+  - **to retrieve the ** _ **right-most** _** bit in an integer n, one could either apply the modulo operation (**_ **i.e.** _** n % 2) or the bit AND operation (**_ **i.e.** _** n &amp 1). Add binary numbers using &amp or OR.**
+  - but there is popular Facebook variation of this problem when interviewer provides you two numbers and asks to sum them up without using addition operation. No addition? OK, bit manipulation then. How to start? There is an interview tip for bit manipulation problems: if you don't know how to start, start from computing XOR for your input data. Strangely, that helps to go out for quite a lot of problems, Single Number II, Single Number III, Maximum XOR of Two Numbers in an Array, Repeated DNA Sequences, Maximum Product of Word Lengths, etc.
+  - Inverse Ackermann Function:
+    - I couldn't comprehend what Ackerman function really is but looks something that is even worse than exponential
+    - It's inverse is really slow with an upper bound of O(logN)
+      -  that it doesn't exceed 4 for all reasonable N_N_ (approximately N < 10^{600}_N_<10600).
+  - XOR is addition without taking into account carry
+    - Take XOR of x and y to get sum without carry
+    - Get carry as AND and shifted one bit to the left
+    - Make carry your new Y and continue until carry dies down
+
+# Graph:
+  - **If graph is not weighted. We can consider each edge to have the same weight of 1. Since the graph is unweighted, BFS can be used to find the shortest path between a starting cell and any other reachable cell.**
 
 
-**Trees:**:
+**Defining Graphs:**
+- Adjacency matrix MAY sometimes be helpful than adjacency list (0 indicates self or disconnected).
+    - tuple of edge as a key
+  - Instead of deleting from heap, might just be better off not considering it when its time comes during popping. Lazy delete.
+  - Defining graph:
+    - - Choose format according to the problem. Do you even need a dictionary mapping or just a list of edges will work? If you need unique edges, defining a graph using a dict (adjacency list) will cause additional overhead.
+    - Better to create a class with add_edge() method.
+
+**Graphs:**
+  - Can use depth-first or breadth-first to traverse a tree.
+  - Design a basic class for example, a Node Class with value, right child and left child in a binary tree
+  - Safe to assume that a binary search tree is balanaced or not? Is it a binary search tree or just a binary tree?
+  - Topological Sort might be needed if we wanna extract the order but if we already have the order, just use hashmap and iterate over it.
+**Eulerian Path is a path in graph that visits every edge exactly once. Eulerian Cycle is an Eulerian Path which starts and ends on the same vertex.**
+    - Cycle if all degrees are even
+      - Forget about 0 degree vertices
+    - **In graph theory, an Eulerian trail (or Eulerian path) is a trail in a finite graph that visits every edge exactly once (allowing for revisiting vertices).**
+
+- **Bipartite Graphs:**
+  - A bipartite graph is an undirected graph where vertices connected by edges belong to different sets.
+  - It can be disconnected.
+  - Formally, a bipartite graph is a set of vertices divided into two disjoint sets such that no two vertices within the same set are connected by an edge.
+
+
+
+
+# **Trees:**:
   - If a binary tree is balanced, depth first search traversal might only be log(n) space complexity
   - Level order BFS traversal can be done using:
     - Just use a single queue if no need to process nodes at a single level
     - Curr_level and next_level quques OR
     - Curr_level and n_current_level iterations
 
-Graph:
-  - **If graph is not weighted. We can consider each edge to have the same weight of 1. Since the graph is unweighted, BFS can be used to find the shortest path between a starting cell and any other reachable cell.**
-
-DFS:
-  - All Possibilies > DFS
-    - Optimize along the way to minimize recursion by adding contraints and early stopping
-
-Tree:
   - DFS:
     - If it's a graph instead of tree, we mark visited. We don't have to in a tree DFS.
     - Avoid creating additional visited set if modifying input is allowed
+  - All Possibilies > DFS
+    - Optimize along the way to minimize recursion by adding contraints and early stopping
+# **DFS:**
+-   - To track depth during BFS, you can use techniques like cur_level/next_level or loop through the original queue size within an outer loop.
+  - Avoid jumping straight to DFS backtracking for finding solutions. Explore simpler approaches first. Remember, DFS backtracking is essentially an easy brute-force method to explore all options.
+
+    - There are cases where we are trying to backtrack essentially from the last failure with the help of a for loop to explore other solutions (similar to a graph structure / DFS for example). To catch a failed attempt and to continue exploring other options, catch the return False using an if condition and return True inside the if condition.
 
   - BFS:
     - In a graph, keep marking as visited before enqueing so we don't end up having duplicates in the queue
     - Think of BFS as a general framework. The exact implementation will be different based on the application.
       - Having same nodes with different costs in the queue (for example, in the form of priority queue) – Djikstra's/Prim's
+  -  At any given moment, a queue in BFS level order traversal would hold no more two levels of nodes.
+  - For a binary tree, the maximum number of nodes at a level would be N+1 / 2​ which is also the number of leafs in a full binary tree.
 
   - At any given moment, the queue contains no more than  **two levels**  of nodes in the tree. The maximal number of nodes at one level is n/2​, which is the number of the leaf nodes in a balanced binary tree. As a result, the space needed for the queue would be O(_N_)
   - it would be _ **faster** _ to sort a series of subgroups than sorting them all together in a single group. Here is a not-so-rigid proof. Suppose that we have a list of _N_ elements, it would then take O(_N_log_N_) time to sort this list. Next, we divide the list into _k_ sublists equally. Each list would contain  _k/N_​ elements. Similarly, it would take O(_N/k_​log_N/k_​) time to sort each sublist. In total, to sort all the _k_ sublists, it would take O(_N_log_N/k_​), which is  **less than**  the time complexity of sorting the original list O(_N_log_N_)).
@@ -292,10 +331,18 @@ Tree:
     - 1st option: normayll when we have different starting points such as in labelling connected components
     - 2nd option: when we have multiple decisions to make within a single call
 
+**DFS vs BFS**:
+  - If it is known that answer lies nearby the source node in graph, or to get optimal answer, BFS should be used.
+  - BFS is ideal when we wanna find optimal path to take. We can make branches that can represent next potential steps and all of them would have the same cost as they all are siblings. In other words, we can label each solution and keep the label in the BFS queue.
+  - DFS if answer lies quite far away or if backtracking is needed or if entire graph has to be traversed.
+  - Cycle detection in a graph
+  - Solving a maze because in DFS you explore every possible path before backtracking.
+  - Checking if a graph is bipartite or not
+  - Finding out strongly connected components of a graph.
+  - Longest path between two nodes in a graph etc.
 
 
-
-**Searching:**
+# **Searching:**
   - Binary Search implementations can be tricky:
     - Check if you wanna include mid point for next search space or not and in what cases?
       - Can mid be a potential answer but you still wanna continue search until you narrow down to 2 or 1 options?
@@ -309,7 +356,7 @@ Tree:
   - While implementing recursion such as DFS:
     - Sometimes it might help to have conditions checked in the base cases instead of doing checks before making recursive calls. That is, it will help reach the base case to return answer instead of complicated logic in the main body.
 
-**Common Problems:**
+# **Common Problems:**
 - Plot graphs in problems similar to stocks/heights.
 - Elements sum to k:
       - Determine if –ive elements / sorting order
@@ -350,9 +397,13 @@ Intervals:
     - That the algorithm is running in a  multithreaded environment, and it does not have exclusive access to the grid. Other threads might need to read the grid too, and might not expect it to be modified.
     - That there is only a single thread or the algorithm has exclusive access to the grid while running, but the grid might need to be reused later or by another thread once the lock has been released.
     
+- **Prefix Sums:**
+  - Always consider using prefix sums to optimize calculations.
+  - 
+- **Interval Overlap:**
+  - Two intervals overlap if a[0] <= b[1] and b[0] <= a[1].
 
-
-**Tuples:**:
+# **Tuples:**:
   - Tuples are great for keep track of some information while new information keeps coming in.
   - While designing new data structures, think about
     - Tuples and storing information in them
@@ -363,10 +414,10 @@ Intervals:
   - Use tuple instead of ''.join while hashing
   - Sorted(tuple()) might be a good idea to track results
   
-**Sets:**
+# **Sets:**
 - Use sets to avoid duplicates and when O(1)/hashing required
   
-**Strings:**
+# **Strings:**
   - While working with characters, ASCII value of a character may help like ord(c) - ord('a')
   - If array is sorted or made sorted, two pointers might be helpful
   - First, make sure what do we have to output. Is it the values or the indices?
@@ -383,7 +434,12 @@ Intervals:
   - Index corresponds to state number
   - Hashmap at the index tells which keys are allowed and the key to state mapping
 
+  - While processing string, check if dropping irrelevant characters reduces runtime
+  - Instead of comparing dictionaries of counters, can we just keep a count of how many characters have been found?
+    - formed_count
+    - instead of comparing dicitonaries, compare array
 
+  - Inside loops, avoid creating new strings every time. Use lists instead to prevent O(n^2) complexity.
 
 **Binary Trees:**
     - The key observation to make is: the longest path has to be between two leaf nodes.
@@ -417,16 +473,7 @@ Intervals:
     - Follow the logic in the notebook.
     - Same code can be adapted to return kth largest/smallest or k largest/smallest.
       
-  -  At any given moment, a queue in BFS level order traversal would hold no more two levels of nodes.
-  - For a binary tree, the maximum number of nodes at a level would be N+1 / 2​ which is also the number of leafs in a full binary tree.
-    
-  - Make sure to make most out of running sums/running mins/running maxes instead of creating another pass.
-  - For parenthesis related questions > stack / calculate balance (1 for closing/-1 for opening / max size of stack
-    - If balance can solve the problem, no need to create additional stack
-  - Need to process something after? >>>>>>> Stack
 
-
- - Binary Search:
     - Can guess loose boundaries for initial search space and iterate
      - Binary search remains tricky to implement. Is it mid or mid + 1? Do we return left or right and until when does the loop run.
     - Do test infinite loop
@@ -440,10 +487,7 @@ Intervals:
   - Visualize things in a practical manner as well in addition to in a data structure-oriented manner. E.g. if visualizing a unix file path, it makes sense to first visualize the problem by creating a tree similar to what we see in Windows file explorer.
   - 
 
-      
-  - Do check if any sort of computations can be performed along the way. (Deduplication)
-    - Remember the operator precendence. If  or / are included:
-      - Have cur_operand, prev_operand and value to take care of precendence
+
 
 # Graph Algorithms
   - **Spanning Tree:**
@@ -466,109 +510,14 @@ Intervals:
       - Wanna connect all cities with railyway tracks > Prim's
       - Wanna plan travel route starting from home > Djikstra's
      
-Sorting:
-  - Space depends on the sorting implementation which, usually, costs O(1)O(1) auxiliary space if heapsort is used.
 
-Python:
-  - Feel free to use python tricks like len(set()) etc.
-
-  - Arrays:
-    - # speed up the rotation
-    - k %= len(nums)
-  - Two Pointer:
-  -   Be smart when you have two arrays to process. Might be more efficient to process smaller array first.
-  -   While doing two-pointers, try to control the loop with the fast-moving or the more progressive pointer and try to restrict with a single outer while loop instead of having an internal loop as well. This will result in a simpler implementation. Opposite can be true sometimes as well.
-
-
-  Bits:
-  - To optimize space, using bits might be more efficient
-
-  Hashing:
-  - **Use a hash table instead of a fixed size counter. Imagine allocating a large size array to fit the entire range of unicode characters, which could go up to more than 1 million. A hash table is a more generic solution and could adapt to any range of characters.**
-    - **This is contradicting to my understanding above.**
-      - **Actually not. I think the main point here. In this question Valid Anagram, we preallocate memory for storing freqenices of ASCIIs which aer only 26. So hashing them is useless and slow.**
-      - **If it were all the Unicode characters (1million), it will result to a useless sparse vector and we may start hitting memory limits.**
-    - **In this issue for SparseVector question, we keep increasing the size of either hashmap or list. For very large, collisions may start occurring in hashmap thus reducing performance and, although both hashmap and list will need to resize (hashmap resizes at 0.75 load factor by default),**  **the resizing is cheaper in case of arrays.**
-      - **The performance of dot product is still far more efficient so might depend whether insertions are more frequent or dot-products.**
-        - **If we go with the array of tuples route AND one of the vectors is not sparse enough, do binary search instead of linear scan**
-
-Trie:
+# Trie:
   - Don't jump into using a trie if you see prefix. That depends if the query will be repeated or not. If yes, trie will be more efficient as it compresses the information.
     - For complete English dict, 70% compression
   - If messing up with input such as linked list or matrix, see if you can restore it
 
-Bits:
-  - **to retrieve the ** _ **right-most** _** bit in an integer n, one could either apply the modulo operation (**_ **i.e.** _** n % 2) or the bit AND operation (**_ **i.e.** _** n &amp 1). Add binary numbers using &amp or OR.**
-  - but there is popular Facebook variation of this problem when interviewer provides you two numbers and asks to sum them up without using addition operation. No addition? OK, bit manipulation then. How to start? There is an interview tip for bit manipulation problems: if you don't know how to start, start from computing XOR for your input data. Strangely, that helps to go out for quite a lot of problems, Single Number II, Single Number III, Maximum XOR of Two Numbers in an Array, Repeated DNA Sequences, Maximum Product of Word Lengths, etc.
-  - Inverse Ackermann Function:
-    - I couldn't comprehend what Ackerman function really is but looks something that is even worse than exponential
-    - It's inverse is really slow with an upper bound of O(logN)
-      -  that it doesn't exceed 4 for all reasonable N_N_ (approximately N < 10^{600}_N_<10600).
-  - XOR is addition without taking into account carry
-    - Take XOR of x and y to get sum without carry
-    - Get carry as AND and shifted one bit to the left
-    - Make carry your new Y and continue until carry dies down
-      
-Arrays:    
-  - Trying to do 2 Pass over a single array?
-    - Either you are doing duplicating work
-    - Or if not, see if you can reduce the space required.
-   
-Strings:
-  - While processing string, check if dropping irrelevant characters reduces runtime
-  - Instead of comparing dictionaries of counters, can we just keep a count of how many characters have been found?
-    - formed_count
-    - instead of comparing dicitonaries, compare arrays
 
 
-# Complexity Analysis
-
-## When analyzing complexity, consider factors like:
-- Maximum input lengths (for worst-case scenarios)
-- String lengths when dealing with strings
-
-## General Problem-Solving Techniques
-- **Optimize Standard Algorithms:** Explore ways to improve standard algorithms like BFS and Dijkstra's using heuristics.
-- **Reduce Redundancy:**
-  - Whenever you use cumulative sums, try to minimize them to a single variable.
-  - Consider combining two-pass solutions into a single pass for efficiency.
-- **Data Structures:**
-  - For integer keys, prioritize arrays over hash maps for efficiency.
-  - Utilize arrays for precomputation techniques like prefix/suffix sums, min/max values.
-  - Decide whether to start calculations from the beginning or the end based on the problem (e.g., prefix sums start from the beginning, finding max to the right benefits from starting at the end).
-- **Two-Dimensional Matrices:**
-  - In some cases, you might need an additional matrix with similar dimensions to store intermediate results for 2D matrix problems.
-  - Evaluate if using the input matrix directly is feasible and allowed.
-- **Bipartite Graphs:**
-  - A bipartite graph is an undirected graph where vertices connected by edges belong to different sets.
-  - It can be disconnected.
-  - Formally, a bipartite graph is a set of vertices divided into two disjoint sets such that no two vertices within the same set are connected by an edge.
-- **Summation Series:**
-  - The series N + N/2 + N/4 + … 1 = 2N is a geometric series and should not be confused with traditional binary search, which halves the search space at each iteration (O(log N) time complexity).
-- **QuickSort and QuickSelect:**
-  - In QuickSort's recursive branching, you can ignore the partition that doesn't contain the kth element. This is the foundation of QuickSelect, which leverages this to create a more space-efficient iterative solution.
-- **Connected Components:**
-
-- **Interval Overlap:**
-  - Two intervals overlap if a[0] <= b[1] and b[0] <= a[1].
-- **Prefix Sums:**
-  - Always consider using prefix sums to optimize calculations.
-- **Brute Force vs. DFS Backtracking:**
-  - Avoid jumping straight to DFS backtracking for finding solutions. Explore simpler approaches first. Remember, DFS backtracking is essentially an easy brute-force method to explore all options.
-- **Case Handling:**
-  - If n is negative, substitute x with 1/x to make n non-negative.
-- **Tracking Depth in BFS:**
-  - To track depth during BFS, you can use techniques like cur_level/next_level or loop through the original queue size within an outer loop.
-- **String Manipulation:**
-  - Inside loops, avoid creating new strings every time. Use lists instead to prevent O(n^2) complexity.
-- **Problem-Solving Approach:**
-  - When stuck optimizing a solution, try these steps:
-    - Take a step back and re-evaluate the problem from a different perspective.
-    - Consider reframing the problem.
-    - Explore if reversing the approach might be helpful.
-
-   
-      
 
 **Math:**
   - Equation involved? HAVE to do some manipulation like log/anti-log and stuff. (NOT SURE WHAT WAS THIS)
@@ -577,8 +526,15 @@ Strings:
       - ![](RackMultipart20220405-4-se8081_html_75f7df9fc7a80328.png)
       - The theorem says two things about this example: first, that 1200 can be represented as a product of primes, and second, that no matter how this is done, there will always be exactly four 2s, one 3, two 5s, and no other primes in the product.
       - For example, characters can be assigned a prime number. A string will have a different product than another string but the same product as its permutations.
+  - If n is negative, substitute x with 1/x to make n non-negative.
+
 
 **Sorting:**
+
+- **QuickSort and QuickSelect:**
+  - In QuickSort's recursive branching, you can ignore the partition that doesn't contain the kth element. This is the foundation of QuickSelect, which leverages this to create a more space-efficient iterative solution.
+  - 
+  - Space depends on the sorting implementation which, usually, costs O(1)O(1) auxiliary space if heapsort is used.
     - Insertion would work best if an array is already sorted / small array
       - because it will quickly break the for loops because of its simplicity and no overhead of space allocation/recursion
     - Bucket sort needs to have distributed data to be useful, otherwise, it's just a waste of time to achieve the same thing with extra steps.
@@ -655,7 +611,10 @@ Strings:
 
   - Beware: even if using an array or hashmap or set, if the size is gonna remain constant with respect to input size than we don't count it in space complexity.
 
-
+## When analyzing complexity, consider factors like:
+- Maximum input lengths (for worst-case scenarios)
+- String lengths when dealing with strings
+- 
 ## Average Case vs. Amortized Analysis
 - Average case analysis makes assumptions about the input that may not be met in certain cases. Therefore, if your input is not random, in the worst case the actual performance of an algorithm may be much slower than the average case.
   - Amortized analysis makes no such assumptions, but it considers the total performance of a sequence of operations instead of just one operation.
@@ -663,6 +622,9 @@ Strings:
     - Example:
       - When analyzing amortized time complexities, I find it easiest to reason that each node gets pushed and popped exactly once in next() when iterating over all N nodes. That comes out to 2N * O(1) over N calls to next(), making it O(1) on average, or O(1) amortized.
 
+- **Summation Series:**
+  - The series N + N/2 + N/4 + … 1 = 2N is a geometric series and should not be confused with traditional binary search, which halves the search space at each iteration (O(log N) time complexity).
+  
 ## Constant Time Complexity
 - When things are constant, the big O is constant e.g. if we know properties of an object are 4, then looping over its properties will not be O(p) but O(1).
 - Always drop constants O(4n) -> O(n).
@@ -709,7 +671,9 @@ Strings:
     - Left-to-right diagonal: r + c
     - Right-to-left diagonal: c - r
     - Boxes of size k: (r // k, c // k)
-
+- **Two-Dimensional Matrices:**
+  - In some cases, you might need an additional matrix with similar dimensions to store intermediate results for 2D matrix problems.
+  - Evaluate if using the input matrix directly is feasible and allowed.
     
 #**Greedy Algorithms:**:
 - Greedy problems usually look like Find minimum number of something to do something or Find maximum number of something to fit in some conditions, and typically propose an unsorted input.
