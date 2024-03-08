@@ -297,9 +297,6 @@ Adding two numbers: (either do masking instead of this or do leetcode premium to
     - Method 1: A simple solution is to store both Inorder and Preorder traversals
     - Method 2: Have nulls indicated by None for every non-NULL node's children and do pre-order traversal with None as a base case
 
-# Binary Search:
-- I think once trick to binary search is that when I know I can find something in mid, maybe I check for when low == high, otherwise, low/high is the answer, no need to check for mid in the while loop.
-
 
 # Spanning Tree (Prims and Kruskal)
 - Spanning Tree:
@@ -416,6 +413,7 @@ Adding two numbers: (either do masking instead of this or do leetcode premium to
 
 
 # Searching:
+- I think once trick to binary search is that when I know I can find something in mid, maybe I check for when low == high, otherwise, low/high is the answer, no need to check for mid in the while loop.
 - Binary Search implementations can be tricky:
   - Check if you wanna include mid point for next search space or not and in what cases?
   - Can mid be a potential answer but you still wanna continue search until you narrow down to 2 or 1 options?
