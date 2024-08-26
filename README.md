@@ -1,4 +1,4 @@
-# Line of Attack
+# Process
 - Start:
   - Asking clarifying questions
   - Input validity: Null/range, data types
@@ -79,7 +79,7 @@
   - Make sure to make most out of running sums/running mins/running maxes instead of creating another pass.
   - Whenever you use cumulative sums, try to minimize them to a single variable.
 - Visualize things in a practical manner as well in addition to in a data structure-oriented manner. E.g. if visualizing a unix file path, it makes sense to first visualize the problem by creating a tree similar to what we see in Windows file explorer.
-    
+
 # Tuples:
 - Tuples are great for keep track of some information especially while new information keeps coming in as in queues.
 - While designing new data structures, think about
@@ -151,6 +151,8 @@
   - If the result is needed from inside out (two pointers), and its easier to code from outwards to inwards just do it and calculate result in reverse order.
   - If array is sorted or made sorted, two pointers might be helpful
   - While doing two-pointers, try to control the loop with the fast-moving or the more progressive pointer and try to restrict with a single outer while loop instead of having an internal loop as well. This will result in a simpler implementation. Opposite can be true sometimes as well.
+  - Don't try to be very clever when choosing start and end points of loop pointers. Sometimes, n^3 solutions can be done via n^2 if viewed at a different angle.
+  - e.g. two-pointer approach could be where we do some redundant work but still better than bruteforce. Doesn't always have to be expand and contract.
   
 # Queue
 - queue.Queue: queue.get(), .put(), .empty()
