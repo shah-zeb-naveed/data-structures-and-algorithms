@@ -1,97 +1,79 @@
-# Process
-- Start:
-  - Asking clarifying questions
-  - Input validity: Null/range, data types
-  - Is the input sorted?
-  - Are duplicates allowed in the binary tree?
-  - Safe to assume that a binary search tree is balanaced or not? Is it a binary search tree or just a binary tree?
-  - Single linked list or doubly linked list?
-  - Do I need to implement classes?
-  The subsequence will be contiguous or just a subset?
-  - Is it safe to assume that the input can be modified?
-  - Example: What should we return when the needle is an empty string? This is a great question to ask during an interview
-  - What if the input list has 0 or 1 elements only?
-  - Can elements be negative
-  - Should this be done be in place? (No additional memory)
-  - Can we make any assumptions about the input?
-  - *Do we care more about performance or saving memory?*
-  - *Too often, candidates make assumptions about the problem (i.e., all integers are positive, arrays are not empty, all input is safe) … big red flag.*
-  - *You should always discuss the possibility of overwriting the input with your interviewer and clarify what kind of environment your algorithm is expected to run in. Sometimes they won't care, sometimes they'll state it has to run in a multithreaded environment, or sometimes they'll have a particular preference as it impacts what they're trying to see from you.*
-  - Is the tree balanced? Complete? Binary?
-- Ask for example. Can come up with another example. The example has to be not too simple or too complex.
-- Walkthrough the algorithm. Start with brute force, discuss time/space complexity, try to optimize, confirm the solution verbally
-- Know your data structures
-- The variables and when they change
-- Examples/Corner Cases: negative, null, repeated/duplicates, non-continuous, too big, too homogeneous
-- Modularize your code first. Especially functions that might be uninteresting. When you have the skeleton of the code, start filling in the details
-
 
 # Preparation Guide:
 - Practice more problem types than a lot of one type
 - Target 15 minutes for medium and hard leetcode
 - Revise highlights of the Cracking the Coding Interview book
-- Revise https://www.bigocheatsheet.com/ 
+- Revise https://www.bigocheatsheet.com/
+
+  
+# Interview Process
+- Asking clarifying questions
+- Input validity: Null/range, data types and what should be returned
+- Is the input sorted?
+- Is the tree balanced? Complete? Binary? Is it a binary search tree or just a binary tree? duplicates allowed in the binary tree?
+- Single linked list or doubly linked list?
+- Do I need to implement classes?
+- Is it safe to assume that the input can be modified?
+- What if the input list has 0 or 1 elements only?
+- Should this be done be in place? (No additional memory)
+- *Do we care more about performance or saving memory?*
+- Ask for example. Can come up with another example. The example has to be not too simple or too complex.
+- Walkthrough the algorithm. Start with brute force, discuss time/space complexity, try to optimize, confirm the solution verbally
+- Examples/Corner Cases: repeated/duplicates, non-continuous, too big, too homogeneous
+- Modularize your code and build a skeleton first. Especially functions that might be uninteresting.
 
 
 # Recursion:
 - Prune the recursion whenever possible
 - Thinking bottom-up/base cases instead of top-down  might make it easier to think and then top-down
-- For recursive calls, often we make use of original arrays, original pointers, or pointers with the original reference
+- For recursive calls, often we make use of original arrays or pointers
 - Sometimes it's just easier separating two functions, one for calling and one for recursion, if there is some sort of set-up or loop required.
-- While implementing recursion such as DFS: Sometimes it might help to have conditions checked in the base cases instead of doing checks before making recursive calls. That is, it will help reach the base case to return answer instead of complicated logic in the main body.
+- In DFS, it might help to have conditions checked in the base cases instead of complicated logic in the main body.
 
 
 # General Python:
 - -ive numbers with positive modulo give weird results. if needed, do module with negative divisor or handle negative sign manually. 
-- Python functions argguments passed by reference
   - A class can have an object of its own class
 - All immutables like tuples are hashable. So can use them as dict keys. Sometimes, you might wanna convert list elements to a tuple or joint string for hashing.
-- Mutable objects have a tricky copy mechanism (a = [2], b = a, b[0] = 1 - a[0] = -1)
+- Mutable objects have a tricky copy mechanism e.g. lists
 - And since Python 3.7, official documentation states: Dictionaries preserve insertion order.
-- Use dict.values() instead of creating sublists manually
 
 
 # Definitions:
 - Every character is a palindrome
 - Graphs can have loops unlike trees.
-- The depth (or level) of a node is its distance (i.e., number of edges) from the tree's root node. The height is the number of edges between the root node and the furthest leaf.*
-- Substring is contiguous, subsequence is sequential, combinations are not, and they are completely different.
-- A subsequence of a string is a new string generated from the original string with some characters (can be none) deleted without changing the relative order of the remaining characters.
+- The depth (or level) of a node is its distance (i.e., number of edges) from the tree's root node.
+- The height is the number of edges between the root node and the furthest leaf.*
+- Substring is contiguous, subsequence is sequential
 - Number of subsets: each element includes or not. If [1, 2, 3], then it's 2 x 2 x 2 = 2^n.
   - Remember that a subset is not contiguous.
-  - Subsets are not combinations.
 - Permutations: n! If r = n
-- Permutations are expensive. Avoid them at any cost through sorting, windowing or hashing
 - Power set is all possible combinations of all possible lengths, from 0 to n.
-- Non-decreasing means some values could be equal, so it's not necessarily ascending.
 
 
 # General Tips and Techniques
-- First, make sure what do we have to output. Is it the values, the indices, some statistic?
+- First, make sure what do we have to output. Is it the values, the indices, some statistic as this info can simplify what to keep track of during algo.
 - Too many if conditions is a strong indicator that a simpler solution exists
-- There can be ways that you first apply the general algorithm and then do some corrections/modifications to match the problem statement
-- Problem Reframing: Can two problems have the same solution? It can also provide an opportunity for optimizationFor example, # of visible nodes from left-side is the same as returning height of the tree.
-- When you need ALL the recursive calls to maintain/update something, just keep it outside the function (global variables).Dictionaries and lists are mutable objects which also imply that if they are defined outside ANY function, they can still be modified by function f or any inside f > f(g(h(…))) so no real need to pass by reference.
+- Problem Reframing: Can two problems have the same solution? It can also provide an opportunity for optimization. For example, # of visible nodes from left-side is the same as returning height of the tree.
+- When you need ALL the recursive calls to access/update mutable objects, just keep it outside the function
 - For every problem, see if we can return before main logic on some edge cases e.g. if lengths don't match, return False
 - Look for a detail that might look useless but it's there for providing a way to optimize.
-  - Using input array as storage if it has extra or useless elements
+- Using input array as storage if it has extra or useless elements
 - Reduce Redundancy:
   - Make sure to make most out of running sums/running mins/running maxes instead of creating another pass.
   - Whenever you use cumulative sums, try to minimize them to a single variable.
 - Visualize things in a practical manner as well in addition to in a data structure-oriented manner. E.g. if visualizing a unix file path, it makes sense to first visualize the problem by creating a tree similar to what we see in Windows file explorer.
+- Permutations are expensive. Avoid them at any cost through sorting, windowing or hashing
 
 # General Tips for HackerRank
 - Instead of thinking pure algorithmically like LeetCode, try to use built-in python functions, vectorization and list comprehension to beat time limit if can't come up with most optimal solution.
 
 # Tuples:
-- Tuples are great for keep track of some information especially while new information keeps coming in as in queues.
-- While designing new data structures, think about
-  - Complementary data structures
-- Use tuples to store info to extract final answer instead of storing the exact candidate answers: For example, (window length, left, right)
-- If possible, delete useless stuff and keep the useful information in a tuple to reduce the number of iterations resulting in a single pass.
-- Use tuple instead of ''.join while hashing as later creates a string taking linear time
+- Tuples are great for keep track of some information and for hashing (instead of ''.join while hashing as later creates a string taking linear time)
+- While designing new data structures, think about Complementary data structures
+- Use tuples to store info to extract final answer instead of storing the exact candidate answers: For example, (window length, left, right) instead of multiple lists.
 - Sorted(tuple()) might be a good idea to track results
-- Why maintain two lists when you can maintain a list of tuples (with corresponding elements) for association
+
   
 # Sets:
 - Use sets to avoid duplicates and when O(1)/hashing required
@@ -99,15 +81,15 @@
   
 # Strings:
 - While working with characters, ASCII value of a character may help like ord(c) - ord('a')
-- Two pointers (e.g. Expand and Contract, left and right, etc.)
-- Many times keeping counts in dictionary will help
-- While processing string, check if dropping irrelevant characters reduces runtime
-- Instead of comparing dictionaries of counters, can we just keep a count of how many characters have been found?
+- ASCIIs as index will give an array of length 26
+- Two pointers (e.g. Expand and Contract, left and right, one fixed and one moves for a starting point, etc.)
+- Keeping counts in dict
+**- While processing string, check if dropping irrelevant characters reduces runtime**
+  - Instead of comparing dictionaries of counters, can we just keep a count of how many characters have been found?
   - formed_count
-  - instead of comparing dicitonaries, compare array
-- Inside loops, avoid creating new strings every time. Use lists instead to prevent O(n^2) complexity.
-- While processing strings, do see if stacks can help or if checking validity, create a state machine.
-- State Machines:
+- instead of comparing dicitonaries, compare array???
+- Inside loops, avoid creating new strings every time and use pointers.
+- While processing strings, do see if stacks can help
   - Deterministic Finite Automation
   - problems where we have to process a user input with multiple conditions to account for, especially string processing, -> solution using if/else or dict
   - Make as many states to keep it simple
@@ -120,53 +102,54 @@
 
 
 # Linked-lists
-- Linked Lists would need a dummy node (or None) or two pointer approach in many case. Two pointer could be a fast and slow (to detect cycle or middle). Or it could be in same direction and speed but with a gap to find from last nth node.
-- Reverse can be iterative or recursive (like stack)  and ideally, modify linked lists via in-place
+- Linked Lists would need a dummy node (or None) or two pointer approach in many case. Two pointer could be a fast and slow (to detect cycle or middle point). Or it could be in same direction and speed but with a gap to find from last nth node.
 
   
 # Stack
-- When encounter a situation where you have to traverse something till end before processing current element, use stack
-- *In the previous approach we rely on the system stack for our recursion's space requirements. However, as we all know, that stack is limited and for extremely long trees, it might not be feasible to use the system stack. So, we need to use our own stack that will be allocated memory on the heap and will be able to handle much larger sized trees easily.*
+- When encounter a situation where you have to traverse something till end before processing current element, use stack/recursion
+- "*In the previous approach we rely on the system stack for our recursion's space requirements. However, as we all know, that stack is limited and for extremely long trees, it might not be feasible to use the system stack. So, we need to use our own stack that will be allocated memory on the heap and will be able to handle much larger sized trees easily.*"
 
 
 # Arrays
-- Don't try to apply algos right away. There could be simple array swapping/other operations that can be used for a simpler solution.
+- Don't try to apply algos right away. There could be simple array swapping/simple ops that can be used for a simpler solution.
 - Try to simplify by sorting, reversal, math (equation manipulation)
-- Decide whether to start calculations from the beginning or the end based on the problem (e.g., prefix sums start from the beginning, finding max to the right benefits from starting at the end).
+- Decide whether to start calculations from the beginning or the end based on the problem
+  - (e.g., prefix sums start from the beginning, finding max to the right benefits from starting at the end).
 - Changing Ascending to Descending may simplify a solution as well
-- If you have an order or if you have a range, just use it to iterate in a sorted order. No need to .sort.
+- If you have an order or if you have a range, just use it to iterate in a sorted order. No need to .sort???
 - Need a deep copy for 2D lists. can't use slicing or .copy().
 - Often O(n^2) array based solutions have some duplicated work being done.
   - Try caching
-  - Or try maintaining a prefix-sum/max/min etc
+  - Or try maintaining a prefix-sum/max/min, running sum etc
 - inf and -inf can be appended to lists before and after to simplify edge cases
 - Rotation:
   - While rotating an array (i + k) % length will give new rightful position
   - Instead of handling corner cases when subtracting in a cyclic manner, handle it with mod e.g. clock.
-  - speed up the rotation
+  - speed up the rotation with equivalent number of effective rotations
     - k %= len(nums)
 - If have to shift all elements in array again and again, can we just place them in the right position using a trick? %, placeholders, cyclic dependencies
 - First of all, the requirements of  **in-place replacement and constant space**  should immediately indicate  **swapping**
 - Be smart when you have two arrays to process. Might be more efficient to process smaller array first.
-- It's a good idea to check array sizes and use a hash map for the smaller array. It will reduce memory usage when one of the arrays is very large.
+- Use a hash map for the smaller array
 - For integer keys, prioritize arrays over hash maps for efficiency.  
 - Two Pointers:
   - If the result is needed from inside out (two pointers), and its easier to code from outwards to inwards just do it and calculate result in reverse order.
-  - If array is sorted or made sorted, two pointers might be helpful
+  - Often with sorted arrays
   - While doing two-pointers, try to control the loop with the fast-moving or the more progressive pointer and try to restrict with a single outer while loop instead of having an internal loop as well. This will result in a simpler implementation. Opposite can be true sometimes as well.
-  - Don't try to be very clever when choosing start and end points of loop pointers. Sometimes, n^3 solutions can be done via n^2 if viewed at a different angle.
+  - Don't try to be very clever when choosing start and end points of loop pointers. Sometimes, n^3 solutions can be done via n^2 if viewed from a different angle.
   - e.g. two-pointer approach could be where we do some redundant work but still better than bruteforce. Doesn't always have to be expand and contract.
   
 # Queue
-- queue.Queue: queue.get(), .put(), .empty()
-- collections.deque: deque.popLeft()/pop(), append()/extendLeft
+- collections.deque: queue(list), deque.popLeft()/pop(), append()/extendLeft
 - Deque is better than queue
+- queue.Queue: queue.get(), .put(), .empty()
+
 
   
 # Hashing:
 - Hashing: h(value) = value % size_of_hash
   - For intergers hash = f(x) = x
-- For very large numbers:= Hashing may result in collisions (I think this refers to constantly hashing a stream of numbers
+- For very large numbers:= Hashing may result in collisions (I think this refers to constantly hashing a stream of numbers)????
 - If multiple queries, hashing overhead is amortized
 - Some comments from LeetCode on why we might be better off using arrays instead of hashmaps in case of very large numbers:
   - *Your hash map will resize when it gets to 75% (by default) capacity, but then it will rehash everything. And this is likely to happen a lot. So between the resizing and the collisions, the hash map approach isn't going to scale well to a very large vector.*
@@ -176,6 +159,7 @@
   - *I got this question today on my FB interview. I proposed the Hash solution, and he asked the downside to it. I responded with large size of sparse vectors, hash collisions will occur when we hit memory allocation limits, etc. He asked alternative solutions and I proposed array of (index, value) pair. He asked me to code that. Then he added a constraint where one vector is considerably smaller than the other, and asked if we can improve the time complexity from O(m+n). After some scratching around, I told them that we can by doing binary-search of small vector's index over the larger one. This should improve the time-complexity. Was not sure of the exact Big Oh, but it should be better than m  log(n), since the search space should keep reducing from n.*
 - Use a hash table instead of a fixed size counter. Imagine allocating a large size array to fit the entire range of unicode characters, which could go up to more than 1 million. A hash table is a more generic solution and could adapt to any range of characters.
   - This is contradicting to my understanding above.
+    
     - Actually not. I think the main point here. In Valid Anagram, we preallocate memory for storing freqenices of ASCIIs which aer only 26. So hashing them is useless and slow.
     - If it were all the Unicode characters (1million), it will result to a useless sparse vector and we may start hitting memory limits.
   - In this issue for SparseVector question, we keep increasing the size of either hashmap or list. For very large, collisions may start occurring in hashmap thus reducing performance and, although both hashmap and list will need to resize (hashmap resizes at 0.75 load factor by default),  the resizing is cheaper in case of arrays.
@@ -185,11 +169,12 @@
 
 
 # Bit Manipulation:
-- Observe patterns. Start with XOR, AND, NOT, Extracting last bits, shifting bits, settings bits
+- Observe patterns. Start with Extracting last bits, shifting bits, settings bits, XOR, AND, NOT
 - XOR
-  - is commutative
+  - commutative
   - Odd-one out, unique, missing > XOR
   - xor of number with 0 is itself. xor of number with itself is 0
+  - XOR for many problems: Single Number II, Single Number III, Maximum XOR of Two Numbers in an Array, Repeated DNA Sequences, Maximum Product of Word Lengths, etc.
 - &-ing with 1 or 0
 - to retrieve the right-most bit in an integer n, n % 2 or n & 1
 - >> to shift
@@ -207,8 +192,7 @@ Adding two numbers: (either do masking instead of this or do leetcode premium to
     - Current borrow is left-shifted AND of NOT x and y: `borrow = ((~x) & y) << 1`.
     - Job is done, prepare the next loop: `x = answer`, `y = borrow`.
   - Return x  sign.
-  - c = a + (~b) Difference of two integers using two's complement (Maye explore this method)
-- No addition allowed? OK, bit manipulation then. if you don't know how to start, start from computing XOR for your input data. Strangely, that helps to go out for quite a lot of problems, Single Number II, Single Number III, Maximum XOR of Two Numbers in an Array, Repeated DNA Sequences, Maximum Product of Word Lengths, etc.
+  - c = a + (~b) Difference of two integers using two's complement (May explore this method)
 
 
 # Heaps
@@ -219,18 +203,18 @@ Adding two numbers: (either do masking instead of this or do leetcode premium to
 
 # Graph:
 - Can use DFS or BFS for trees and graphs.
-- If graph is not weighted. We can consider each edge to have the same weight of 1. Since the graph is unweighted, BFS can be used to find the shortest path between a starting cell and any other reachable cell.
+- If graph is not weighted. We can consider each edge to have the same weight of 1.
+  - BFS can be used to find the shortest path between a starting cell and any other reachable cell.
 - Defining Graphs
   - Adjacency matrix MAY sometimes be helpful than adjacency list (0 indicates self or disconnected).
-  - Do you even need a dictionary mapping or just a list of edges will work? If you need unique edges, defining a graph using a dict (adjacency list) will cause additional overhead.
+  - Do you even need a dictionary mapping or just a list of edges will work? If you need unique edges, defining a graph using a dict (adjacency list) will cause additional overhead???
   - Better to create a class with add_edge() method: tuple of edge as a key
 - Topological Sort
   - might be needed if we wanna extract the order but if we already have the order, just use hashmap and iterate over it.
 - Eulerian Path
   - a path in graph that visits every edge exactly once (allowing for revisiting vertices).
-  - Eulerian Cycle is an Eulerian Path which starts and ends on the same vertex. Cycle if all degrees are even. Forget about 0 degree vertices.
+  - Eulerian Cycle is an Eulerian Path which starts and ends on the same vertex. Cycle if all degrees are even. Forget about 0 degree vertices???
 - Bipartite Graphs
-  - A bipartite graph is an undirected graph where vertices connected by edges belong to different sets.
   - It can be disconnected.
   - Formally, a bipartite graph is a set of vertices divided into two disjoint sets such that no two vertices within the same set are connected by an edge.
 
@@ -720,24 +704,6 @@ Facebook said no need for ML :D
   - Knapsnack: Brute Force is O(2^n)
   - A problem may have both DFS and BFS solution like the count_islands problem
 
-
-# Final Interview Tips
-  - In my current job, I've successfully done this and that.
-    - Guide your interviewer, take the steering wheel
-      - Project:
-        - Architecture, What did you do?
-        - Mistakes, What would you do differently
-        - Hardest bugs
-        - Challenges (Missing data, limited compute, ambiguity, etc.)
-        - Successes
-    - Relevant Hobbies
    
 # Need Clarification:  
 - What if the base case is not O(1) in recursion? Do we multiply by number of rescursive calls?
-- Do we explicity delete pointers in Python by setting to None or garbage collector takes care of it? For example:
-
-```
-delete = prev.next # useless step?
-prev.next = prev.next.next
-delete = None # useless step?
-```
