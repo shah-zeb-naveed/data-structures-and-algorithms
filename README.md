@@ -496,28 +496,14 @@ Djikstra's vs Prim's:
 
         
 ## Graph and Tree Time and Space Complexity
-| Graph (Time – Space) | Tree (Time – Space) |
-| --- | --- |
-| DFS | O(V + E) explore all vertices and edges – O(V) Need to maintain visited set |
-| BFS | O(V + E) explore all vertices and edges – O(V) hold all vertices in the queue |
-| Both time and space become O(V^2) if an adjacency matrix is used instead of adj. list. |
-| For trees where height is less than max-width, DFS uses less space asymptotically. | For trees where max width is less than height BFS uses less space asymptotically. |
 
+| Concept                     | DFS Time Complexity | DFS Space Complexity | BFS Time Complexity | BFS Space Complexity | Additional Considerations                                      |
+| ---------------------------- | ------------------- | -------------------- | ------------------- | -------------------- | -------------------------------------------------------------- |
+| **Graph**                    | O(V + E)            | O(V)                 | O(V + E)            | O(V)                 | Complexity increases to O(V^2) if using adjacency matrix instead of adjacency list. |
+| **Tree (General)**           | O(n)                | O(d)                 | O(n)                | O(n)                 | DFS: Space complexity is O(log n) for balanced trees. BFS: Space is O(n) for storing the last level of a binary tree (n/2 + 1). |
+| **Tree (Best/Worst Case)**   | -                   | Best: O(log n) in balanced. Unbalanced -> O(n)       | -                   | Best: O(1) (tree is severely unbalanced and contains only 1 element at each level). Worst Case would be storing (n - 1) nodes with a fairly useless N-ary tree where all but the root node are located at the second level.        | DFS worst case = BFS best case, and vice versa.                |
+| **Asymptotic Space (Trees)** | -                   | Less space if height < max width | -                   | Less space if max width < height | - |
 
-**DFS and BFS time complexity: O(n)**
-  - Because this is tree traversal, we must touch every node, making this O(n) where n is the number of nodes in the tree.
-
-    
-**BFS space complexity: O(n)**
-- BFS will have to store at least an entire level of the tree in the queue (sample queue implementation). With a perfect fully balanced binary tree, this would be (n/2 + 1) nodes (the very last level). Best Case (in this context), the tree is severely unbalanced and contains only 1 element at each level and the space complexity is O(1). Worst Case would be storing (n - 1) nodes with a fairly useless N-ary tree where all but the root node are located at the second level.
-
-
-**DFS space complexity: O(d)**
-- Regardless of the implementation (recursive or iterative), the stack (implicit or explicit) will contain d nodes, where d is the maximum depth of the tree. With a balanced tree, this would be (log n) nodes. Worst Case for DFS will be the best case for BFS, and the Best Case for DFS will be the worst case for BFS.
-- In backtracking (which is kind of a bruteforce) we have to undo changes for the next iteration
-- In dfs based structures, think about what makes more sense. Calling dfs iteratively from the main function or within the recursive function
-  - 1st option: normayll when we have different starting points such as in labelling connected components
-  - 2nd option: when we have multiple decisions to make within a single call
 
   
 # Greedy Algorithms:
