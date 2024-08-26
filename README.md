@@ -19,6 +19,7 @@
 - *Do we care more about performance or saving memory?*
 - Ask for example. Can come up with another example. The example has to be not too simple or too complex.
 - Walkthrough the algorithm. Start with brute force, discuss time/space complexity, try to optimize, confirm the solution verbally
+- Talk about all possible options in an interview
 - Examples/Corner Cases: repeated/duplicates, non-continuous, too big, too homogeneous
 - Modularize your code and build a skeleton first. Especially functions that might be uninteresting.
 
@@ -64,9 +65,15 @@
   - Whenever you use cumulative sums, try to minimize them to a single variable.
 - Visualize things in a practical manner as well in addition to in a data structure-oriented manner. E.g. if visualizing a unix file path, it makes sense to first visualize the problem by creating a tree similar to what we see in Windows file explorer.
 - Permutations are expensive. Avoid them at any cost through sorting, windowing or hashing
+- If messing up with input such as linked list or matrix, see if you can restore it before returning
+- **Overwriting inputs:** However, like all in-place algorithms, overwriting the input can cause problems. Here are a couple of possible scenarios you need to consider.
+  - That the algorithm is running in a  multithreaded environment, and it does not have exclusive access to the grid. Other threads might need to read the grid too, and might not expect it to be modified.
+  - That there is only a single thread or the algorithm has exclusive access to the grid while running, but the grid might need to be reused later or by another thread once the lock has been released.
 
+ 
 # General Tips for HackerRank
 - Instead of thinking pure algorithmically like LeetCode, try to use built-in python functions, vectorization and list comprehension to beat time limit if can't come up with most optimal solution.
+
 
 # Tuples:
 - Tuples are great for keep track of some information and for hashing (instead of ''.join while hashing as later creates a string taking linear time)
@@ -103,7 +110,8 @@
 
 # Linked-lists
 - Linked Lists would need a dummy node (or None) or two pointer approach in many case. Two pointer could be a fast and slow (to detect cycle or middle point). Or it could be in same direction and speed but with a gap to find from last nth node.
-
+- Floyd's algorithm to detect cycles in linked lists. If there's a cycle, the rabbit and turtle will meet at some point other than starting point.
+- While inserting in linked list, first set the next of the new element. This will reduce 1 additional line of code instead of saving tmp pointer.
   
 # Stack
 - When encounter a situation where you have to traverse something till end before processing current element, use stack/recursion
@@ -232,6 +240,7 @@ Adding two numbers: (either do masking instead of this or do leetcode premium to
 - Optimize along the way to minimize recursion by adding contraints and early stopping
 - Avoid jumping straight to DFS backtracking for finding solutions. Explore simpler approaches first. Remember, DFS/backtracking is bruteforce.
 - There are cases where we are trying to backtrack essentially from the last failure with the help of a for loop to explore other solutions. To catch a failed attempt and to continue exploring other options, catch the return False using an if condition and return True inside the if condition.
+
   
 ### DFS Uses
 - DFS if answer lies quite far away or if backtracking is needed or if entire graph has to be traversed (doesn't matter in this case).
@@ -251,6 +260,7 @@ Adding two numbers: (either do masking instead of this or do leetcode premium to
 - At any given moment, the BFS level order traversal queue contains no more than  **two levels**  of nodes in the tree. The maximal number of nodes at one level is n/2​, which is the number of the leaf nodes in a balanced binary tree. As a result, the space needed for the queue would be O(N)
 - Finding optimal path: we can make branches that can represent next potential steps and all of them would have the same cost as they all are siblings. In other words, we can label each solution and keep the label in the BFS queue.
 
+
 ### BFS Uses
 - If it is known that answer lies nearby the source node in graph, or to get optimal answer -> BFS
 
@@ -261,12 +271,11 @@ Adding two numbers: (either do masking instead of this or do leetcode premium to
 - If a binary tree is balanced, depth first search traversal might only be log(n) space complexity
 - longest path has to be between two leaf nodes.
 - Types of traversals:
-  - Inorder traversal is not a unique identifier of BST. At the same time both preorder and postorder traversals are unique identifiers of BST. From these traversals one could restore the inorder one: inorder = sorted(postorder) = sorted(preorder)
+  - Inorder traversal is not a unique identifier of BST. From these traversals one could restore the inorder one: inorder = sorted(postorder) = sorted(preorder)
   - Inorder + postorder or inorder + preorder are both unique identifiers of whatever binary tree
   - Preorder's first element is root. It's index in Inorder would give a midpoint. Elements to left belong to left subtree in inorder and SAME NUMBER of eleements in preorder.
 - Storing and constructing:
-  - Binary Search Trees, only preorder or postorder traversal is sufficient to store structure information.
-  - In-order of BST is a sorted array.
+  - Binary Search Trees, only preorder or postorder traversal is sufficient to store structure information (In-order of BST is a sorted array).
     - **Method 1:**
       - Need to extract in-order by sorting as well
       - Select node from pre
@@ -278,7 +287,9 @@ Adding two numbers: (either do masking instead of this or do leetcode premium to
       - Just use value ranges as a base case
   - Complete Binary Tree:
     - level order traversal is sufficient
-    - Heap: is a complete binary tree. It uses can array and children can be accessed at particular indices. Do simple recursion that creates a node with arr[i] value and recurses while setting right and left children.
+    - Heap: is a complete binary tree
+    -   all levels of the tree, except possibly the last one (deepest) are fully filled, and, if the last level of the tree is not complete, the nodes of that level are filled from left to right.
+    -   It uses an array and children can be accessed at particular indices. Do simple recursion that creates a node with arr[i] value and recurses while setting right and left children.
   - A full Binary where every node has either 0 or 2 children. It is easy to serialize such trees as every internal node has 2 children.
     - Method 1: We can simply store preorder traversal and store a bit with every node to indicate whether the node is an internal node or a leaf node.
     - Method 2: use preorder and postorder. Preorder tells what is the root and postorder tells elements that are children/grand-children of the root. Do this recursively.
@@ -299,192 +310,159 @@ Adding two numbers: (either do masking instead of this or do leetcode premium to
     - O(V log E + E log E) time and O(E + V) space
       - If edges in heap and V Log V + E Log V if nodes in heap by using min-heap operation
       - Note that V might just be bounded by number of edges so expression might be further simplified
-- Wanna connect all cities with railyway tracks > Prim's
+- Use-case:
+  - Wanna connect all cities with railyway tracks > Prim's
        
 # Djiskstra's
 - Shortest path from source to all nodes
 - Dijkstra's algorithm doesn't work for graphs with negative weight cycles. It may give correct results for a graph with negative edges but you must allow a vertex can be visited multiple times and that version will lose its fast time complexity. For graphs with negative weight edges and cycles, Bellman–Ford algorithm can be used
 - Similar to Prim's, uses heap
 - O(V log E + E log E) time and O(E + V) space
-- The process that underlies Dijkstra's algorithm is similar to the greedy process used in Prim's algorithm. Prim's purpose is to find a minimum spanning tree that connects all nodes in the graph Dijkstra is concerned with only two nodes. Prim's does not evaluate the total weight of the path from the starting node, only the individual path.
-- Wanna plan travel route starting from home > Djikstra's
+
+- Use-case:
+  - Wanna plan travel route starting from home > Djikstra's
+
+
+Djikstra's vs Prim's:
+- The process that underlies Dijkstra's algorithm is similar to the greedy process used in Prim's algorithm.
+- Prim's purpose is to find a minimum spanning tree that connects all nodes in the graph Dijkstra is concerned with 1 node as source.
+- Prim's does not evaluate the total weight of the path from the starting node, only the individual path.
 
 
 # Trie:
 - Don't jump into using a trie if you see prefix. That depends if the query will be repeated or not. If yes, trie will be more efficient as it compresses the information.
   - For complete English dict, 70% compression
-- If messing up with input such as linked list or matrix, see if you can restore it
 - Implement Trie Class with children dict and isword. Do all operations on root node.
+  
 
 # Math:
-- Equation involved? simplified using equation manipulation, log/anti-log and stuff. (NOT SURE WHAT WAS THIS)
+- simplify equation using equation manipulation, log/anti-log, etc.
 - Unique/Prime Factorization Theorem:
   - every integer greater than 1 can be represented uniquely as a product of prime numbers, up to the order of the factors
   - The theorem says two things about this example: first, that 1200 can be represented as a product of primes, and second, that no matter how this is done, there will always be exactly four 2s, one 3, two 5s, and no other primes in the product.
   - For example, characters can be assigned a prime number. A string will have a different product than another string but the same product as its permutations.
-- If n is negative, substitute x with 1/x to make n non-negative.
+- If n is negative, substitute x with 1/x to make n non-negative???
 
 
 # Sorting
 
 - it would be faster to sort a series of subgroups than sorting them all together in a single group. Here is a not-so-rigid proof. Suppose that we have a list of N elements, it would then take O(N log N) time to sort this list. Next, we divide the list into k sublists equally. Each list would contain k/N elements. Similarly, it would take O(N/k log N/k) time to sort each sublist. In total, to sort all the k sublists, it would take O(N log N/k), which is less than the time complexity of sorting the original list O(N log N).
 
-> *These sections need editing.*
 
-## Quick Select:
-    - The one I like is Lomuto btw
-      - Easier to implemen
-    - When already sorted, the middle index pivot in Lomuto results in base case N Log N
-      - _Choosing a random pivot minimizes the chance that you will encounter worst-case O(n2) performance (always choosing first or last would cause worst-case performance for nearly-sorted or nearly-reverse-sorted data). Choosing the middle element would also be acceptable in the majority of cases._
-    - Important: In Hoarse, the returned index is not necessarily the partitioned index
-      - Need more understanding.
-    - Hoare deals with duplicates and has less swap
-    - While Hoare's scheme is indeed faster of the two, it doesn't fix the final position of the pivot element, hence can not be used in quickselect where pivot should be in it's final position after partitioning.
-      - Actually it can be used but the fix is not so intuitive
-    - Time Complexity:
-      - Time complexity: \mathcal{O}(N)O(N) in the average case, \mathcal{O}(N^2)O(N2) in the worst case. Please refer to this card for the good detailed explanation of Master Theorem. Master Theorem helps to get an average complexity by writing the algorithm cost as T(N) = a T(N / b) + f(N)T(N)=aT(N/b)+f(N). Here we have an example of Master Theorem case III: T(N) = T \left(\frac{N}{2}\right) + NT(N)=T(2N)+N, that results in \mathcal{O}(N)O(N) time complexity. That's the case of random pivots.
-      - In the worst-case of constantly bad chosen pivots, the problem is not divided by half at each step, it becomes just one element less, that leads to \mathcal{O}(N^2)O(N2) time complexity. It happens, for example, if at each step you choose the pivot not randomly, but take the rightmost element. For the random pivot choice the probability of having such a worst-case is negligibly small.
-      
-## QuickSort and QuickSelect
- - Just use the method for last element as pivot. If required another method, just select it e.g. the middle index, swap it with last and continue with the same logic as the last one.
-    - Follow the logic in the notebook.
-    - Same code can be adapted to return kth largest/smallest or k largest/smallest.
-    - Can guess loose boundaries for initial search space and iterate
-     - Binary search remains tricky to implement. Is it mid or mid + 1? Do we return left or right and until when does the loop run.
-    - Do test infinite loop
-    - I think the safest thing to do is to test last two remaining separately.
-
-  - In QuickSort's recursive branching, you can ignore the partition that doesn't contain the kth element. This is the foundation of QuickSelect, which leverages this to create a more space-efficient iterative solution.
-  - Space depends on the sorting implementation which, usually, costs O(1)O(1) auxiliary space if heapsort is used.
-    - Insertion would work best if an array is already sorted / small array
-      - because it will quickly break the for loops because of its simplicity and no overhead of space allocation/recursion
-    - Bucket sort needs to have distributed data to be useful, otherwise, it's just a waste of time to achieve the same thing with extra steps.
-      - More memory
-      - Good for parallel
-    - Counting sort won't make sense when n < range
-      - Normally a small range with duplicated elements
-    - Quick Sort requires less space than merge sort since there is no merging. Worst case is O(n^2) but randomizing pivot leads to O(nlogn)
-- dependencies/ordering is a strong indicator of graphs and topological sort
-  - Quick Sort:
-    - Concept: Divide and Conquer:
-      - A group of students ask students to arrange themselves one by one.
-    - The key process in quickSort is partition(). Target of partitions is, given an array and an element x of array as pivot, put x at its correct position in sorted array and put all smaller elements (smaller than x) before x, and put all greater elements (greater than x) after x. All this should be done in linear time.
-
-## QuickSelect:
-    - It is not recursive.
-    - First iteration: check all points and subsequently keep (almost, hopefully) halving:
-      - _N_+N/2 + n/4 … = N
-  - While calculating distances of point, using squared distances might help reducing computation since its all relative.
-  - Whenever k-lowest or k-highest:
-    - If ordering not required, make the most out of it
-    - If no, see if we can use heap
-      - Heap can be further optimized by maintaining the size k. Only pushpopping when needed.
-      - Even if we need min, using max heap can help to see if the curr max is a part of final answer or not
-    - When the k-elements are not part of the actual array (such as a calculation):
-      - Can use a modified binary approach, e.g. by calculating the target distance at every iteration.
-        - If < k elements, all curr elements satisfiying the condition are part of the final answer
-        - If > k, just reduce the domain by (high > mid)
-        - Caution: squared distances will skew datapoints resulting in uneven partitioning
-    - Use QuickSelect to further optimize by doing inplace selection of k elements
       
 ## Bucket Sort:
 - Floating:
   - Create n buckets. Determine bucket index by multiplying number by n.
 - Integer
-  - Range = max – min / n e.g. max = 10, min = 0, n = 5 then range = 2
-  - Create n buckets based on calculated range – (12,34,56,78,9-10)
+  - Range = max – min / n
   - BucketIndex = ( arr[i] - min ) / range
     - If arr[i] = 10, index = 10 – 0 ) / 2 = 5
-    - Remember to test for last element (max). Might just be easy to dump into the last bucket.
+  - Remember to test for last element (max). Might just be easy to dump into the last bucket.
+
 
 ## Counting sort
 - Can not be applied to floating as we use keys as index in counting sort. if keys are floating point numbers use bucket
 
 
 # Searching:
-- I think once trick to binary search is that when I know I can find something in mid, maybe I check for when low == high, otherwise, low/high is the answer, no need to check for mid in the while loop.
-- Binary Search implementations can be tricky:
-  - Check if you wanna include mid point for next search space or not and in what cases?
-  - Can mid be a potential answer but you still wanna continue search until you narrow down to 2 or 1 options?
+- When/if array is sorted or need log (n), leverage binary search
+- Binary Search considerations:
+  - Can mid be a potential answer but you still wanna continue search mid or mid + 1
   - When does the while loop end
     - Searching for something? Might wanna check for single element
-  - May not wanna execute when low == high if the low or high is the answer
+    - May not wanna execute when low == high if the low or high is the answer
+  - when I know I can find something in mid, maybe I check for when low == high, otherwise, low/high is the answer, no need to check for mid in the while loop.
   - Dry run and test if the while loop is infinite by testing for an array of size 2
-  - It's not necessary that the mid point will always be the answer
-  - I think if low = mid, then check for last two remaining examples. I think eventually it might lead to infinite loop.
+  - I think if low = mid, then check for last two remaining examples
     - Simple way is to break out and compare two values separately
-- When/if array is sorted, leverage binary search
-
+  - It's not necessary that the mid point will always be the answer
+  - Do we return left or right 
+- Can guess loose boundaries for initial search space and iterate
+   
 
 # Common Problems
-- Plot graphs in problems similar to stocks/heights.
-- Elements sum to k:
+- Plot graphs in problems similar to **stocks/heights**.
+**- Elements sum to k:**
   - Determine if negative elements / sorting order
   - Start with brute force
   - Optimize by either adding a cum sum or just maintaining a single variable and reusing it (subtracting / resetting to 0)
   - Use equation to check value in hashmap (optimal)
-- Floyd's algorithm to detect cycles in linked lists (the rabbit turtle thing). If there's a cycle, the rabbit and turtle will meet at some point other than starting point.
-- Anagrams: Make sure to try to use frequency in array (Better to use array than hashmap as letters are limited)
-- To check if prime, don't need to check divisors till n.
-  - n/2 > because there is no integer after n/2 that will multiply by 2 (the smallest partner someone can get) that will not cross n.
+- **Anagrams: **Make sure to try to use frequency in array (Better to use array than hashmap as letters are limited)
+- **Prime**, don't need to check divisors till n.
+  - n/2 -----> because there is no integer after n/2 that will multiply by 2 (the smallest partner someone can get) that will not cross n.
     - In other words, 2 is the smallest factor possible
-    - After n/2, all the 2  other_factor would obviously cross n
-  - sqrt(n) > because if see closer, e.g. 16 has 4 sqrt. 4 x 4. This means that although it may have factors above 4 (indeed it does, 8) but those factors above will ALWAYS need values less than sqrt(n). Thus, if a number is not a prime, we should be able to detect it by dividing until sqrt(n) inclusive.
-  - claim # 1: for sqrt(n) + 1 and onwards, all the composites until n will be covered by the primes below sqrt(n).**
-    - he Sieve of Eratosthenes code on Wikipedia is intended to generate a list of all primes up to n. if k ≤ n is not prime, so we have two factors a, b. We can't have a, b both larger than n−−√, as then k=ab would be larger than n. Thus in order to show that k is prime, we only need to check that it is not divisible by a number up to n−−√. Equivalently (and this is the key insight in the Sieve) we only need to check that it is not divisible by a prime up to n−−√.
-  - claim # 2: for a prime number p, smaller prime numbers will have marked composites until p  p
-    - **25 already crossed 10 so 52 not needed. 35 already crossed 15 so 53 not needed...
+  - sqrt(n) ----> because if see closer, e.g. 16 has 4 sqrt. 4 x 4. This means that although it may have factors above 4 (indeed it does, 8) but those factors above will ALWAYS need values less than sqrt(n). Thus, if a number is not a prime, we should be able to detect it by dividing until sqrt(n) inclusive.
+  - Sieve of Eratosthenes
+    - claim # 1: for sqrt(n) + 1 and onwards, all the composites until n will be covered by the primes below sqrt(n).**
+      - he Sieve of Eratosthenes code on Wikipedia is intended to generate a list of all primes up to n. if k ≤ n is not prime, so we have two factors a, b. We can't have a, b both larger than n−−√, as then k=ab would be larger than n. Thus in order to show that k is prime, we only need to check that it is not divisible by a number up to n−−√. Equivalently (and this is the key insight in the Sieve) we only need to check that it is not divisible by a prime up to n−−√.
+    - claim # 2: for a prime number p, smaller prime numbers will have marked composites until p  p
+      - **25 already crossed 10 so 52 not needed. 35 already crossed 15 so 53 not needed...
 - Parenthesis:
-  - If only same time of bracket, no need to use stack. If at anytime balance < 0, return False or if final balance is positive.
+  - stack / calculate balance (1 for closing/-1 for opening / max size of stack
   - If single type bracket, mostly stack is not required. Try multiple examples to see if balance can be used. Try multiple ways:
     - Count whenever balance goes negative
-    - Combine with end balance
-  - stack / calculate balance (1 for closing/-1 for opening / max size of stack
-  - If balance can solve the problem, no need to create additional stack
-- Fast Power Algorithm: Log(N)
-- When trying to identify elements in decreasing or increasing order: Monotonic stack
-- Diagonals:
-  - It turns out two coordinates are on the same diagonal if and only if r1 - c1 == r2 - c2.
-    - Or the plus ones
-  - This leads to the following idea: remember the value of that diagonal as groups[r-c]
-- Intervals:
+    - Combine with end balance (if final balance is positive.)
+**- Fast Power Algorithm:** Log(N)
+**- Monotonic stack:**
+    - When trying to identify elements in decreasing or increasing order:
+    - Next Less Element and Previous Less Element problems can be solved efficiently with a monotonic stac
+**- Intervals:**
   - Sometimes you don't have to look at overlaps. There are other ways to look at the problem e.g. instead of finding overlap and then subtracting to get duration of intervals, just keep on accumulating the duration over time.
-  - Think of keep a track of latest timestamp or event date.
-  - However, like all in-place algorithms, overwriting the input can cause problems. Here are a couple of possible scenarios you need to consider.
-  - That the algorithm is running in a  multithreaded environment, and it does not have exclusive access to the grid. Other threads might need to read the grid too, and might not expect it to be modified.
-  - That there is only a single thread or the algorithm has exclusive access to the grid while running, but the grid might need to be reused later or by another thread once the lock has been released.
-- Prefix Sums:
+  - Can keep a track of latest timestamp or event date.
+  - Two intervals overlap if a[0] <= b[1] and b[0] <= a[1] (for non-sorted. for sorted, simply check if new start < prev_end)
+**- Prefix Sums:**
   - Always consider using prefix sums to optimize calculations.
-- Interval Overlap:
-  - Two intervals overlap if a[0] <= b[1] and b[0] <= a[1].
-- Connected Components
-  - Whenever we must work with a set of elements (emails) that are connected (belong to the same user), we should always consider visualizing our input as a graph. In this problem, converting the input into a graph will facilitate the process of merging two accounts.
-  - Any problem that involves merging connected components (accounts) is a natural fit for DFS or the Disjoint Set Union (DSU) data structure.
-  - *Instead of jumping straight into DSU for connected components type of questions, check if labelling can be given using hashmaps.*
-  - If you're aiming to merge or combine elements, consider using connected components algorithms.
-- Operations
-  - Remember the operator precedence. Track cur_operand, prev_operand and value to take care of precedence 
-- Next Less Element and Previous Less Element problems can be solved efficiently with a monotonic stack
-- Inverse Ackermann Function:
+**- Connected Components**
+  - Whenever we must work with a set of elements (emails) that are connected (belong to the same user), we should always consider visualizing our input as a graph. In this problem, converting the input into a graph will facilitate the process of merging two goroups.
+  - Any problem that involves merging connected components (accounts) is a natural fit for:
+    - DFS
+    - Disjoint Set Union (DSU) data structure.
+  - *Instead of jumping straight into DSU for connected components type of questions, check if labelling can be given using hashmaps.*???
+
+
+**- Inverse Ackermann Function:**
   - couldn't comprehend what Ackerman function really is but looks something that is even worse than exponential
   - It's inverse is really slow with an upper bound of O(logN)
   - Even for very large inputs (up to approximately N < 10^600), the value of α(n) doesn't exceed 4.
   - Useful for Union-Find time complexity analysis
-- In subarray sum etc problems, just start with creating a cum sum and if question talks about mod, just develop a mod table.
-  - Remember that if you have a mod X, adding the divisor to numerator will result in the same mod again. This way you can detect sums.
+- In subarray sum etc problems, just start with creating a cum sum and if question talks about mod, just develop a mod table.???
+  - Remember that if you have a mod X, adding the divisor to numerator will result in the same mod again. This way you can detect sums.???
 
-     
+  
+**- Operations**
+  - Remember the operator precedence. Track cur_operand, prev_operand and value to take care of precedence 
+
+
+# Matrix:
+- **Number of diagonals in a matrix are (ROWS + COLS - 1)**
+- In matrices, for time complexity, we may not be allowed to go back to the parent cell so branches might actually be branches minus 1.
+- For intermediate calculations, can create a temporary matrix but it will take more space
+  - Try to use sentinel values
+    - To assign IDs of components
+    - Indicators etc.
+- In matrice traversals, if wanna go to point B from A. It is the same as going to A from B.
+- Grouping cells in a 2D Matrix:
+  - Left-to-right diagonal: r + c
+  - Right-to-left diagonal: c - r
+  - Boxes of size k: (r // k, c // k)
+- Diagonals:
+  - two coordinates are on the same diagonal if and only if r1 - c1 == r2 - c2.
+    - Or the plus ones???
+  - This leads to the following idea: remember the value of that diagonal as groups[r-c]
+- In some cases, you might need an additional matrix with similar dimensions to store intermediate results for 2D matrix problems.
+  - Evaluate if using the input matrix directly is feasible and allowed.
+
+
 # Time and Space Complexity Analysis
-
-- Beware: even if using an array or hashmap or set, if the size is gonna remain constant with respect to input size than we don't count it in space complexity.
+- if using an array or hashmap or set, if the size is gonna remain constant with respect to input size than we don't count it in space complexity.
 - Maximum input lengths (for worst-case scenarios)
-- String lengths when dealing with strings
-- Remember recursive calls mean more space.
-- If a problem involves multiple queries, just quote for a single query/iteration.
+- recursive calls -> recursion stack.
 - Keep variables as separate as possible.
   - For example, keep edges E and vertices V separate.
   - At the end, may simplify by combining them (approximating them for worst case).
+- If a problem involves multiple queries, just quote for a single query/iteration.
 - It may be nice to analyze big O and preference of a solution based on how it will be used in production. If for example, there's a certain query, is it a one off thing? Will there be a lot of inserts? Deletions? Searches? Ask frequency of operations from the interviewer
+
 
 ## Average Case vs. Amortized Analysis
 - Average case analysis makes assumptions about the input that may not be met in certain cases. Therefore, if your input is not random, in the worst case the actual performance of an algorithm may be much slower than the average case.
@@ -493,12 +471,15 @@ Adding two numbers: (either do masking instead of this or do leetcode premium to
     - Example:
       - When analyzing amortized time complexities, I find it easiest to reason that each node gets pushed and popped exactly once in next() when iterating over all N nodes. That comes out to 2N * O(1) over N calls to next(), making it O(1) on average, or O(1) amortized.
 
+
 ## Summation Series:
   - The series N + N/2 + N/4 + … 1 = 2N is a geometric series and should not be confused with traditional binary search, which halves the search space at each iteration (O(log N) time complexity).
-  
+    
+
 ## Constant Time Complexity
 - When things are constant, the big O is constant e.g. if we know properties of an object are 4, then looping over its properties will not be O(p) but O(1).
 - Always drop constants O(4n) -> O(n).
+
 
 ## Impact of Different List Sizes
 - With two lists, with binary search, the time complexity becomes L1log(L2) instead of L1 + L2. Let's say, L2 is few orders of magnitude bigger than L1, like L1=5 and L2 = 1024. L1log(L2) = 5log(1024) = 50, whereas L1 + L2 = 5 + 1024 = 1029, so it does make a difference.
@@ -512,7 +493,8 @@ Adding two numbers: (either do masking instead of this or do leetcode premium to
     - If A = 5, B = 1024:
       - A + B = 1029
       - A log B = 5 * 10 = 5.
-      - 
+
+        
 ## Graph and Tree Time and Space Complexity
 | Graph (Time – Space) | Tree (Time – Space) |
 | --- | --- |
@@ -521,11 +503,14 @@ Adding two numbers: (either do masking instead of this or do leetcode premium to
 | Both time and space become O(V^2) if an adjacency matrix is used instead of adj. list. |
 | For trees where height is less than max-width, DFS uses less space asymptotically. | For trees where max width is less than height BFS uses less space asymptotically. |
 
+
 **DFS and BFS time complexity: O(n)**
   - Because this is tree traversal, we must touch every node, making this O(n) where n is the number of nodes in the tree.
+
     
 **BFS space complexity: O(n)**
 - BFS will have to store at least an entire level of the tree in the queue (sample queue implementation). With a perfect fully balanced binary tree, this would be (n/2 + 1) nodes (the very last level). Best Case (in this context), the tree is severely unbalanced and contains only 1 element at each level and the space complexity is O(1). Worst Case would be storing (n - 1) nodes with a fairly useless N-ary tree where all but the root node are located at the second level.
+
 
 **DFS space complexity: O(d)**
 - Regardless of the implementation (recursive or iterative), the stack (implicit or explicit) will contain d nodes, where d is the maximum depth of the tree. With a balanced tree, this would be (log n) nodes. Worst Case for DFS will be the best case for BFS, and the Best Case for DFS will be the worst case for BFS.
@@ -534,27 +519,11 @@ Adding two numbers: (either do masking instead of this or do leetcode premium to
   - 1st option: normayll when we have different starting points such as in labelling connected components
   - 2nd option: when we have multiple decisions to make within a single call
 
-
-# Matrix:
-- **Number of diagonals in a matrix are (ROWS + COLS - 1)**
-- In matrices, for time complexity, we may not be allowed to go back to the parent cell so branches might actually be branches minus 1.
-- For intermediate calculations, create a temporary matrix but it will take more space
-- Try to use sentinel values:
-- To assign IDs of components
-- Indicators etc.
-  - In matrice traversals, if wanna go to point B from A. It is the same as going to A from B.
-- Grouping cells in a 2D Matrix:
-  - Left-to-right diagonal: r + c
-  - Right-to-left diagonal: c - r
-  - Boxes of size k: (r // k, c // k)
-- In some cases, you might need an additional matrix with similar dimensions to store intermediate results for 2D matrix problems.
-- Evaluate if using the input matrix directly is feasible and allowed.
-
   
 # Greedy Algorithms:
 - Greedy problems usually look like Find minimum number of something to do something or Find maximum number of something to fit in some conditions, and typically propose an unsorted input.
 - The idea of greedy algorithm is to pick the locally optimal move at each step, that will lead to the globally optimal solution.
-- How to prove that your greedy algorithm provides globally optimal solution? Usually you could use the proof by contradiction.
+- How to prove that your greedy algorithm provides globally optimal solution?  proof by contradiction.
     
 
 # Dynamic Programming
@@ -590,39 +559,35 @@ Facebook said no need for ML :D
 
 # Data Structures Udacity Course (Concepts Only):
 
-- Linked Lists make inserting and deleting so easy but Arrays are good in terms of having indices.
+- **Linked Lists** make inserting and deleting so easy but **Arrays** are good in terms of having indices.
   - Index vs Reference to the next element
   - In particular, arrays are contiguous memory blocks, so large chunks of them will be loaded into the cache upon first access. This makes it comparatively quick to access future elements of the array. Linked lists on the other hand aren't necessarily in contiguous blocks of memory, and could lead to more cache misses, which increases the time it takes to access them.
   - Typically, when using an array you access items near each other. This is especially true when accessing an array sequentially.
     - When you access memory, chunks of it are cached at various levels. Cache locality refers to the likelihood of successive operations being in the cache and thus being faster. In an array, you maximize the chances of sequential element access being in the cache.
     - With linked lists, by counter-example, there's no guarantee that items that appear sequentially in the list are arranged near eachother in memory. This means fewer cache hits, and degraded performance.
-- Doubly Linked List: reference to previous as well
-- While inserting in linked list, first set the next of the new element. This will reduce 1 additional line of code instead of saving tmp pointer.
+**- Doubly Linked List:** reference to previous as well
+**- Stack** can be implemented with linked lists or arrays (more common in LC problems)
+- LIFO
 - Recent most important but still wanna keep the rest? Use stacks e.g. News Feed
-  - Stack can be implemented with linked lists
-  - LIFO
-- Queue: can implement using LL
+**- Queue:** can implement using LL
   - Keep a ref to head and tail so constant time access
   - Deques have dequeuer and enqueuer at both ends
-- Priority Queue: if same priority, oldest removed
-- **BS: for worst case, assume test element to be largest and always favor lower when middle is a tie in case of even numbers
-  - Not really significant.**
+**- Priority Queue:**
+  - if same priority, oldest removed
 - If don't know big 0, create n vs n_iterations table and notice patterns
-- Remember there might be a space vs time trade-off
-- Talk about all possible options in an interview
-- Improved version of bubble sort could stop doing comparisons for the very last elements
+- Improved version of **bubble sort** could stop doing comparisons for the very last elements
 - Average Case:
   - All possible case time (sum) / no. of cases on average
 - Space Complexity: If no extra i.e. in place, O(1) Auxillary
   - Assumes space released after every step so just look at single step
   - In recursion, you'll always be in a single branch of the call tree so calculate space complexity accordingly.
-- Merge sort, the recursive approach is called top-down.
+- **Merge sort**, the recursive approach is called top-down.
   - Bottom up is iterative and starts from bottom
-- Please no quick sort on nearly sorted arrays if using standard Lomuto parittion scheme
+- No **quick sort** on nearly sorted arrays if using standard Lomuto parittion scheme
 - Improve quick sort by median
 - Space complexity of Quick Sort can be O(1) if in-place using swaps
   - But the recursion stack will be used still
-- Hash functions might be used for optimizing a solution
+- **Hash functions** might be used for optimizing a solution
   - Commonly divide numbers by a number let's say 10
     - mod and use the remainder as the index in an array
   - Why use the last digits? Because they are more random than the significant digits
@@ -636,72 +601,71 @@ Facebook said no need for ML :D
   - On the flip side, the closer our load factor is to 1 (meaning the number of values equals the number of buckets), the better it would be for us to rehash and add more buckets. Any table with a load value greater than 1 is guaranteed to have collisions.
   - If hash function is simply mod than the divisor is simply the number of buckets
   - Dividing a bunch of multiples of 5 by another multiple of 5 will cause a lot of collisions
-  - HashMaps:
-    - You can store <k, v> in the bucket determined by hash(k)
-    - For string keys, ASCII values to get integer value
-    - Just a convention, s[0]31^(n-1) + s[1]31^(n-2) + ….
-    - As long as you space, a unique hash key can be very useful for constant lookups
-  - Tree is an extension of a linked list essentially (having several next elements)
-    - A tree must be completely connected ALWAYS and no cycles
-    - Height of leaf is 0 but depth is X (opposite relation)
-  - BFS: Can do level Order traversal
-  - DFS: Preorder, inorder, post-order
-  - Perfect binary trees (all non-leaves have two children)
-  - BST: Unbalanced is a problem (the worst case)
-  - Heaps don't have to be binary
-  - A binary heap must be a complete tree:
-    - All levels except the last level must be full
-  - Binary Tree: log(n) > Height of the tree
-  - If heap implemented through Tree like structure, it will require saving more stuff (left, right, bla bla bla)
-    - Commonly implemented with an array
-  - The most unbalanced tree is kinda like a linked list
-  - Red Back Tree Rules:
-
-1. Each node can be either red or black
-2. Each node has null black nodes (if it doesn't have 2 children)
-3. If parent is red, both children are black
-4. Root is black
-5. All paths from root to null nodes have the same number of black nodes
-  - Graphs (Networks) to be used for showing connections
+**- HashMaps:**
+  - You can store <k, v> in the bucket determined by hash(k)
+  - For string keys, ASCII values to get integer value
+  - Just a convention, s[0]31^(n-1) + s[1]31^(n-2) + ….
+  - As long as you space, a unique hash key can be very useful for constant lookups
+**- Tree** is an extension of a linked list essentially (having several next elements)
+  - A tree must be completely connected ALWAYS and no cycles
+  - Height of leaf is 0 but depth is X (opposite relation)
+- BFS: Can do level Order traversal
+- DFS: Preorder, inorder, post-order
+- Perfect binary trees (all non-leaves have two children)
+- BST: Unbalanced is a problem (the worst case)
+- Heaps don't have to be binary
+- A binary heap must be a complete tree:
+  - All levels except the last level must be full
+- Binary Tree: log(n) > Height of the tree
+- If heap implemented through Tree like structure, it will require saving more stuff (left, right, bla bla bla)
+  - Commonly implemented with an array
+- The most unbalanced tree is kinda like a linked list
+**- Red Back Tree Rules:**
+  1. Each node can be either red or black
+  2. Each node has null black nodes (if it doesn't have 2 children)
+  3. If parent is red, both children are black
+  4. Root is black
+  5. All paths from root to null nodes have the same number of black nodes
+   
+  - **Graphs (Networks)** to be used for showing connections
     - Trees are actually types of graphs
-  - Cycles allowed
+    - Cycles allowed
   - No roots but we can have a starting point based on the problem
   - DAG: Directed, Acyclic, Graph
   - Connectivity:
     - Disconnected: if we can't reach a vertex or a group of vertices from another
     - Min number of elements to be removed for a graph to become disconnected > shows how strong connection is
-    - A weakly connected component is a maximal group of nodes that are mutually reachable by violating the edge directions.
+    - A weakly connected component is a maximal group of nodes that are mutually reachable by violating the edge directions.???
   - Implementation:
     - OOP (Edge, Vertex objects)
     - List of edges
     - Adjacency List
     - Adjacency Matrix
-    - If you're looking for node degree or no. of edges for a vertex > Adjacency list
+    - If you're looking for node degree or no. of edges for a vertex > Adjacency list???
   - DFS: Can be implemented with stack:
     - If not seen, put in stack
     - If hit a seen vertex, go back and try another one
     - Recursion is technically a stack as well
   - BFS: Queue
   - **Eulerian Path:**
-    - Passes through every edge at least once( I think its exactly once)
+    - Passes through every edge exactly once
     - Eulerian Cycle:
       - Each edge only once
       - End up at the same node
-      - Possible only if all nodes have even degree or even number of edges connected to them.
+      - Possible only if all nodes have even degree or even number of edges connected to them???
     - Paths are a bit lenient:
       - Start and end nodes can have odd degree
   - **Hamiltonian Path**
     - Must go through every vertex once
     - Cycle:
       - Start and end at the same vertex
-  - If you're storing a disconnected graph, not every node will be tied to an edge, so you should store a list of nodes.
-  - We could probably leave it there, but storing an edge list will make our lives much easier when we're trying to print out different types of graph representations.
-  - Unfortunately, having both makes insertion a bit complicated
+  - If you're storing a disconnected graph, not every node will be tied to an edge, so you should store a list of nodes???
+  - We could probably leave it there, but storing an edge list will make our lives much easier when we're trying to print out different types of graph representations. Unfortunately, having both makes insertion a bit complicated???
   - Shortest Path:
     - **Unweighted: BFS**
     - **Weighted, Undirected: Dijiktra's (Min Heap Implementation)**
       - **Djiktra's should work for directed as well**
-  - Knapsnack: Brute Force is O(2^n)
+  - Knapsnack: Brute Force is O(2^n), possibly optimzied via memoization/dp
   - A problem may have both DFS and BFS solution like the count_islands problem
 
    
