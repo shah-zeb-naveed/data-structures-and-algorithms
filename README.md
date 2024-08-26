@@ -80,6 +80,9 @@
   - Whenever you use cumulative sums, try to minimize them to a single variable.
 - Visualize things in a practical manner as well in addition to in a data structure-oriented manner. E.g. if visualizing a unix file path, it makes sense to first visualize the problem by creating a tree similar to what we see in Windows file explorer.
 
+# General Tips for HackerRank
+- Instead of thinking pure algorithmically like LeetCode, try to use built-in python functions, vectorization and list comprehension to beat time limit if can't come up with most optimal solution.
+
 # Tuples:
 - Tuples are great for keep track of some information especially while new information keeps coming in as in queues.
 - While designing new data structures, think about
