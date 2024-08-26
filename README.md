@@ -500,7 +500,7 @@ Djikstra's vs Prim's:
 | Concept                     | DFS Time Complexity | DFS Space Complexity | BFS Time Complexity | BFS Space Complexity | Additional Considerations                                      |
 | ---------------------------- | ------------------- | -------------------- | ------------------- | -------------------- | -------------------------------------------------------------- |
 | **Graph**                    | O(V + E)            | O(V)                 | O(V + E)            | O(V)                 | Complexity increases to O(V^2) if using adjacency matrix instead of adjacency list. |
-| **Tree (General)**           | O(n)                | O(d)                 | O(n)                | O(n)                 | DFS: Space complexity is O(log n) for balanced trees. BFS: Space is O(n) for storing the last level of a binary tree (n/2 + 1). |
+| **Tree (General)**           | O(n)                | O(d)                 | O(n)                | O(n / 2 + 1)  (last level)                |  |
 | **Tree (Best/Worst Case)**   | -                   | Best: O(log n) in balanced. Unbalanced -> O(n)       | -                   | Best: O(1) (tree is severely unbalanced and contains only 1 element at each level). Worst Case would be storing (n - 1) nodes with a fairly useless N-ary tree where all but the root node are located at the second level.        | DFS worst case = BFS best case, and vice versa.                |
 | **Asymptotic Space (Trees)** | -                   | Less space if height < max width | -                   | Less space if max width < height | - |
 
