@@ -110,6 +110,7 @@
 
 # Linked-lists
 - Linked Lists would need a dummy node (or None) or two pointer approach in many case. Two pointer could be a fast and slow (to detect cycle or middle point). Or it could be in same direction and speed but with a gap to find from last nth node.
+- Confirm sentinal value for dummy based on allowed input range (can use string)
 - Floyd's algorithm to detect cycles in linked lists. If there's a cycle, the rabbit and turtle will meet at some point other than starting point.
 - While inserting in linked list, first set the next of the new element. This will reduce 1 additional line of code instead of saving tmp pointer.
   
@@ -240,7 +241,8 @@ Adding two numbers: (either do masking instead of this or do leetcode premium to
 - Optimize along the way to minimize recursion by adding contraints and early stopping
 - Avoid jumping straight to DFS backtracking for finding solutions. Explore simpler approaches first. Remember, DFS/backtracking is bruteforce.
 - There are cases where we are trying to backtrack essentially from the last failure with the help of a for loop to explore other solutions. To catch a failed attempt and to continue exploring other options, catch the return False using an if condition and return True inside the if condition.
-
+  - don't go crazy on optimization using this though unless necessary to detect something
+- Based on use-case, can return a tuple of elements e.g. [bool, info1, info2, etc.]
   
 ### DFS Uses
 - DFS if answer lies quite far away or if backtracking is needed or if entire graph has to be traversed (doesn't matter in this case).
@@ -368,15 +370,12 @@ Djikstra's vs Prim's:
 - When/if array is sorted or need log (n), leverage binary search
 - Binary Search considerations:
   - Can mid be a potential answer but you still wanna continue search mid or mid + 1
-  - When does the while loop end
-    - Searching for something? Might wanna check for single element
+  - When does the while loop end, l <= r, l < r or l < r - 1 (based on special use-case)
     - May not wanna execute when low == high if the low or high is the answer
   - when I know I can find something in mid, maybe I check for when low == high, otherwise, low/high is the answer, no need to check for mid in the while loop.
   - Dry run and test if the while loop is infinite by testing for an array of size 2
-  - I think if low = mid, then check for last two remaining examples
-    - Simple way is to break out and compare two values separately
+  - Often when we wanna keep mid for next iteration, might result in infinite loop. can add special logic to end and process last two remaing examples separately
   - It's not necessary that the mid point will always be the answer
-  - Do we return left or right 
 - Can guess loose boundaries for initial search space and iterate
    
 
