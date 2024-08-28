@@ -110,6 +110,8 @@
 
 # Linked-lists
 - Linked Lists would need a dummy node (or None) or two pointer approach in many case. Two pointer could be a fast and slow (to detect cycle or middle point). Or it could be in same direction and speed but with a gap to find from last nth node.
+- May not actually need a dummy node in somecases like palindrome detection.
+- Can start slow/fast at differnent locations.
 - Confirm sentinal value for dummy based on allowed input range (can use string)
 - Floyd's algorithm to detect cycles in linked lists. If there's a cycle, the rabbit and turtle will meet at some point other than starting point.
 - While inserting in linked list, first set the next of the new element. This will reduce 1 additional line of code instead of saving tmp pointer.
