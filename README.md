@@ -245,6 +245,7 @@ Adding two numbers: (either do masking instead of this or do leetcode premium to
 - There are cases where we are trying to backtrack essentially from the last failure with the help of a for loop to explore other solutions. To catch a failed attempt and to continue exploring other options, catch the return False using an if condition and return True inside the if condition.
   - don't go crazy on optimization using this though unless necessary to detect something
 - Based on use-case, can return a tuple of elements e.g. [bool, info1, info2, etc.]
+- Different ways to design desicision tree. Loop over possibilities, yes/no, etc.
   
 ### DFS Uses
 - DFS if answer lies quite far away or if backtracking is needed or if entire graph has to be traversed (doesn't matter in this case).
