@@ -32,13 +32,6 @@
 - In DFS, it might help to have conditions checked in the base cases instead of complicated logic in the main body.
 
 
-# General Python:
-- -ive numbers with positive modulo give weird results. if needed, do module with negative divisor or handle negative sign manually. 
-  - A class can have an object of its own class
-- All immutables like tuples are hashable. So can use them as dict keys. Sometimes, you might wanna convert list elements to a tuple or joint string for hashing.
-- Mutable objects have a tricky copy mechanism e.g. lists
-- And since Python 3.7, official documentation states: Dictionaries preserve insertion order.
-
 
 # Definitions:
 - Every character is a palindrome
@@ -69,6 +62,12 @@
 - **Overwriting inputs:** However, like all in-place algorithms, overwriting the input can cause problems. Here are a couple of possible scenarios you need to consider.
   - That the algorithm is running in a  multithreaded environment, and it does not have exclusive access to the grid. Other threads might need to read the grid too, and might not expect it to be modified.
   - That there is only a single thread or the algorithm has exclusive access to the grid while running, but the grid might need to be reused later or by another thread once the lock has been released.
+- -ive numbers with positive modulo give weird results. if needed, do module with negative divisor or handle negative sign manually. 
+  - A class can have an object of its own class
+- All immutables like tuples are hashable. So can use them as dict keys. Sometimes, you might wanna convert list elements to a tuple or joint string for hashing.
+- Mutable objects have a tricky copy mechanism e.g. lists
+- And since Python 3.7, official documentation states: Dictionaries preserve insertion order.
+- if storing numbers, can possible use bits for storage to reduce space comeplxity
 
  
 # General Tips for HackerRank
@@ -207,6 +206,7 @@ Adding two numbers: (either do masking instead of this or do leetcode premium to
 
 
 # Heaps
+- heap when lower/higher values need to be processed
 - Min-heap by default. Use negative sign to create max-heap.
 - Instead of deleting from heap, might just be better off not considering it when its time comes during popping. Lazy delete.
 - Prefer to heapify() instead of heappush if array already available.
@@ -246,6 +246,7 @@ Adding two numbers: (either do masking instead of this or do leetcode premium to
   - don't go crazy on optimization using this though unless necessary to detect something
 - Based on use-case, can return a tuple of elements e.g. [bool, info1, info2, etc.]
 - Different ways to design desicision tree. Loop over possibilities, yes/no, etc.
+- Can fast forward pointer i to skip duplicates instead of just i + 1 with an interval while loop. 
   
 ### DFS Uses
 - DFS if answer lies quite far away or if backtracking is needed or if entire graph has to be traversed (doesn't matter in this case).
@@ -258,13 +259,14 @@ Adding two numbers: (either do masking instead of this or do leetcode premium to
 
 
 # BFS
+- bfs over dfs when "minium number" is impoirtant (e.g. time, dsitance, levels, etc.)
 - To track depth during BFS, you can use techniques like cur_level/next_level or loop through the original queue size within an outer loop.
 - In a graph, keep track of visited before enqueing
 - BFS is a general framework. The exact implementation will be different based on the application.
-  - Having same nodes with different costs in the queue (for example, in the form of priority queue) -> Djikstra's/Prim's
+  - Having same nodes with different costs in the queue (for example, in the form of priority queue/heap) -> Djikstra's/Prim's
 - At any given moment, the BFS level order traversal queue contains no more than  **two levels**  of nodes in the tree. The maximal number of nodes at one level is n/2​, which is the number of the leaf nodes in a balanced binary tree. As a result, the space needed for the queue would be O(N)
 - Finding optimal path: we can make branches that can represent next potential steps and all of them would have the same cost as they all are siblings. In other words, we can label each solution and keep the label in the BFS queue.
-
+- 1D array problems might be solvable by greedy approach using pointers (kind of simplifciation of bfs)
 
 ### BFS Uses
 - If it is known that answer lies nearby the source node in graph, or to get optimal answer -> BFS
