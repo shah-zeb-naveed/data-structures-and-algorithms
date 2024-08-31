@@ -248,6 +248,8 @@ Adding two numbers: (either do masking instead of this or do leetcode premium to
 - Based on use-case, can return a tuple of elements e.g. [bool, info1, info2, etc.]
 - Different ways to design desicision tree. Loop over possibilities, yes/no, etc.
 - Can fast forward pointer i to skip duplicates instead of just i + 1 with an interval while loop. 
+- After decision tree, take a close look to parameters of recursive call to see if memoization can be used. Then see if bottom up can be convereted to dp (dp notes below).
+- 
   
 ### DFS Uses
 - DFS if answer lies quite far away or if backtracking is needed or if entire graph has to be traversed (doesn't matter in this case).
@@ -350,6 +352,7 @@ Djikstra's vs Prim's:
   - The theorem says two things about this example: first, that 1200 can be represented as a product of primes, and second, that no matter how this is done, there will always be exactly four 2s, one 3, two 5s, and no other primes in the product.
   - For example, characters can be assigned a prime number. A string will have a different product than another string but the same product as its permutations.
 - If n is negative, substitute x with 1/x to make n non-negative???
+- divide for nums with opposite signs needs int(num1 / num2)
 
 
 # Sorting
@@ -515,6 +518,7 @@ Djikstra's vs Prim's:
 - Greedy problems usually look like Find minimum number of something to do something or Find maximum number of something to fit in some conditions, and typically propose an unsorted input.
 - The idea of greedy algorithm is to pick the locally optimal move at each step, that will lead to the globally optimal solution.
 - How to prove that your greedy algorithm provides globally optimal solution?  proof by contradiction.
+- Exampels: valid parenthesis with *, gas station/cost loop, etc.
     
 
 # Dynamic Programming
