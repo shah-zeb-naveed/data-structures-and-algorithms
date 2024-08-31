@@ -114,6 +114,7 @@
 - Confirm sentinal value for dummy based on allowed input range (can use string)
 - Floyd's algorithm to detect cycles in linked lists. If there's a cycle, the rabbit and turtle will meet at some point other than starting point.
 - While inserting in linked list, first set the next of the new element. This will reduce 1 additional line of code instead of saving tmp pointer.
+- although access to linked list is O(n) but see if double linked list and/or saving pointers in hashmap can be leveraged for O(1) removal.
   
 # Stack
 - When encounter a situation where you have to traverse something till end before processing current element, use stack/recursion
