@@ -222,7 +222,9 @@ Adding two numbers: (either do masking instead of this or do leetcode premium to
   - Do you even need a dictionary mapping or just a list of edges will work? If you need unique edges, defining a graph using a dict (adjacency list) will cause additional overhead???
   - Better to create a class with add_edge() method: tuple of edge as a key
 - Topological Sort
-  - might be needed if we wanna extract the order but if we already have the order, just use hashmap and iterate over it.
+  - Can use two hashsets visited and cycle to detect cycles
+  - might be needed if we wanna extract the order but if we already have the order, just use hashmap and iterate over it
+  - .
 - Eulerian Path
   - a path in graph that visits every edge exactly once (allowing for revisiting vertices).
   - Eulerian Cycle is an Eulerian Path which starts and ends on the same vertex. Cycle if all degrees are even. Forget about 0 degree vertices???
@@ -311,10 +313,10 @@ Adding two numbers: (either do masking instead of this or do leetcode premium to
 # Spanning Tree (Prims and Kruskal)
 - Spanning Tree:
     - Wighted, undirected, connected graph
-  - Kruskal:
+  - Kruskal (better for sparse trees):
     - Uses DSU
     - E Log E for sorting and since we are taking union of nodes E times, that is E log V. E in worst case is V^2 so it's gonna be E log V
-    - Actually not log N. Remember with both path compression and union by rank, it actually becomes O(alpha N) where log is actually an upper bound and alpha refers to co-efficient of inverse Ackermann function
+    - Actually not log V. Remember with both path compression and union by rank, it actually becomes O(alpha V) where log is actually an upper bound and alpha refers to co-efficient of inverse Ackermann function
   - Primms:
     - Uses heap for optimal implementation
     - O(V log E + E log E) time and O(E + V) space
@@ -374,6 +376,11 @@ Djikstra's vs Prim's:
 ## Counting sort
 - Can not be applied to floating as we use keys as index in counting sort. if keys are floating point numbers use bucket
 
+## Quick Sort / Quick Select
+- kth largest -> run quick sort until k = pivot (reverse k as len(nums) - k)
+- quick sort recursive in nature but stack can be used to simulate for iterative
+- no point of recursion for quicks elect. avoid unnnecssary work.
+- lomuto's partition is more easy to implement than haorse
 
 # Searching:
 - When/if array is sorted or need log (n), leverage binary search
@@ -582,6 +589,7 @@ Facebook said no need for ML :D
 - Improve quick sort by median
 - Space complexity of Quick Sort can be O(1) if in-place using swaps
   - But the recursion stack will be used still
+- The key process in quickSort is partition(). Target of partitions is, given an array and an element x of array as pivot, put x at its correct position in sorted array and put all smaller elements (smaller than x) before x, and put all greater elements (greater than x) after x. All this should be done in linear time. 
 - **Hash functions** might be used for optimizing a solution
   - Commonly divide numbers by a number let's say 10
     - mod and use the remainder as the index in an array
