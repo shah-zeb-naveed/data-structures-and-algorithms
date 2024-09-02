@@ -432,7 +432,7 @@ Djikstra's vs Prim's:
   - Any problem that involves merging connected components (accounts) is a natural fit for:
     - DFS
     - Disjoint Set Union (DSU) data structure.
-  - *Instead of jumping straight into DSU for connected components type of questions, check if labelling can be given using hashmaps.*???
+  - Instead of jumping straight into DSU for connected components type of questions, check if labelling can be given using hashmaps.
 
 
 **- Inverse Ackermann Function:**
