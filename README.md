@@ -680,6 +680,7 @@ Facebook said no need for ML :D
 
 - Arithmetic series (end - start) / step_size -> n_steps
 - Law of total probability: P(A) = P(A | S1) P(S1) + P(A | S2) P(S2) + ... (all partitions) pretty much what's used for marginal in bayes theorem
+  - depending on the situation, one of the Si's could be A itself 
 - Bayes Theorem: P(A | B) = ( P(B | A) . P(A) )/ P(A) - whenever some evidence/prior or observation is given
 - Conditional: P(A | B) = P (A and B) / P(B) - whenever a certain observatioin given
 - Bernolli Trial (single trial - two outcomes)
