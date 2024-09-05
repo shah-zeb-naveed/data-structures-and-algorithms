@@ -437,7 +437,8 @@ Djikstra's vs Prim's:
     - DFS
     - Disjoint Set Union (DSU) data structure.
   - Instead of jumping straight into DSU for connected components type of questions, check if labelling can be given using hashmaps.
-
+- subsequence is often dfs + cache or dp problem since we have to skip elements
+- unique combinations -> dfs backtracking especailyl where all valid answers need to be maintained
 
 **- Inverse Ackermann Function:**
   - couldn't comprehend what Ackerman function really is but looks something that is even worse than exponential
