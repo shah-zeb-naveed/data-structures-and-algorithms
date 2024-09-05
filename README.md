@@ -310,6 +310,8 @@ Adding two numbers: (either do masking instead of this or do leetcode premium to
     - Method 1: A simple solution is to store both Inorder and Preorder traversals
     - Method 2: Have nulls indicated by None for every non-NULL node's children and do pre-order traversal with None as a base case
 
+# Binary Search Tree
+- Always think Log N and iterative first (though recursive problems exist)
 
 # Spanning Tree (Prims and Kruskal)
 - Spanning Tree:
@@ -346,6 +348,7 @@ Djikstra's vs Prim's:
 - Don't jump into using a trie if you see prefix. That depends if the query will be repeated or not. If yes, trie will be more efficient as it compresses the information.
   - For complete English dict, 70% compression
 - Implement Trie Class with children dict and isword. Do all operations on root node.
+- 
   
 
 # Math:
