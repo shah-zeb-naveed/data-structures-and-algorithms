@@ -222,7 +222,7 @@ Adding two numbers: (either do masking instead of this or do leetcode premium to
   - Do you even need a dictionary mapping or just a list of edges will work? If you need unique edges, defining a graph using a dict (adjacency list) will cause additional overhead???
   - Better to create a class with add_edge() method: tuple of edge as a key
 - Topological Sort
-  - Can use two hashsets visited and cycle to detect cycles
+  - Can use two hashsets visited and cycle to detect cycles (for cycles, might also use adjacency list instead)
   - might be needed if we wanna extract the order but if we already have the order, just use hashmap and iterate over it
   - .
 - Eulerian Path
@@ -272,6 +272,7 @@ Adding two numbers: (either do masking instead of this or do leetcode premium to
 - At any given moment, the BFS level order traversal queue contains no more than  **two levels**  of nodes in the tree. The maximal number of nodes at one level is n/2​, which is the number of the leaf nodes in a balanced binary tree. As a result, the space needed for the queue would be O(N)
 - Finding optimal path: we can make branches that can represent next potential steps and all of them would have the same cost as they all are siblings. In other words, we can label each solution and keep the label in the BFS queue.
 - 1D array problems might be solvable by greedy approach using pointers (kind of simplifciation of bfs)
+- can visit a node right after pop or right before appending to queue. mostly for heaps/priority queue/prims/djikstra's we visited once a node is popped.
 
 ### BFS Uses
 - If it is known that answer lies nearby the source node in graph, or to get optimal answer -> BFS
@@ -534,25 +535,27 @@ Facebook said no need for ML :D
 
 ## 1D:
 - dynamic programming -> observe if any redundant operations are being peformed.
-- think brute force, visualize tree or graph (decision tree can be visualized as options or a binary tree), understand subproblems, think saving results in an array in bottom up approach (memoization is top-down approach but less efficient and easier to come up with). Also, trees or graphs may be difficult so can also think of two parallel timelines (using a max operation). think whether to start from end or start of array. there's one problem for which dp was not done so implemented dfs backtracking coz had to maintain all the combinations.
-- think logically. try to fill in a dp matrix or dp array manually, from left to right or right to left. In many cases, it's bottom up.
+- think brute force, visualize tree or graph (decision tree can be visualized as options or a binary tree), understand subproblems, think saving results in an array in bottom up approach (memoization is top-down approach but less efficient and easier to come up with).
+- In some problems, trees or graphs may be difficult so can also think of two parallel timelines (using a max and/or min operation).
+- think whether to start from end or start of array.
+- there's one problem for which dp was not done so implemented dfs backtracking coz had to maintain all the combinations.
+- try to fill in a dp matrix or dp array manually, from left to right or right to left. In many cases, it's bottom up/left-right.
 - Some dp solutions of bottom up approach might be O(n^2) instead of O(n) for example when at every position, we depend on every following position possibly. Think if there's a greedy solution.
-- Write a base equation to understand dependency. That helps decide if we wanna go reverse or forward. Usually we define default values of the right-most or left-most. Many times, an additional index is required to hold the base case.
+- Write a base equation to understand dependency. That helps decide if we wanna go reverse or forward. Usually we define default values of the right-most or left-most. Many times, an additional index is required to hold the base case (could be 0 or 1 or anything).
 - Depending on equation, it may be possible to store a few variables instead of entire array.
 - think dynamically while coming up with logic before coming up with equation
 - equtaions are normally adding something or taking max/min of sth.
 - Some "DP" problems are actually just window expansion problem that avoid repetitive work
-- Some "DP" problems require keeping track of max and min over time.
 - DP bruteforce tree may possibly be visualzied in more than one way. For example, instead of "do or not do" branches, can visualize by "which index to start". May be beneficial to directly visualize in array as well.
 -  subsequences can be modelled as "starting at index" or "ending at index".
--  Stair base case 1 why?
+
 
 ## 2D:
 -  Try bottom-up (from end) and define base case. in 2d, can go left to right and bottom to top.
 -  Define appropriate value for out of bound (like 0 of inf)
 -  May not need to store entire 2D array. Maybe just selected rows.
 -  Default values can be set for entire row or column, etc.
--  Decision Tree with Memoization will mostly be possible. Memoization requires thinking what the function call input (also, the cache key/s) will be. In 2D, there might be two keys.
+-  Decision Tree with Memoization will mostly be possible. Memoization requires thinking what the function call input (also, the cache key/s) will be. In 2D, there will be two keys.
 -  Sometimes I try to visualize by resulting array which is okay for all the possible combinations but for dynamic programming, try to think in terms of iindex i or in 2D, i + j.
 -   Most 2D can be done with a table approach. Sometimes visualizing arrays is good enough instead of a tree.
 -   Remember to cache the results. Memoization can easily be converted to Bottom-up DP. Core conditions mostly remain the same.
