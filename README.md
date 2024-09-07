@@ -683,6 +683,11 @@ Facebook said no need for ML :D
 - What if the base case is not O(1) in recursion? Do we multiply by number of rescursive calls? (Yes)
 
 
+# SQL
+- CTEs/Subqueries and Window functions is a must.
+- For funnel analysis/timeline of events, can use UNION ALL.
+- Think if self-join is needed.
+
 # Probability
 
 - Arithmetic series (end - start) / step_size -> n_steps
