@@ -248,7 +248,10 @@ Adding two numbers: (either do masking instead of this or do leetcode premium to
 - There are cases where we are trying to backtrack essentially from the last failure with the help of a for loop to explore other solutions. To catch a failed attempt and to continue exploring other options, catch the return False using an if condition and return True inside the if condition.
   - don't go crazy on optimization using this though unless necessary to detect something
 - Based on use-case, can return a tuple of elements e.g. [bool, info1, info2, etc.]
-- Different ways to design desicision tree. Loop over possibilities, yes/no, etc.
+- Different ways to design desicision tree.
+  - yes/no, etc.
+  - Move pointers forward differently in differnt branches (e.g. i could stay same but j moves)
+  - Loop over possibilities (this should last resort as it leads to O(n) branches
 - Can fast forward pointer i to skip duplicates instead of just i + 1 with an interval while loop. 
 - After decision tree, take a close look to parameters of recursive call to see if memoization can be used. Then see if bottom up can be convereted to dp (dp notes below).
 - 
@@ -437,7 +440,7 @@ Djikstra's vs Prim's:
     - DFS
     - Disjoint Set Union (DSU) data structure.
   - Instead of jumping straight into DSU for connected components type of questions, check if labelling can be given using hashmaps.
-- subsequence is often dfs + cache or dp problem since we have to skip elements
+- subsequence is often dfs + cache or dp problem since we have to skip elements (THIS SCREWED ME IN TODAY'S INTERVIEW. First check if simply boolean check need to be performed and use Two-pointers for that)
 - unique combinations -> dfs backtracking especailyl where all valid answers need to be maintained
 
 **- Inverse Ackermann Function:**
