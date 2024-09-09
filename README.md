@@ -267,7 +267,8 @@ Adding two numbers: (either do masking instead of this or do leetcode premium to
 
 
 # BFS
-- In a graph, keep track of visited before enqueing
+- In a graph, keep track of visited before deque
+- 2D loops if current level need to be processes first (level in tree, or time/frontier in graph, etc.)
 - BFS is a general framework. The exact implementation will be different based on the application.
   - Having same nodes with different costs in the queue (for example, in the form of priority queue/heap) -> Djikstra's/Prim's
 - 1D array problems might be solvable by greedy approach using pointers (expanding frontier using i and j, kind of simplifciation of bfs)
