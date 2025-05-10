@@ -175,8 +175,7 @@
   - In this issue for SparseVector question, we keep increasing the size of either hashmap or list. For very large, collisions may start occurring in hashmap thus reducing performance and, although both hashmap and list will need to resize (hashmap resizes at 0.75 load factor by default),  the resizing is cheaper in case of arrays.
     - The performance of dot product is still far more efficient so might depend whether insertions are more frequent or dot-products.
       - If we go with the array of tuples route AND one of the vectors is not sparse enough, do binary search instead of linear scan
-
-
+- Can optimize search within a value using binary search
 
 # Bit Manipulation:
 - Observe patterns. Start with Extracting last bits, shifting bits, settings bits, XOR, AND, NOT
