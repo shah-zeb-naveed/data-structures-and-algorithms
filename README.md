@@ -65,6 +65,7 @@
 - Mutable objects have a tricky copy mechanism e.g. lists
 - And since Python 3.7, official documentation states: Dictionaries preserve insertion order.
 - if storing numbers, can possible use bits for storage to reduce space comeplxity
+- O(1) means caching but think about O(constant) i.e partial pre-computations instead of complete precomputations e.g. prefix sums etc.
 
  
 # General Tips for HackerRank
